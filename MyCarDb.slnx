@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/MyCarDb/MyCarDb.csproj" />
+  <Project Path="src/MyCarDbView/MyCarDbView.csproj" />
+  <Project Path="tests/MyCarDbTests/MyCarDbTests.csproj" />
+</Solution>

@@ -1,0 +1,50 @@
+using MyCarDB.Extensions;
+using MyCarDB.ValueParsers;
+using MyCarDB.Values;
+
+namespace MyCarDB;
+
+public class ValueParserFactory
+{
+    private ArrayStringParser _arrayStringParser = new();
+    private BooleanValueParser _booleanValueParser = new();
+    private ColorParser _colorParser = new();
+    private DictionaryStringStringParser _dictionaryStringStringParser = new();
+    private FloatValueParser _floatValueParser = new();
+    private IntegerValueParser _integerValueParser = new();
+    private PositionParser _positionParser = new();
+    private StringValueParser _stringValueParser = new();
+    private Vector3Parser _vector3Parser = new();
+
+    public IFileValue Parse(string name, ulong type, byte[] rawData)
+    {
+        return type switch
+        {
+            PositionParser.TypeId => _positionParser.Parse(name, rawData),
+            Vector3Parser.TypeId => _vector3Parser.Parse(name, rawData),
+            ArrayStringParser.TypeId => _arrayStringParser.Parse(name, rawData),
+            ColorParser.TypeId => _colorParser.Parse(name, rawData),
+            DictionaryStringStringParser.TypeId => _dictionaryStringStringParser.Parse(name, rawData),
+            IntegerValueParser.TypeId => _integerValueParser.Parse(name, rawData),
+            FloatValueParser.TypeId => _floatValueParser.Parse(name, rawData),
+            BooleanValueParser.TypeId => _booleanValueParser.Parse(name, rawData),
+            StringValueParser.TypeId => _stringValueParser.Parse(name, rawData),
+            _ => new RawValue(name, type, rawData.ToHexString())
+        };
+    }
+
+    public byte[] Serialize(IFileValue value) => value switch
+    {
+        PositionValue position => _positionParser.Serialize(position),
+        Vector3Value vector3 => _vector3Parser.Serialize(vector3),
+        ArrayStringValue arrayString => _arrayStringParser.Serialize(arrayString),
+        ColorValue color => _colorParser.Serialize(color),
+        DictionaryStringStringValue dictionaryStringString => _dictionaryStringStringParser.Serialize(dictionaryStringString),
+        IntegerValue integer => _integerValueParser.Serialize(integer),
+        FloatValue floatValue => _floatValueParser.Serialize(floatValue),
+        BooleanValue boolean => _booleanValueParser.Serialize(boolean),
+        StringValue stringValue => _stringValueParser.Serialize(stringValue),
+        RawValue raw => throw new NotImplementedException(),
+        _ => throw new NotImplementedException()
+    };
+}

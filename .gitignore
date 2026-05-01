@@ -1,0 +1,79 @@
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+project.lock.json
+packages/
+
+# Visual Studio cache files
+*.cache
+*.ilk
+*.meta
+*.obj
+*.pdb
+*.ipdb
+*.iobj
+*.log
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Generated files
+*.g.i.cs
+*.g.cs
+*.generated.cs
+
+# User-specific files
+*.vspscc
+*.vssscc
+
+# IIS Express
+/.vs*/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Assets
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore published output
+publish/
+
+# DotNet publish folder
+**/publish/
+
+# Visual Studio temporary files
+~$*
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# JetBrains Rider caches
+.idea/
+.reSharper*/
+*.[Rr]e[Ss]harper
+
+# VS Code workspace settings
+.vscode/
