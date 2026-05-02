@@ -1,19 +1,24 @@
+﻿using Avalonia;
+using System;
 
-namespace MyCarDbView;
+namespace MyAvaloniaApp;
 
 class Program
 {
+    // Initialization code. Don't use any Avalonia, third-party APIs or any
+    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
+    // yet and stuff might break.
+    [STAThread]
+    public static void Main(string[] args) => BuildAvaloniaApp()
+        .StartWithClassicDesktopLifetime(args);
 
-    static async Task Main(string[] args)
-    {
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
 #if DEBUG
-        // Enable hot reload in debug mode
-        System.Runtime.Loader.AssemblyLoadContext.Default.Unloading += ctx =>
-        {
-            Console.WriteLine("Hot reload preparing...");
-        };
+            .WithDeveloperTools()
 #endif
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
-    }
+            .WithInterFont()
+            .LogToTrace();
 }
