@@ -1,0 +1,40 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Backgrounds -->
+    <SolidColorBrush x:Key="BgWindow"    Color="#F2F2F2"/>
+    <SolidColorBrush x:Key="BgChrome"    Color="#C7F4F4F6"/>
+    <SolidColorBrush x:Key="BgSidebar"   Color="#99F4F4F6"/>
+    <SolidColorBrush x:Key="BgInspector" Color="#C7F7F7F9"/>
+    <SolidColorBrush x:Key="BgContent"   Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BgRowHover"  Color="#0B000000"/>
+    <SolidColorBrush x:Key="BgRowSelectedStrong" Color="#007AFF"/>
+
+    <!-- Lines -->
+    <SolidColorBrush x:Key="Border"       Color="#14000000"/>
+    <SolidColorBrush x:Key="BorderStrong" Color="#24000000"/>
+
+    <!-- Text -->
+    <SolidColorBrush x:Key="Text"            Color="#1D1D1F"/>
+    <SolidColorBrush x:Key="TextSecondary"   Color="#9E3C3C43"/>
+    <SolidColorBrush x:Key="TextTertiary"    Color="#523C3C43"/>
+    <SolidColorBrush x:Key="TextQuaternary"  Color="#2E3C3C43"/>
+
+    <!-- States / Accents -->
+    <SolidColorBrush x:Key="Accent"      Color="#007AFF"/>
+    <SolidColorBrush x:Key="AccentFill"  Color="#1F007AFF"/>
+    <SolidColorBrush x:Key="Warn"        Color="#FF9500"/>
+    <SolidColorBrush x:Key="WarnFill"    Color="#24FF9500"/>
+    <SolidColorBrush x:Key="Danger"      Color="#FF3B30"/>
+    <SolidColorBrush x:Key="DangerFill"  Color="#1FFF3B30"/>
+    <SolidColorBrush x:Key="Success"     Color="#34C759"/>
+    <SolidColorBrush x:Key="SuccessFill" Color="#1F34C759"/>
+
+    <!-- Text on accent backgrounds (filled buttons) -->
+    <SolidColorBrush x:Key="TextOnAccent" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextOnWarn"   Color="#1D1D1F"/>
+
+    <!-- Modal backdrop -->
+    <SolidColorBrush x:Key="Backdrop"    Color="#80000000"/>
+
+</ResourceDictionary>

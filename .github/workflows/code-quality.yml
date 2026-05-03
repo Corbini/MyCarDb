@@ -1,0 +1,56 @@
+name: Code Quality
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Restore
+        run: dotnet restore MyCarDb.slnx
+
+      - name: Verify formatting
+        run: dotnet format MyCarDb.slnx --verify-no-changes --no-restore
+
+  no-warnings:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Restore
+        run: dotnet restore MyCarDb.slnx
+
+      - name: Build with warnings as errors
+        run: dotnet build MyCarDb.slnx --configuration Release --no-restore -warnaserror -p:EnforceCodeStyleInBuild=true -p:GenerateDocumentationFile=true -p:NoWarn=CS1591

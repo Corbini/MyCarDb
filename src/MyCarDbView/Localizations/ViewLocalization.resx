@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Welcome_Sidebar_Toggle_Tooltip" xml:space="preserve">
+    <value>Toggle sidebar (Ctrl+Alt+S)</value>
+  </data>
+  <data name="Welcome_NoSaveLoaded" xml:space="preserve">
+    <value>no save loaded</value>
+  </data>
+  <data name="Welcome_Settings_Tooltip" xml:space="preserve">
+    <value>Settings (Ctrl+,)</value>
+  </data>
+  <data name="Welcome_Recent_Header" xml:space="preserve">
+    <value>Recent</value>
+  </data>
+  <data name="Welcome_Subtitle_Prefix" xml:space="preserve">
+    <value>Save editor for </value>
+  </data>
+  <data name="Welcome_OpenSave_Label" xml:space="preserve">
+    <value>Open save…</value>
+  </data>
+  <data name="Welcome_OpenSave_Tooltip" xml:space="preserve">
+    <value>Ctrl+O</value>
+  </data>
+  <data name="Welcome_Or" xml:space="preserve">
+    <value>OR</value>
+  </data>
+  <data name="Welcome_Drop_Title" xml:space="preserve">
+    <value>Drag a save file</value>
+  </data>
+  <data name="Welcome_Drop_Suffix" xml:space="preserve">
+    <value> onto the window</value>
+  </data>
+  <data name="Welcome_Drop_Caption" xml:space="preserve">
+    <value>Supports .txt files from My Summer Car folder</value>
+  </data>
+  <data name="Welcome_Drop_Overlay_Title" xml:space="preserve">
+    <value>Drop to open</value>
+  </data>
+  <data name="Welcome_RelativeTime_Today" xml:space="preserve">
+    <value>Today, {0}</value>
+  </data>
+  <data name="Welcome_RelativeTime_Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+</root>

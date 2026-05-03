@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<title>MyCarDb — Welcome (wireframe)</title>
+<style>
+  /*
+    Welcome screen — stan aplikacji bez wczytanego sejwa.
+    Reużywa wszystkie style z wireframe_preview.html (CSS variables, typography,
+    button classes, sidebar, footer, chrome).
+
+    Layout: title bar minimalny + sidebar (Ostatnie + ⚙ footer) + main area
+    (hero + Otwórz + drag-drop). Po wczytaniu sejwa sidebar transformuje
+    zawartość na PRZYPIĘTE / NA MAPIE — settings ⚙ zostaje w footerze.
+  */
+  :root {
+    --bg-window: #F2F2F2;
+    --bg-chrome: rgba(244, 244, 246, 0.78);
+    --bg-sidebar: rgba(244, 244, 246, 0.6);
+    --bg-content: #FFFFFF;
+    --bg-row-hover: rgba(0, 0, 0, 0.045);
+    --bg-row-selected-strong: #007AFF;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.14);
+    --text: #1D1D1F;
+    --text-secondary: rgba(60, 60, 67, 0.62);
+    --text-tertiary: rgba(60, 60, 67, 0.32);
+    --accent: #007AFF;
+    --accent-fill: rgba(0, 122, 255, 0.12);
+    --shadow-window: 0 24px 60px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-popover: 0 8px 24px rgba(0,0,0,0.12);
+    --radius-window: 8px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-window: #1E1E1E;
+      --bg-chrome: rgba(40, 40, 40, 0.78);
+      --bg-sidebar: rgba(36, 36, 36, 0.6);
+      --bg-content: #2A2A2A;
+      --bg-row-hover: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.14);
+      --text: #F5F5F7;
+      --text-secondary: rgba(235, 235, 245, 0.6);
+      --text-tertiary: rgba(235, 235, 245, 0.32);
+      --accent: #0A84FF;
+      --accent-fill: rgba(10, 132, 255, 0.18);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg-window: #F2F2F2; --bg-chrome: rgba(244,244,246,0.78);
+    --bg-sidebar: rgba(244,244,246,0.6);
+    --bg-content: #FFFFFF; --bg-row-hover: rgba(0,0,0,0.045);
+    --border: rgba(0,0,0,0.08); --border-strong: rgba(0,0,0,0.14);
+    --text: #1D1D1F; --text-secondary: rgba(60,60,67,0.62);
+    --text-tertiary: rgba(60,60,67,0.32);
+    --accent: #007AFF; --accent-fill: rgba(0,122,255,0.12);
+  }
+  :root[data-theme="dark"] {
+    --bg-window: #1E1E1E; --bg-chrome: rgba(40,40,40,0.78);
+    --bg-sidebar: rgba(36,36,36,0.6);
+    --bg-content: #2A2A2A; --bg-row-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+    --text: #F5F5F7; --text-secondary: rgba(235,235,245,0.6);
+    --text-tertiary: rgba(235,235,245,0.32);
+    --accent: #0A84FF; --accent-fill: rgba(10,132,255,0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: "Inter", "Segoe UI Variable Text", "Segoe UI", -apple-system,
+                 BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(1200px 800px at 20% 10%, #b9d4ff 0%, transparent 60%),
+      radial-gradient(1000px 700px at 90% 90%, #ffd0d6 0%, transparent 55%),
+      linear-gradient(135deg, #d6dde6 0%, #f0e6e6 100%);
+    background-attachment: fixed;
+  }
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      background:
+        radial-gradient(1200px 800px at 20% 10%, #1a3460 0%, transparent 60%),
+        radial-gradient(1000px 700px at 90% 90%, #4a1a30 0%, transparent 55%),
+        linear-gradient(135deg, #0e1116 0%, #1a1518 100%);
+    }
+  }
+
+  body { padding: 24px; display: flex; flex-direction: column; }
+
+  /* ─────────── WINDOW (ten sam co główny wireframe) ─────────── */
+  .window {
+    flex: 1;
+    background: var(--bg-window);
+    border-radius: var(--radius-window);
+    box-shadow: var(--shadow-window);
+    display: grid;
+    grid-template-rows: 48px 1fr;
+    overflow: hidden;
+    border: 0.5px solid var(--border-strong);
+    min-height: 720px;
+  }
+
+  /* ─────────── TITLE BAR (uproszczony — tylko sidebar toggle + tytuł) ─────────── */
+  .titlebar {
+    background: var(--bg-chrome);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 0.5px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    user-select: none;
+    padding: 0 0 0 8px;
+  }
+  .title-leading {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .title {
+    grid-column: 2;
+    display: flex; align-items: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-style: italic;
+    padding-left: 8px;
+  }
+  .title-action {
+    display: inline-flex;
+    align-items: center;
+    height: 32px; padding: 0;
+    width: 32px;
+    justify-content: center;
+    border: 0.5px solid var(--border-strong);
+    background: var(--bg-content);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    transition: background .12s;
+  }
+  .title-action:hover { background: var(--bg-row-hover); }
+  .title-action.active { color: var(--accent); }
+  .title-action svg { width: 14px; height: 14px; }
+
+  .win-controls {
+    grid-column: 3; grid-row: 1;
+    display: inline-flex; height: 48px; z-index: 1;
+  }
+  .win-controls button {
+    width: 46px; height: 48px;
+    border: 0; background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .win-controls button:hover { background: rgba(0,0,0,0.06); }
+  .win-controls button.close:hover { background: #E81123; color: white; }
+  .win-controls svg { width: 10px; height: 10px; }
+
+  /* ─────────── SPLIT (sidebar + main) — symetryczny z wireframe_preview ─────────── */
+  .split {
+    display: grid;
+    grid-template-columns: 244px 1fr;
+    overflow: hidden;
+  }
+  .split > .sidebar { grid-column: 1; }
+  .split > .main    { grid-column: 2; }
+  .split.no-sidebar { grid-template-columns: 0 1fr; }
+  .split.no-sidebar .sidebar { display: none; }
+
+  /* ─────────── SIDEBAR (ten sam co główny wireframe) ─────────── */
+  .sidebar {
+    background: var(--bg-sidebar);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-right: 0.5px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0 6px;
+  }
+  .group { margin-bottom: 12px; }
+  .group h3 {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    padding: 4px 16px 4px;
+    user-select: none;
+  }
+  .group ul { list-style: none; }
+  .group li {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 6px;
+    margin: 1px 8px;
+    user-select: none;
+  }
+  .group li:hover { background: var(--bg-row-hover); }
+  .group li svg { width: 14px; height: 14px; opacity: 0.85; flex-shrink: 0; color: var(--text-secondary); }
+  .group li .recent-info { flex: 1; min-width: 0; }
+  .group li .recent-name {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .group li .recent-meta {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* sidebar footer (ten sam pattern co wireframe_preview) */
+  .sidebar-footer {
+    border-top: 0.5px solid var(--border);
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .sidebar-footer-btn {
+    width: 28px; height: 28px;
+    border: 0; background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .12s, color .12s;
+  }
+  .sidebar-footer-btn:hover {
+    background: var(--bg-row-hover);
+    color: var(--text);
+  }
+  .sidebar-footer-btn svg { width: 16px; height: 16px; }
+
+  /* ─────────── MAIN (hero + open button + dropzone) ─────────── */
+  .main {
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+  }
+  .main-inner {
+    width: min(520px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  /* Hero */
+  .hero { text-align: center; }
+  .app-name {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .tagline {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Open button — primary, duża wersja .title-action.primary */
+  .open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    padding: 0 24px;
+    border: 0.5px solid var(--accent);
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .12s, transform .06s;
+    box-shadow: 0 2px 8px rgba(0,122,255,0.25);
+  }
+  .open-btn:hover { background: #006FE5; }
+  .open-btn:active { transform: scale(0.98); }
+  .open-btn svg { width: 16px; height: 16px; }
+  .open-btn .kbd-hint {
+    opacity: 0.75;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  /* Separator */
+  .or-sep {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    color: var(--text-tertiary);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .or-sep::before, .or-sep::after {
+    content: "";
+    flex: 1;
+    height: 0.5px;
+    background: var(--border-strong);
+  }
+
+  /* Drag-drop hint */
+  .dropzone {
+    width: 100%;
+    border: 1.5px dashed var(--border-strong);
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .dropzone.over {
+    border-color: var(--accent);
+    background: var(--accent-fill);
+    color: var(--accent);
+  }
+  .dropzone svg {
+    width: 28px; height: 28px;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+  .dropzone.over svg { color: var(--accent); }
+  .dropzone strong { color: var(--text); font-weight: 500; }
+  .dropzone .ext-hint {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+  .dropzone .ext-hint code {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Consolas", monospace;
+    background: rgba(120,120,128,0.12);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="window">
+
+  <!-- TITLE BAR (minimal — sidebar toggle + brak filename) -->
+  <div class="titlebar">
+    <div class="title-leading">
+      <button class="title-action active" id="sidebarToggle" title="Pokaż/ukryj sidebar (Ctrl+Alt+S)">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM6 1H1.5a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H6z"/></svg>
+      </button>
+    </div>
+    <div class="title">
+      <span>brak wczytanego sejwu</span>
+    </div>
+    <div class="win-controls">
+      <button title="Minimize">
+        <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><line x1="0" y1="5" x2="10" y2="5"/></svg>
+      </button>
+      <button title="Maximize">
+        <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="9" height="9"/></svg>
+      </button>
+      <button class="close" title="Close">
+        <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 0 L10 10 M10 0 L0 10"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- SPLIT -->
+  <div class="split" id="split">
+
+    <!-- SIDEBAR z OSTATNIE + ⚙ footer (Xcode pattern) -->
+    <aside class="sidebar">
+      <div class="sidebar-body">
+        <div class="group">
+          <h3>Ostatnie</h3>
+          <ul>
+            <li>
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/></svg>
+              <div class="recent-info">
+                <div class="recent-name">save_01.dat</div>
+                <div class="recent-meta">2 godz. temu</div>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/></svg>
+              <div class="recent-info">
+                <div class="recent-name">save_02.dat</div>
+                <div class="recent-meta">wczoraj</div>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/></svg>
+              <div class="recent-info">
+                <div class="recent-name">campaign_run.dat</div>
+                <div class="recent-meta">5 dni temu</div>
+              </div>
+            </li>
+            <li>
+              <svg viewBox="0 0 16 16" fill="currentColor"><path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5z"/></svg>
+              <div class="recent-info">
+                <div class="recent-name">test_save.dat</div>
+                <div class="recent-meta">2 tyg. temu</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sidebar footer — ⚙ ustawienia (canonical home dla settings, ten sam co main wireframe) -->
+      <div class="sidebar-footer">
+        <button class="sidebar-footer-btn" id="settingsBtn" title="Ustawienia (Ctrl+,)">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN (hero + open + drag-drop) -->
+    <main class="main">
+      <div class="main-inner">
+
+        <div class="hero">
+          <div class="app-name">MyCarDb</div>
+          <div class="tagline">Edytor sejwów <em>My Summer Car</em></div>
+        </div>
+
+        <button class="open-btn" id="openBtn">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396z"/></svg>
+          Otwórz sejw…
+          <span class="kbd-hint">Ctrl+O</span>
+        </button>
+
+        <div class="or-sep">lub</div>
+
+        <div class="dropzone" id="dropzone">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/><path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/></svg>
+          <div><strong>Przeciągnij plik sejwa</strong> na okno</div>
+          <div class="ext-hint">obsługujemy <code>.txt</code> z folderu My Summer Car</div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script>
+  // Demo dropzone hover
+  const dz = document.getElementById('dropzone');
+  ['dragenter', 'dragover'].forEach(ev =>
+    dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev =>
+    dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+
+  // Demo: klik w pozycję ostatniego sejwa lub Otwórz → komunikat
+  document.getElementById('openBtn').addEventListener('click', () => {
+    alert('W prawdziwej app: dialog systemowy do wyboru pliku sejwa MSC.');
+  });
+  document.querySelectorAll('.group li').forEach(li => {
+    li.addEventListener('click', () => {
+      const name = li.querySelector('.recent-name').textContent;
+      alert(`Wczytaj „${name}" — w prawdziwej app: ładuje plik i przechodzi do edytora.`);
+    });
+  });
+  document.getElementById('settingsBtn').addEventListener('click', () => {
+    alert('Settings sheet — analogicznie jak w main wireframe (theme, język, sejw, skróty).');
+  });
+
+  // Sidebar toggle (analogicznie jak w main wireframe)
+  const split = document.getElementById('split');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  sidebarToggle.addEventListener('click', () => {
+    split.classList.toggle('no-sidebar');
+    sidebarToggle.classList.toggle('active');
+  });
+
+  // Ctrl+O Otwórz, Ctrl+, Ustawienia, Ctrl+Alt+S Sidebar
+  document.addEventListener('keydown', e => {
+    const mod = e.metaKey || e.ctrlKey;
+    if (mod && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'o') {
+      e.preventDefault();
+      document.getElementById('openBtn').click();
+    } else if (mod && !e.shiftKey && !e.altKey && e.key === ',') {
+      e.preventDefault();
+      document.getElementById('settingsBtn').click();
+    } else if (mod && e.altKey && e.key.toLowerCase() === 's') {
+      e.preventDefault();
+      sidebarToggle.click();
+    }
+  });
+</script>
+
+</body>
+</html>

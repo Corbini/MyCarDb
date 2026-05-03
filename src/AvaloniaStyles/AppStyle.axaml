@@ -1,0 +1,25 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AvaloniaStyles/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceInclude x:Key="Light"
+                                 Source="avares://AvaloniaStyles/Themes/LightTheme.axaml"/>
+                <ResourceInclude x:Key="Dark"
+                                 Source="avares://AvaloniaStyles/Themes/DarkTheme.axaml"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <StyleInclude Source="avares://AvaloniaStyles/Typography.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Buttons.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Borders.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Icons.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/TextBlocks.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/DialogBackdrop.axaml"/>
+
+</Styles>

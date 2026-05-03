@@ -7,7 +7,7 @@ public class IntegerValueParser : IValueParser<IntegerValue>
 
     public IntegerValue Parse(string name, byte[] rawData)
     {
-        return new (name, BitConverter.ToInt32(rawData));
+        return new(name, BitConverter.ToInt32(rawData));
     }
 
     public byte[] Serialize(IntegerValue value)

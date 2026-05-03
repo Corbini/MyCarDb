@@ -8,18 +8,18 @@ public class ArrayStringParser : IValueParser<ArrayStringValue>
 
     public ArrayStringValue Parse(string name, byte[] data)
     {
-        var value = BitConverter.ToInt16(data, 0);
-        var count = BitConverter.ToInt32(data, 2);
+        short value = BitConverter.ToInt16(data, 0);
+        int count = BitConverter.ToInt32(data, 2);
 
         List<string> strings = new(count);
 
-        var readingIndex = 6;
-        for(int index = 0; index < count; index ++)
+        int readingIndex = 6;
+        for (int index = 0; index < count; index++)
         {
-            var stringLength = data[readingIndex];
+            byte stringLength = data[readingIndex];
             readingIndex += 1;
 
-            var newString = Encoding.UTF8.GetString(data, readingIndex, stringLength);
+            string newString = Encoding.UTF8.GetString(data, readingIndex, stringLength);
             strings.Add(newString);
 
             readingIndex += stringLength;

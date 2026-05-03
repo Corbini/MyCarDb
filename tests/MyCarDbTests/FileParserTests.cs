@@ -10,9 +10,9 @@ public class FileParserTests
     [Fact]
     public void Parse_ShouldReadIntegerAndPositionEntries()
     {
-        var bytes = BuildFileBytes(
-            BuildEntry(0x7E, "INT", new byte[] { 0xFF, 0x56, 0x08, 0xA8, 0xE2 }, BitConverter.GetBytes(1234)),
-            BuildEntry(0x7E, "POS", new byte[] { 0xFF, 0x76, 0xFA, 0x7A, 0x09 }, BuildPositionRawData(
+        byte[] bytes = BuildFileBytes(
+            BuildEntry(0x7E, "INT", [0xFF, 0x56, 0x08, 0xA8, 0xE2], BitConverter.GetBytes(1234)),
+            BuildEntry(0x7E, "POS", [0xFF, 0x76, 0xFA, 0x7A, 0x09], BuildPositionRawData(
                 axisX: 1.0f,
                 axisY: 2.0f,
                 axisZ: 3.0f,
@@ -25,7 +25,7 @@ public class FileParserTests
                 scaleZ: 10.0f,
                 layer: "Layer")));
 
-        var tempFile = Path.Combine(Path.GetTempPath(), "MyCarDB_FileParserTests.bin");
+        string tempFile = Path.Combine(Path.GetTempPath(), "MyCarDB_FileParserTests.bin");
         File.WriteAllBytes(tempFile, bytes);
 
         var parser = new FileParser();
@@ -55,7 +55,7 @@ public class FileParserTests
         var parser = new FileParser();
 
         // Test carparts.txt
-        var carpartsPath = Path.Combine(
+        string carpartsPath = Path.Combine(
             AppContext.BaseDirectory,
             "test_data",
             "carparts.txt"
@@ -65,7 +65,7 @@ public class FileParserTests
         Assert.All(carpartsResult, item => Assert.NotNull(item.Name));
 
         // Test savefile.txt
-        var savefilePath = Path.Combine(
+        string savefilePath = Path.Combine(
             AppContext.BaseDirectory,
             "test_data",
             "savefile.txt"
@@ -77,8 +77,8 @@ public class FileParserTests
 
     private static byte[] BuildEntry(byte firstByte, string title, byte[] type, byte[] rawData, byte endByte = 0x00)
     {
-        var titleBytes = Encoding.UTF8.GetBytes(title);
-        var dataLength = 6 + rawData.Length;
+        byte[] titleBytes = Encoding.UTF8.GetBytes(title);
+        int dataLength = 6 + rawData.Length;
 
         var result = new List<byte> { firstByte, (byte)titleBytes.Length };
         result.AddRange(titleBytes);
@@ -120,7 +120,7 @@ public class FileParserTests
         bytes.AddRange(BitConverter.GetBytes(scaleY));
         bytes.AddRange(BitConverter.GetBytes(scaleZ));
 
-        var layerBytes = Encoding.UTF8.GetBytes(layer);
+        byte[] layerBytes = Encoding.UTF8.GetBytes(layer);
         bytes.Add((byte)layerBytes.Length);
         bytes.AddRange(layerBytes);
 

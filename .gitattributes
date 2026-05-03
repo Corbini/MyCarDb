@@ -1,0 +1,2 @@
+# All text files use LF (matches .editorconfig).
+* text=auto eol=lf

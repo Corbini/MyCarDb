@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Welcome_Sidebar_Toggle_Tooltip" xml:space="preserve">
+    <value>Pokaż/ukryj sidebar (Ctrl+Alt+S)</value>
+  </data>
+  <data name="Welcome_NoSaveLoaded" xml:space="preserve">
+    <value>brak wczytanego sejwu</value>
+  </data>
+  <data name="Welcome_Settings_Tooltip" xml:space="preserve">
+    <value>Ustawienia (Ctrl+,)</value>
+  </data>
+  <data name="Welcome_Recent_Header" xml:space="preserve">
+    <value>Ostatnie</value>
+  </data>
+  <data name="Welcome_Subtitle_Prefix" xml:space="preserve">
+    <value>Edytor sejwów </value>
+  </data>
+  <data name="Welcome_OpenSave_Label" xml:space="preserve">
+    <value>Otwórz sejw…</value>
+  </data>
+  <data name="Welcome_OpenSave_Tooltip" xml:space="preserve">
+    <value>Ctrl+O</value>
+  </data>
+  <data name="Welcome_Or" xml:space="preserve">
+    <value>LUB</value>
+  </data>
+  <data name="Welcome_Drop_Title" xml:space="preserve">
+    <value>Przeciągnij plik sejwa</value>
+  </data>
+  <data name="Welcome_Drop_Suffix" xml:space="preserve">
+    <value> na okno</value>
+  </data>
+  <data name="Welcome_Drop_Caption" xml:space="preserve">
+    <value>obsługujemy .txt z folderu My Summer Car</value>
+  </data>
+  <data name="Welcome_Drop_Overlay_Title" xml:space="preserve">
+    <value>Upuść plik aby otworzyć</value>
+  </data>
+  <data name="Welcome_RelativeTime_Today" xml:space="preserve">
+    <value>Dzisiaj, {0}</value>
+  </data>
+  <data name="Welcome_RelativeTime_Yesterday" xml:space="preserve">
+    <value>Wczoraj</value>
+  </data>
+</root>

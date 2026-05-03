@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <FontFamily x:Key="FontUI">Inter, Segoe UI Variable Text, Segoe UI</FontFamily>
+    <FontFamily x:Key="FontMono">Cascadia Code, Cascadia Mono, Consolas, Menlo, monospace</FontFamily>
+</ResourceDictionary>

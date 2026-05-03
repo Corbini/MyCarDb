@@ -1,0 +1,99 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:MyCarDbView.ViewModels"
+        xmlns:mvvm="using:MyCarDbView.MVVM"
+        xmlns:converters="using:Avalonia.Data.Converters"
+        mc:Ignorable="d"
+        d:DesignWidth="1280" d:DesignHeight="800"
+        x:Class="MyCarDbView.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="MyCarDb"
+        Width="1280" Height="800"
+        MinWidth="800" MinHeight="500"
+        WindowDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="Transparent">
+
+    <Panel>
+        <Border Classes="window">
+            <Grid RowDefinitions="48,*">
+                <Border Grid.Row="0"
+                        Name="TitleBar"
+                        Classes="chrome"
+                        PointerPressed="OnTitleBarPointerPressed"
+                        HorizontalAlignment="Stretch">
+                    <Grid ColumnDefinitions="*,Auto" Margin="8,0,0,0">
+
+                        <Grid Grid.Column="0"
+                              ColumnDefinitions="Auto,*,Auto"
+                              Classes.dialog-open="{Binding DialogService.CurrentContent, Converter={x:Static converters:ObjectConverters.IsNotNull}}">
+
+                            <ContentControl Grid.Column="0"
+                                            Name="TitleBarLeading"
+                                            VerticalAlignment="Center"/>
+
+                            <ContentControl Grid.Column="1"
+                                            Name="TitleBarCenter"
+                                            VerticalAlignment="Center"
+                                            Margin="14,0,0,0"/>
+
+                            <ContentControl Grid.Column="2"
+                                            Name="TitleBarTrailing"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,8,0"/>
+                        </Grid>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button Classes="window-control" ToolTip.Tip="Minimize" Click="OnMinimizeClick">
+                                <Icon Symbol="minimize" Classes="size-2xs"/>
+                            </Button>
+                            <Button Classes="window-control" ToolTip.Tip="Maximize" Click="OnMaximizeClick">
+                                <Icon Symbol="maximize" Classes="size-2xs"/>
+                            </Button>
+                            <Button Classes="window-control close" ToolTip.Tip="Close" Click="OnCloseClick">
+                                <Icon Symbol="close" Classes="size-2xs"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Panel Grid.Row="1">
+                    <ContentControl Name="ShellHost"
+                                    Content="{Binding ShellService.CurrentContent}"
+                                    Classes.dialog-open="{Binding DialogService.CurrentContent, Converter={x:Static converters:ObjectConverters.IsNotNull}}"/>
+
+                    <ContentControl Name="DialogHost"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Margin="0,32,0,0"
+                                    Content="{Binding DialogService.CurrentContent}"
+                                    IsVisible="{Binding DialogService.CurrentContent, Converter={x:Static converters:ObjectConverters.IsNotNull}}"/>
+
+                </Panel>
+            </Grid>
+        </Border>
+
+        <Grid Name="ResizeHandles"
+              ColumnDefinitions="8,*,8" RowDefinitions="8,*,8">
+            <Border Grid.Column="1" Grid.Row="0" Background="Transparent"
+                    Cursor="SizeNorthSouth" PointerPressed="OnResizeNorth"/>
+            <Border Grid.Column="1" Grid.Row="2" Background="Transparent"
+                    Cursor="SizeNorthSouth" PointerPressed="OnResizeSouth"/>
+            <Border Grid.Column="0" Grid.Row="1" Background="Transparent"
+                    Cursor="SizeWestEast" PointerPressed="OnResizeWest"/>
+            <Border Grid.Column="2" Grid.Row="1" Background="Transparent"
+                    Cursor="SizeWestEast" PointerPressed="OnResizeEast"/>
+
+            <Border Grid.Column="0" Grid.Row="0" Background="Transparent"
+                    Cursor="TopLeftCorner" PointerPressed="OnResizeNorthWest"/>
+            <Border Grid.Column="2" Grid.Row="0" Background="Transparent"
+                    Cursor="TopRightCorner" PointerPressed="OnResizeNorthEast"/>
+            <Border Grid.Column="0" Grid.Row="2" Background="Transparent"
+                    Cursor="BottomLeftCorner" PointerPressed="OnResizeSouthWest"/>
+            <Border Grid.Column="2" Grid.Row="2" Background="Transparent"
+                    Cursor="BottomRightCorner" PointerPressed="OnResizeSouthEast"/>
+        </Grid>
+    </Panel>
+</Window>
