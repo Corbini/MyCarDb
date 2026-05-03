@@ -10,9 +10,6 @@ public sealed class ViewLocator : IDataTemplate
 {
     public Control? Build(IViewModel viewModel) => viewModel switch
     {
-        WelcomeViewModel => new WelcomeView(),
-        EditorViewModel => new EditorView(),
-        SettingsViewModel => new SettingsView(),
         _ => null,
     };
 
