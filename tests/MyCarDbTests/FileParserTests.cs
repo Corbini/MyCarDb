@@ -11,8 +11,8 @@ public class FileParserTests
     public void Parse_ShouldReadIntegerAndPositionEntries()
     {
         byte[] bytes = BuildFileBytes(
-            BuildEntry(0x7E, "INT", new byte[] { 0xFF, 0x56, 0x08, 0xA8, 0xE2 }, BitConverter.GetBytes(1234)),
-            BuildEntry(0x7E, "POS", new byte[] { 0xFF, 0x76, 0xFA, 0x7A, 0x09 }, BuildPositionRawData(
+            BuildEntry(0x7E, "INT", [0xFF, 0x56, 0x08, 0xA8, 0xE2], BitConverter.GetBytes(1234)),
+            BuildEntry(0x7E, "POS", [0xFF, 0x76, 0xFA, 0x7A, 0x09], BuildPositionRawData(
                 axisX: 1.0f,
                 axisY: 2.0f,
                 axisZ: 3.0f,
