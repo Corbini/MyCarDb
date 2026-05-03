@@ -8,6 +8,8 @@ on:
 jobs:
   check-source:
     runs-on: ubuntu-latest
+    
+    if: github.event.pull_request.base.ref == 'main'
 
     steps:
       - name: Verify source is development
