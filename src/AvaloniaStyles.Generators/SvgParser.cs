@@ -135,10 +135,10 @@ internal static class SvgParser
         if (parts.Length != 4)
             return new ViewBox(0, 0, 256, 256);
         return new ViewBox(
-            double.Parse(parts[0], Inv),
-            double.Parse(parts[1], Inv),
-            double.Parse(parts[2], Inv),
-            double.Parse(parts[3], Inv));
+            double.Parse(parts[0], _inv),
+            double.Parse(parts[1], _inv),
+            double.Parse(parts[2], _inv),
+            double.Parse(parts[3], _inv));
     }
 
     public readonly struct ViewBox
