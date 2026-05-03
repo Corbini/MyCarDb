@@ -9,7 +9,7 @@ namespace AvaloniaStyles.Generators;
 
 internal static class SvgParser
 {
-    private static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
+    private static readonly CultureInfo _inv = CultureInfo.InvariantCulture;
 
     public static (ViewBox ViewBox, string PathData) Parse(string svgContent)
     {
@@ -104,7 +104,7 @@ internal static class SvgParser
         double[] coords = raw
             .Replace(',', ' ')
             .Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(s => double.Parse(s, Inv))
+            .Select(s => double.Parse(s, _inv))
             .ToArray();
 
         if (coords.Length < 4 || coords.Length % 2 != 0)
@@ -122,10 +122,10 @@ internal static class SvgParser
     private static double D(XElement el, string attr)
     {
         string? v = el.Attribute(attr)?.Value;
-        return string.IsNullOrEmpty(v) ? 0 : double.Parse(v!, Inv);
+        return string.IsNullOrEmpty(v) ? 0 : double.Parse(v!, _inv);
     }
 
-    private static string F(double v) => v.ToString("0.###", Inv);
+    private static string F(double v) => v.ToString("0.###", _inv);
 
     private static ViewBox ParseViewBox(string? raw)
     {
