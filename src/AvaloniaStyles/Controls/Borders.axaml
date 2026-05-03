@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--
-        Variant   : window | card | popover | sheet | chip | dropzone | row
+        Variant   : window | card | popover | sheet | chip | dropzone | row | chrome
         Divider   : divider-top | divider-bottom | divider-left | divider-right
         Modifier  : accent | warn | danger | over | selected
     -->
@@ -35,6 +35,12 @@
         <Setter Property="Background" Value="{DynamicResource BgWindow}"/>
         <Setter Property="CornerRadius" Value="12"/>
         <Setter Property="BoxShadow" Value="0 24 60 #2E000000, 0 2 8 #14000000"/>
+    </Style>
+
+    <Style Selector="Border.chrome">
+        <Setter Property="Background" Value="{DynamicResource BgChrome}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
     </Style>
 
     <Style Selector="Border.chip">

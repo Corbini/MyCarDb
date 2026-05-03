@@ -16,5 +16,6 @@
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Borders.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Icons.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/TextBlocks.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/DialogBackdrop.axaml"/>
 
 </Styles>
