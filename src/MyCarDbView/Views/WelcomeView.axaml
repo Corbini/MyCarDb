@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:views="using:MyCarDbView.Views"
+             xmlns:controls="using:MyCarDbView.Controls"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             xmlns:appstate="using:MyCarDbView.Models.AppState"
+             mc:Ignorable="d"
+             d:DesignWidth="1100" d:DesignHeight="720"
+             x:Class="MyCarDbView.Views.WelcomeView"
+             x:DataType="vm:WelcomeViewModel">
+
+    <views:WelcomeView.TitleBarLeading>
+        <StackPanel Orientation="Horizontal" Spacing="6">
+            <Button Classes="bordered icon"
+                    Classes.active="{Binding IsSidebarVisible}"
+                    Command="{Binding ToggleSidebarCommand}"
+                    ToolTip.Tip="{localization:View Welcome_Sidebar_Toggle_Tooltip}">
+                <Icon Symbol="sidebar" Classes="size-base"/>
+            </Button>
+            <TextBlock Classes="subhead empty"
+                    Text="{localization:View Welcome_NoSaveLoaded}"
+                    VerticalAlignment="Center"
+                    Margin="14,0,0,0"/>
+        </StackPanel>
+    </views:WelcomeView.TitleBarLeading>
+
+    <controls:DropZoneAction DropCommand="{Binding OpenFileFromPathCommand}"
+                             Title="{localization:View Welcome_Drop_Overlay_Title}"
+                             Caption="{localization:View Welcome_Drop_Caption}">
+        <Grid ColumnDefinitions="Auto,*">
+            <Border Grid.Column="0"
+                    Width="244"
+                    IsVisible="{Binding IsSidebarVisible}"
+                    Classes="divider-right"
+                    Background="{DynamicResource BgSidebar}">
+                <DockPanel>
+
+                    <Border DockPanel.Dock="Bottom"
+                            Classes="divider-top"
+                            Padding="8,6">
+                        <Button Classes="borderless icon small"
+                                HorizontalAlignment="Left"
+                                Command="{Binding OpenSettingsCommand}"
+                                ToolTip.Tip="{localization:View Welcome_Settings_Tooltip}">
+                            <Icon Symbol="settings" Classes="size-md"/>
+                        </Button>
+                    </Border>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="0,12,0,6">
+                        <StackPanel>
+                            <TextBlock Classes="section-header"
+                                        Text="{localization:View Welcome_Recent_Header}"
+                                        Margin="20,4,20,4"/>
+
+                            <ItemsControl x:Name="RecentList" ItemsSource="{Binding RecentFiles}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="appstate:LastOpenedFile">
+                                        <Button Classes="borderless"
+                                                HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Stretch"
+                                                Cursor="Hand"
+                                                Margin="8,1"
+                                                Padding="12,6"
+                                                Command="{Binding #RecentList.((vm:WelcomeViewModel)DataContext).OpenFileFromPathCommand}"
+                                                CommandParameter="{Binding Path}"
+                                                ToolTip.Tip="{Binding LastOpenedAt, Converter={x:Static localization:FullTimestampConverter.Instance}}">
+                                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                                <TextBlock Grid.Column="0"
+                                                           Classes="body"
+                                                           Text="{Binding Name}"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1"
+                                                           Classes="caption"
+                                                           Text="{Binding LastOpenedAt, Converter={x:Static localization:RelativeTimeConverter.Instance}}"
+                                                           VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="520"
+                            Spacing="28">
+
+                    <StackPanel HorizontalAlignment="Center" Spacing="8">
+                        <TextBlock Classes="display"
+                                    Text="MyCarDb"
+                                    HorizontalAlignment="Center"/>
+                        <TextBlock Classes="callout secondary"
+                                    HorizontalAlignment="Center">
+                            <Run Text="{localization:View Welcome_Subtitle_Prefix}"/>
+                            <Run Text="My Summer Car" FontStyle="Italic"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Button Classes="filled large"
+                            HorizontalAlignment="Center"
+                            Command="{Binding OpenFileDialogCommand}"
+                            HotKey="Ctrl+O">
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Icon Symbol="folder" Classes="size-md"/>
+                            <TextBlock Text="{localization:View Welcome_OpenSave_Label}" VerticalAlignment="Center"/>
+                            <TextBlock Classes="kbd-hint" Text="Ctrl+O" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Grid ColumnDefinitions="*,Auto,*">
+                        <Border Grid.Column="0"
+                                Height="0.5"
+                                Background="{DynamicResource BorderStrong}"
+                                VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1"
+                                    Classes="eyebrow"
+                                    Text="{localization:View Welcome_Or}"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"/>
+                        <Border Grid.Column="2"
+                                Height="0.5"
+                                Background="{DynamicResource BorderStrong}"
+                                VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <Icon Symbol="upload"
+                                Classes="size-2xl"
+                                Foreground="{DynamicResource TextTertiary}"
+                                HorizontalAlignment="Center"/>
+                        <TextBlock Classes="body secondary"
+                                    HorizontalAlignment="Center">
+                            <Run Text="{localization:View Welcome_Drop_Title}"/>
+                            <Run Text="{localization:View Welcome_Drop_Suffix}"/>
+                        </TextBlock>
+                        <TextBlock Classes="caption"
+                                    Text="{localization:View Welcome_Drop_Caption}"
+                                    HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </controls:DropZoneAction>
+</UserControl>

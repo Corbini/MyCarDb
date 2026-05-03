@@ -4,7 +4,7 @@
     <Style Selector=":is(Control).dialog-open">
         <Setter Property="IsHitTestVisible" Value="False"/>
         <Setter Property="Effect">
-            <BlurEffect Radius="20"/>
+            <BlurEffect Radius="40"/>
         </Setter>
     </Style>
 

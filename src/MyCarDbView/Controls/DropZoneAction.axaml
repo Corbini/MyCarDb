@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:Avalonia.Data.Converters"
+             x:Class="MyCarDbView.Controls.DropZoneAction"
+             x:Name="Root"
+             Background="Transparent">
+    <UserControl.Content>
+        <Panel>
+            <ContentPresenter Content="{Binding #Root.InnerContent}"
+                              Classes.dialog-open="{Binding #Root.IsActive}"/>
+
+            <Border IsVisible="{Binding #Root.IsActive}"
+                    IsHitTestVisible="False"
+                    BorderBrush="{DynamicResource Accent}"
+                    BorderThickness="2"
+                    CornerRadius="12"
+                    Margin="12">
+                <Panel>
+                    <Border Background="{DynamicResource Accent}"
+                            Opacity="0.15"
+                            CornerRadius="10"/>
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="20">
+                        <Icon Symbol="upload"
+                              Classes="size-4xl accent"
+                              HorizontalAlignment="Center"/>
+                        <StackPanel HorizontalAlignment="Center" Spacing="6">
+                            <TextBlock Classes="display"
+                                       Text="{Binding #Root.Title}"
+                                       Foreground="{DynamicResource Accent}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Classes="caption"
+                                       Text="{Binding #Root.Caption}"
+                                       Foreground="{DynamicResource Accent}"
+                                       Opacity="0.75"
+                                       HorizontalAlignment="Center"
+                                       IsVisible="{Binding #Root.Caption, Converter={x:Static converters:StringConverters.IsNotNullOrEmpty}}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Panel>
+            </Border>
+        </Panel>
+    </UserControl.Content>
+</UserControl>

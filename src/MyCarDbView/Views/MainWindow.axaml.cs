@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 
 namespace MyCarDbView.Views;
@@ -35,7 +36,17 @@ public partial class MainWindow : Window
 
     private void UpdateTitleBarSlots()
     {
-        var tbc = ShellHost.Presenter?.Child as ITitleBarContent;
+        var host = ShellHost.Presenter?.Child as Control;
+        var tbc = host as ITitleBarContent;
+        var dc = host?.DataContext as IViewModel;
+
+        if (tbc?.TitleBarLeading is { } left)
+            left.DataContext = dc;
+        if (tbc?.TitleBarCenter is { } center)
+            center.DataContext = dc;
+        if (tbc?.TitleBarTrailing is { } trailing)
+            trailing.DataContext = dc;
+
         TitleBarLeading.Content = tbc?.TitleBarLeading;
         TitleBarCenter.Content = tbc?.TitleBarCenter;
         TitleBarTrailing.Content = tbc?.TitleBarTrailing;
