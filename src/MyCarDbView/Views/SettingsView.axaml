@@ -11,7 +11,7 @@
              FontFamily="Inter, Segoe UI Variable Text, Segoe UI"
              FontSize="13"
              Width="760"
-             MaxHeight="640">
+             Height="640">
 
     <UserControl.Styles>
         <Style Selector="Border.kbd-chip">
