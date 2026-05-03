@@ -7,7 +7,7 @@ public class BooleanValueParser : IValueParser<BooleanValue>
 
     public BooleanValue Parse(string name, byte[] rawData)
     {
-        return new (name, rawData[0] != 0);
+        return new(name, rawData[0] != 0);
     }
 
     public byte[] Serialize(BooleanValue value)

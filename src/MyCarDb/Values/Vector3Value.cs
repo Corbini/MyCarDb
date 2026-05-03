@@ -1,4 +1,4 @@
-﻿namespace MyCarDB.Values;
+namespace MyCarDB.Values;
 
 public record Vector3Value(
     string Name,

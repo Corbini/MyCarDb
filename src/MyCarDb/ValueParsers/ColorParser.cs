@@ -7,16 +7,16 @@ public class ColorParser : IValueParser<ColorValue>
 
     public ColorValue Parse(string name, byte[] data)
     {
-        var read = BitConverter.ToSingle(data, 0);
-        var green = BitConverter.ToSingle(data, 4);
-        var blue = BitConverter.ToSingle(data, 8);
-        var alpha = BitConverter.ToSingle(data, 12);
+        float read = BitConverter.ToSingle(data, 0);
+        float green = BitConverter.ToSingle(data, 4);
+        float blue = BitConverter.ToSingle(data, 8);
+        float alpha = BitConverter.ToSingle(data, 12);
 
         return new(
-            name,  
-            read, 
-            green, 
-            blue, 
+            name,
+            read,
+            green,
+            blue,
             alpha);
     }
 

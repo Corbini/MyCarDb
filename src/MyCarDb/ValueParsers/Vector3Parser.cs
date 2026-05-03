@@ -7,10 +7,10 @@ public class Vector3Parser : IValueParser<Vector3Value>
 
     public Vector3Value Parse(string name, byte[] data)
     {
-        var x = BitConverter.ToSingle(data, 0);
-        var y = BitConverter.ToSingle(data, 4);
-        var z = BitConverter.ToSingle(data, 8);
-        return new (name, x, y, z);
+        float x = BitConverter.ToSingle(data, 0);
+        float y = BitConverter.ToSingle(data, 4);
+        float z = BitConverter.ToSingle(data, 8);
+        return new(name, x, y, z);
     }
 
 

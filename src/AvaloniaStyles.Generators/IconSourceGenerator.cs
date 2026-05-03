@@ -32,10 +32,10 @@ public class IconSourceGenerator : IIncrementalGenerator
 
     private static ParsedIcon ParseIcon(AdditionalText file, CancellationToken ct)
     {
-        var name = Path.GetFileNameWithoutExtension(file.Path);
+        string name = Path.GetFileNameWithoutExtension(file.Path);
         try
         {
-            var content = file.GetText(ct)?.ToString() ?? "";
+            string content = file.GetText(ct)?.ToString() ?? "";
             var (vb, path) = SvgParser.Parse(content);
             return new ParsedIcon(name, vb.X, vb.Y, vb.Width, vb.Height, path, Error: null);
         }
@@ -82,8 +82,8 @@ public class IconSourceGenerator : IIncrementalGenerator
                 continue;
             }
 
-            var key = EscapeStringLiteral(icon.Name);
-            var pathLit = EscapeStringLiteral(icon.PathData);
+            string key = EscapeStringLiteral(icon.Name);
+            string pathLit = EscapeStringLiteral(icon.PathData);
             sb.AppendLine(
                 $"            [\"{key}\"] = new(new Rect({F(icon.X)}, {F(icon.Y)}, {F(icon.Width)}, {F(icon.Height)}), Geometry.Parse(\"{pathLit}\")),");
         }
