@@ -39,8 +39,6 @@ jobs:
           --runtime win-x64
           --self-contained true
           --output publish
-          -p:PublishReadyToRun=true
-          -p:PublishTrimmed=true
           -p:Version=${{ steps.ver.outputs.value }}
 
       - name: Bundle third-party licenses
