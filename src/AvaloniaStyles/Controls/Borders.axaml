@@ -1,0 +1,100 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        Variant   : window | card | popover | sheet | chip | dropzone | row
+        Divider   : divider-top | divider-bottom | divider-left | divider-right
+        Modifier  : accent | warn | danger | over | selected
+    -->
+
+    <Style Selector="Border.window">
+        <Setter Property="Background" Value="{DynamicResource BgWindow}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+        <Setter Property="BoxShadow" Value="0 24 60 #2E000000, 0 2 8 #14000000"/>
+    </Style>
+
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource BgContent}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="6"/>
+    </Style>
+
+    <Style Selector="Border.popover">
+        <Setter Property="Background" Value="{DynamicResource BgContent}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BoxShadow" Value="0 8 24 #1F000000"/>
+    </Style>
+
+    <Style Selector="Border.sheet">
+        <Setter Property="Background" Value="{DynamicResource BgWindow}"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="BoxShadow" Value="0 24 60 #2E000000, 0 2 8 #14000000"/>
+    </Style>
+
+    <Style Selector="Border.chip">
+        <Setter Property="Background" Value="{DynamicResource BgContent}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="999"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="BoxShadow" Value="0 2 8 #1F000000"/>
+    </Style>
+
+    <Style Selector="Border.dropzone">
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Padding" Value="20,28"/>
+    </Style>
+    <Style Selector="Border.dropzone.over">
+        <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+        <Setter Property="Background" Value="{DynamicResource AccentFill}"/>
+    </Style>
+
+    <Style Selector="Border.row">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Margin" Value="8,1"/>
+        <Setter Property="Padding" Value="12,6"/>
+    </Style>
+    <Style Selector="Border.row:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+    </Style>
+    <Style Selector="Border.row.selected">
+        <Setter Property="Background" Value="{DynamicResource BgRowSelectedStrong}"/>
+    </Style>
+
+    <Style Selector="Border.divider-bottom">
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+    <Style Selector="Border.divider-top">
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+        <Setter Property="BorderThickness" Value="0,1,0,0"/>
+    </Style>
+    <Style Selector="Border.divider-left">
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+        <Setter Property="BorderThickness" Value="1,0,0,0"/>
+    </Style>
+    <Style Selector="Border.divider-right">
+        <Setter Property="BorderBrush" Value="{DynamicResource Border}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+    </Style>
+
+    <Style Selector="Border.accent">
+        <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+    </Style>
+    <Style Selector="Border.warn">
+        <Setter Property="BorderBrush" Value="{DynamicResource Warn}"/>
+    </Style>
+    <Style Selector="Border.danger">
+        <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
+    </Style>
+
+</Styles>
