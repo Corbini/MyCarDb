@@ -6,13 +6,13 @@ namespace MyCarDbView.Localizations;
 
 public static class Localizer
 {
-    private static readonly ResourceManagerStringLocalizerFactory Factory = new(
+    private static readonly ResourceManagerStringLocalizerFactory _factory = new(
         Options.Create(new LocalizationOptions { ResourcesPath = string.Empty }),
         NullLoggerFactory.Instance);
 
     public static IStringLocalizer<ViewLocalization> View { get; } =
-        new StringLocalizer<ViewLocalization>(Factory);
+        new StringLocalizer<ViewLocalization>(_factory);
 
     public static IStringLocalizer<DbLocalization> Db { get; } =
-        new StringLocalizer<DbLocalization>(Factory);
+        new StringLocalizer<DbLocalization>(_factory);
 }

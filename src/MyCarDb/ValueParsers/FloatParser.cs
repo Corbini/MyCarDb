@@ -7,7 +7,7 @@ public class FloatValueParser : IValueParser<FloatValue>
 
     public FloatValue Parse(string name, byte[] rawData)
     {
-        return new (name, BitConverter.ToSingle(rawData));
+        return new(name, BitConverter.ToSingle(rawData));
     }
 
     public byte[] Serialize(FloatValue value)

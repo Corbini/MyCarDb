@@ -6,15 +6,15 @@ namespace MyCarDB;
 
 public class ValueParserFactory
 {
-    private ArrayStringParser _arrayStringParser = new();
-    private BooleanValueParser _booleanValueParser = new();
-    private ColorParser _colorParser = new();
-    private DictionaryStringStringParser _dictionaryStringStringParser = new();
-    private FloatValueParser _floatValueParser = new();
-    private IntegerValueParser _integerValueParser = new();
-    private PositionParser _positionParser = new();
-    private StringValueParser _stringValueParser = new();
-    private Vector3Parser _vector3Parser = new();
+    private readonly ArrayStringParser _arrayStringParser = new();
+    private readonly BooleanValueParser _booleanValueParser = new();
+    private readonly ColorParser _colorParser = new();
+    private readonly DictionaryStringStringParser _dictionaryStringStringParser = new();
+    private readonly FloatValueParser _floatValueParser = new();
+    private readonly IntegerValueParser _integerValueParser = new();
+    private readonly PositionParser _positionParser = new();
+    private readonly StringValueParser _stringValueParser = new();
+    private readonly Vector3Parser _vector3Parser = new();
 
     public IFileValue Parse(string name, ulong type, byte[] rawData)
     {

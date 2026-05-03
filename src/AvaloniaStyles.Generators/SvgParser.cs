@@ -9,7 +9,7 @@ namespace AvaloniaStyles.Generators;
 
 internal static class SvgParser
 {
-    private static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
+    private static readonly CultureInfo _inv = CultureInfo.InvariantCulture;
 
     public static (ViewBox ViewBox, string PathData) Parse(string svgContent)
     {
@@ -21,7 +21,7 @@ internal static class SvgParser
 
         foreach (var element in root.Descendants())
         {
-            var part = ConvertShape(element, viewBox);
+            string part = ConvertShape(element, viewBox);
             if (!string.IsNullOrEmpty(part))
                 parts.Add(part);
         }
@@ -33,31 +33,33 @@ internal static class SvgParser
     {
         return el.Name.LocalName switch
         {
-            "line"     => ConvertLine(el),
-            "rect"     => ConvertRect(el, viewBox),
-            "circle"   => ConvertCircle(el),
-            "path"     => ConvertPath(el),
+            "line" => ConvertLine(el),
+            "rect" => ConvertRect(el, viewBox),
+            "circle" => ConvertCircle(el),
+            "path" => ConvertPath(el),
             "polyline" => ConvertPoints(el, closed: false),
-            "polygon"  => ConvertPoints(el, closed: true),
-            _          => ""
+            "polygon" => ConvertPoints(el, closed: true),
+            _ => ""
         };
     }
 
     private static string ConvertLine(XElement el)
     {
-        var x1 = D(el, "x1"); var y1 = D(el, "y1");
-        var x2 = D(el, "x2"); var y2 = D(el, "y2");
+        double x1 = D(el, "x1");
+        double y1 = D(el, "y1");
+        double x2 = D(el, "x2");
+        double y2 = D(el, "y2");
         return $"M{F(x1)},{F(y1)} L{F(x2)},{F(y2)}";
     }
 
     private static string ConvertRect(XElement el, ViewBox viewBox)
     {
-        var x = D(el, "x");
-        var y = D(el, "y");
-        var w = D(el, "width");
-        var h = D(el, "height");
-        var rx = D(el, "rx");
-        var fill = el.Attribute("fill")?.Value;
+        double x = D(el, "x");
+        double y = D(el, "y");
+        double w = D(el, "width");
+        double h = D(el, "height");
+        double rx = D(el, "rx");
+        string? fill = el.Attribute("fill")?.Value;
 
         // Skip viewport rect (covers whole canvas with fill="none" — Phosphor convention).
         if (x == 0 && y == 0 && w >= viewBox.Width && h >= viewBox.Height && fill == "none")
@@ -84,7 +86,9 @@ internal static class SvgParser
 
     private static string ConvertCircle(XElement el)
     {
-        var cx = D(el, "cx"); var cy = D(el, "cy"); var r = D(el, "r");
+        double cx = D(el, "cx");
+        double cy = D(el, "cy");
+        double r = D(el, "r");
         // Two semicircular arcs to close the loop.
         return $"M{F(cx - r)},{F(cy)} A{F(r)},{F(r)} 0 1 0 {F(cx + r)},{F(cy)} A{F(r)},{F(r)} 0 1 0 {F(cx - r)},{F(cy)} Z";
     }
@@ -96,41 +100,45 @@ internal static class SvgParser
 
     private static string ConvertPoints(XElement el, bool closed)
     {
-        var raw = el.Attribute("points")?.Value ?? "";
-        var coords = raw
+        string raw = el.Attribute("points")?.Value ?? "";
+        double[] coords = raw
             .Replace(',', ' ')
             .Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(s => double.Parse(s, Inv))
+            .Select(s => double.Parse(s, _inv))
             .ToArray();
 
-        if (coords.Length < 4 || coords.Length % 2 != 0) return "";
+        if (coords.Length < 4 || coords.Length % 2 != 0)
+            return "";
 
         var sb = new StringBuilder();
         sb.Append($"M{F(coords[0])},{F(coords[1])}");
         for (int i = 2; i < coords.Length; i += 2)
             sb.Append($" L{F(coords[i])},{F(coords[i + 1])}");
-        if (closed) sb.Append(" Z");
+        if (closed)
+            sb.Append(" Z");
         return sb.ToString();
     }
 
     private static double D(XElement el, string attr)
     {
-        var v = el.Attribute(attr)?.Value;
-        return string.IsNullOrEmpty(v) ? 0 : double.Parse(v!, Inv);
+        string? v = el.Attribute(attr)?.Value;
+        return string.IsNullOrEmpty(v) ? 0 : double.Parse(v!, _inv);
     }
 
-    private static string F(double v) => v.ToString("0.###", Inv);
+    private static string F(double v) => v.ToString("0.###", _inv);
 
     private static ViewBox ParseViewBox(string? raw)
     {
-        if (string.IsNullOrWhiteSpace(raw)) return new ViewBox(0, 0, 256, 256);
-        var parts = raw!.Split(new[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length != 4) return new ViewBox(0, 0, 256, 256);
+        if (string.IsNullOrWhiteSpace(raw))
+            return new ViewBox(0, 0, 256, 256);
+        string[] parts = raw!.Split(new[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length != 4)
+            return new ViewBox(0, 0, 256, 256);
         return new ViewBox(
-            double.Parse(parts[0], Inv),
-            double.Parse(parts[1], Inv),
-            double.Parse(parts[2], Inv),
-            double.Parse(parts[3], Inv));
+            double.Parse(parts[0], _inv),
+            double.Parse(parts[1], _inv),
+            double.Parse(parts[2], _inv),
+            double.Parse(parts[3], _inv));
     }
 
     public readonly struct ViewBox
@@ -142,7 +150,10 @@ internal static class SvgParser
 
         public ViewBox(double x, double y, double width, double height)
         {
-            X = x; Y = y; Width = width; Height = height;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
         }
     }
 }

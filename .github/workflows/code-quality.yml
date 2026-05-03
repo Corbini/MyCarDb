@@ -1,13 +1,22 @@
 name: Code Quality
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches:
       - development
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
 
 jobs:
   format-check:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -24,7 +33,7 @@ jobs:
         run: dotnet restore MyCarDb.slnx
 
       - name: Verify formatting
-        run: dotnet format MyCarDb.slnx --verify-no-changes --no-restore --verbosity diagnostic
+        run: dotnet format MyCarDb.slnx --verify-no-changes --no-restore
 
   no-warnings:
     runs-on: windows-latest

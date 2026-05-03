@@ -1,8 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using MyCarDbView.Services;
-using MyCarDbView.ViewModels;
-using MyCarDbView.Views;
 
 namespace MyCarDbView.MVVM;
 

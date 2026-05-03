@@ -80,7 +80,7 @@ public class DialogServiceTests
         Assert.Equal("hello", vm.Param);
         vm.Complete(value: true);
 
-        var result = await task;
+        bool result = await task;
         Assert.True(result);
         Assert.Null(dialog.CurrentContent);
     }
@@ -251,7 +251,7 @@ public class DialogServiceTests
         var vm = (ResultVm)dialog.CurrentContent!;
         vm.Complete(value: true);
 
-        var result = await task;
+        bool result = await task;
         Assert.True(result);
     }
 

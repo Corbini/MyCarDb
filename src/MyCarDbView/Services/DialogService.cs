@@ -66,8 +66,10 @@ internal sealed partial class DialogService(IServiceProvider services) : Observa
         }
         finally
         {
-            if (ReferenceEquals(CurrentContent, vm)) CurrentContent = null;
-            if (ReferenceEquals(_voidTcs, tcs)) _voidTcs = null;
+            if (ReferenceEquals(CurrentContent, vm))
+                CurrentContent = null;
+            if (ReferenceEquals(_voidTcs, tcs))
+                _voidTcs = null;
         }
     }
 
@@ -80,7 +82,8 @@ internal sealed partial class DialogService(IServiceProvider services) : Observa
         }
         finally
         {
-            if (ReferenceEquals(CurrentContent, vm)) CurrentContent = null;
+            if (ReferenceEquals(CurrentContent, vm))
+                CurrentContent = null;
         }
     }
 
