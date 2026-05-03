@@ -18,7 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AvaloniaStyles.Generators\AvaloniaStyles.Generators.csproj"
                       OutputItemType="Analyzer"
-                      ReferenceOutputAssembly="false" />
+                      ReferenceOutputAssembly="false"
+                      UndefineProperties="TargetFramework;RuntimeIdentifier;SelfContained;PublishTrimmed;PublishReadyToRun;PublishAot" />
   </ItemGroup>
 
 </Project>

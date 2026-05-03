@@ -4,11 +4,18 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>  
+    <Nullable>enable</Nullable>
     <PublishAot>false</PublishAot>
     <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
     <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>partial</TrimMode>
+    <TrimMode>full</TrimMode>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <DebugType>embedded</DebugType>
+    <DebuggerSupport>false</DebuggerSupport>
+    <EventSourceSupport>false</EventSourceSupport>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
     <TieredCompilation>true</TieredCompilation>
   </PropertyGroup>
 
@@ -45,4 +52,11 @@
   <ItemGroup>
     <InternalsVisibleTo Include="MyCarDbViewTests" />
   </ItemGroup>
+
+  <Target Name="RemoveNativePdbs" AfterTargets="Publish">
+    <ItemGroup>
+      <NativePdbsToDelete Include="$(PublishDir)*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(NativePdbsToDelete)" />
+  </Target>
 </Project>
