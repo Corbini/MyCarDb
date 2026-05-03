@@ -45,6 +45,14 @@
         <Setter Property="Width" Value="28"/>
         <Setter Property="Height" Value="28"/>
     </Style>
+    <Style Selector="Icon.size-3xl">
+        <Setter Property="Width" Value="48"/>
+        <Setter Property="Height" Value="48"/>
+    </Style>
+    <Style Selector="Icon.size-4xl">
+        <Setter Property="Width" Value="64"/>
+        <Setter Property="Height" Value="64"/>
+    </Style>
 
     <Style Selector="Icon.muted">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>

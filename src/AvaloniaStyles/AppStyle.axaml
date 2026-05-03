@@ -3,6 +3,9 @@
 
     <Styles.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AvaloniaStyles/Fonts.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceInclude x:Key="Light"
                                  Source="avares://AvaloniaStyles/Themes/LightTheme.axaml"/>
@@ -12,6 +15,7 @@
         </ResourceDictionary>
     </Styles.Resources>
 
+    <StyleInclude Source="avares://AvaloniaStyles/Typography.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Buttons.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Borders.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Icons.axaml"/>

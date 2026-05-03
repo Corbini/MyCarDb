@@ -25,6 +25,9 @@ public partial class App : Application
         {
             desktop.Exit += (_, _) => (_services as IDisposable)?.Dispose();
 
+            var shell = _services.GetRequiredService<IShellService>();
+            shell.NavigateTo<WelcomeViewModel>();
+
             var windowViewModel = ActivatorUtilities.CreateInstance<MainWindowViewModel>(_services);
             var window = ActivatorUtilities.CreateInstance<MainWindow>(_services);
             window.DataContext = windowViewModel;

@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using MyCarDbView.Services;
+using MyCarDbView.ViewModels;
+using MyCarDbView.Views;
 
 namespace MyCarDbView.MVVM;
 
@@ -8,6 +10,7 @@ public sealed class ViewLocator : IDataTemplate
 {
     public Control? Build(IViewModel viewModel) => viewModel switch
     {
+        WelcomeViewModel => new WelcomeView(),
         _ => null,
     };
 
