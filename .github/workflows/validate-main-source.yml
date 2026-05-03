@@ -1,0 +1,20 @@
+name: Validate PR source
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    
+    if: github.event.pull_request.base.ref == 'main'
+
+    steps:
+      - name: Verify source is development
+        run: |
+          if [ "${{ github.head_ref }}" != "development" ]; then
+            echo "::error::PRs to main must come from 'development' (got '${{ github.head_ref }}')"
+            exit 1
+          fi

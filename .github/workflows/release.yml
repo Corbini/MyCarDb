@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Restore
+        run: dotnet restore MyCarDb.slnx
+
+      - name: Publish
+        run: >
+          dotnet publish src/MyCarDbView/MyCarDbView.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --output publish
+          -p:PublishReadyToRun=true
+          -p:PublishTrimmed=true
+          -p:Version=0.1.${{ github.run_number }}
+
+      - name: Bundle third-party licenses
+        run: |
+          Copy-Item THIRD_PARTY_LICENSES.md publish\
+          Copy-Item -Recurse licenses publish\licenses
+
+      - name: Create release archive
+        run: Compress-Archive -Path publish\* -DestinationPath MyCarDbView-win-x64-v0.1.${{ github.run_number }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.${{ github.run_number }}
+          name: v0.1.${{ github.run_number }}
+          generate_release_notes: true
+          files: MyCarDbView-win-x64-v0.1.${{ github.run_number }}.zip
