@@ -4,7 +4,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 
 namespace MyCarDbView.Views;
@@ -15,14 +14,12 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
-        // Defer do Background — czekamy aż ContentPresenter wyrenderuje Child (View).
         ShellHost.PropertyChanged += (_, e) =>
         {
             if (e.Property == ContentControl.ContentProperty)
                 Dispatcher.UIThread.Post(UpdateTitleBarSlots, DispatcherPriority.Background);
         };
 
-        // Disable resize handles when window is maximized (no resize available, cursor falls through to Arrow).
         PropertyChanged += (_, e) =>
         {
             if (e.Property == WindowStateProperty)
@@ -36,8 +33,6 @@ public partial class MainWindow : Window
         };
     }
 
-    // ─────────── Title bar slot injection przez ITitleBarContent ───────────
-
     private void UpdateTitleBarSlots()
     {
         var tbc = ShellHost.Presenter?.Child as ITitleBarContent;
@@ -45,8 +40,6 @@ public partial class MainWindow : Window
         TitleBarCenter.Content   = tbc?.TitleBarCenter;
         TitleBarTrailing.Content = tbc?.TitleBarTrailing;
     }
-
-    // ─────────── Title bar drag + double-click maximize ───────────
 
     private void OnTitleBarPointerPressed(object? sender, PointerPressedEventArgs e)
     {
@@ -62,8 +55,6 @@ public partial class MainWindow : Window
             BeginMoveDrag(e);
     }
 
-    // ─────────── Window control buttons ───────────
-
     private void OnMinimizeClick(object? sender, RoutedEventArgs e)
         => WindowState = WindowState.Minimized;
 
@@ -72,8 +63,6 @@ public partial class MainWindow : Window
 
     private void OnCloseClick(object? sender, RoutedEventArgs e)
         => Close();
-
-    // ─────────── ESC dismisses active modal dialog ───────────
 
     protected override void OnKeyDown(KeyEventArgs e)
     {
@@ -89,9 +78,7 @@ public partial class MainWindow : Window
         => WindowState = WindowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
-
-    // ─────────── Resize handles (8 stref: 4 krawędzie + 4 rogi) ───────────
-
+    
     private void OnResizeNorth(object? sender, PointerPressedEventArgs e)     => BeginResize(WindowEdge.North, e);
     private void OnResizeSouth(object? sender, PointerPressedEventArgs e)     => BeginResize(WindowEdge.South, e);
     private void OnResizeWest(object? sender, PointerPressedEventArgs e)      => BeginResize(WindowEdge.West, e);
