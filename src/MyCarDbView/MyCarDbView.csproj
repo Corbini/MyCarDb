@@ -30,8 +30,19 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MyCarDB\MyCarDB.csproj" />
+    <ProjectReference Include="..\..\src\AvaloniaStyles\AvaloniaStyles.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="MyCarDbViewTests" />
   </ItemGroup>
 </Project>
