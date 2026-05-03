@@ -7,7 +7,7 @@ concurrency:
 on:
   pull_request:
     branches:
-      - development
+      - main
     paths-ignore:
       - '**.md'
       - 'docs/**'
