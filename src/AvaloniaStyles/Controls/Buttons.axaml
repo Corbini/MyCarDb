@@ -135,6 +135,16 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
     </Style>
+    <Style Selector="Button.borderless.selected">
+        <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+    <Style Selector="Button.borderless.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+    </Style>
 
     <Style Selector="Button.active">
         <Setter Property="Foreground" Value="{DynamicResource Accent}"/>

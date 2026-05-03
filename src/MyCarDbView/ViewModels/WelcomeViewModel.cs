@@ -6,7 +6,7 @@ using MyCarDbView.Services;
 
 namespace MyCarDbView.ViewModels;
 
-public sealed partial class WelcomeViewModel() : ObservableObject, IViewModel
+public sealed partial class WelcomeViewModel(IDialogService _dialogService) : ObservableObject, IViewModel
 {
     public IReadOnlyList<LastOpenedFile> RecentFiles { get; } =
     [
@@ -23,11 +23,8 @@ public sealed partial class WelcomeViewModel() : ObservableObject, IViewModel
     private void ToggleSidebar() => IsSidebarVisible = !IsSidebarVisible;
 
     [RelayCommand]
-    private Task OpenSettingsAsync(CancellationToken ct)
-    {
-        Console.WriteLine($"Going to settings");
-        return Task.CompletedTask;
-    }
+    private Task OpenSettingsAsync(CancellationToken ct) =>
+        _dialogService.ShowAsync<SettingsViewModel>(ct);
 
     [RelayCommand]
     private void OpenFileDialog()
