@@ -50,6 +50,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AvaloniaResource Include="..\..\licenses\*.LICENSE">
+      <Link>Assets/Licenses/%(Filename)%(Extension)</Link>
+    </AvaloniaResource>
+    <AvaloniaResource Include="..\..\LICENSE">
+      <Link>Assets/LICENSE</Link>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <InternalsVisibleTo Include="MyCarDbViewTests" />
   </ItemGroup>
 
