@@ -1,24 +1,31 @@
 using System.Globalization;
-using CommunityToolkit.Mvvm.ComponentModel;
+using MyCarDbView.Dto;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models.AppState;
 
 namespace MyCarDbView.Services;
 
-internal sealed partial class LanguageService : ObservableObject, ILanguageService
+internal sealed class LanguageService(IWritableOptions<AppSettings> settings) : ILanguageService
 {
-    [ObservableProperty]
-    private AppLanguage _currentLanguage = AppLanguage.System;
-
-    public LanguageService() => ApplyCulture(_currentLanguage);
+    public AppLanguage CurrentLanguage { get; private set; }
+        = LoadAndApply(settings);
 
     public void SetLanguage(AppLanguage language)
     {
         if (CurrentLanguage == language)
             return;
+
         CurrentLanguage = language;
         ApplyCulture(language);
         LocalizationSource.Instance.Refresh();
+        settings.Update(s => s.Language = language);
+    }
+
+    private static AppLanguage LoadAndApply(IWritableOptions<AppSettings> settings)
+    {
+        var language = settings.Value.Language;
+        ApplyCulture(language);
+        return language;
     }
 
     private static void ApplyCulture(AppLanguage language)

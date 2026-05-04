@@ -1,0 +1,14 @@
+namespace MyCarDbView.Services;
+
+internal static class AppPaths
+{
+    public static string AppDataDirectory { get; } = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "MyCarDb");
+
+    public static string AppSettingsFile { get; } = Path.Combine(AppDataDirectory, "appsettings.json");
+
+    public static string RecentFilesFile { get; } = Path.Combine(AppDataDirectory, "recent.json");
+
+    public static void EnsureExists() => Directory.CreateDirectory(AppDataDirectory);
+}

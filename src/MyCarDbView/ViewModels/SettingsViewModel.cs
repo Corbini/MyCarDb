@@ -19,6 +19,7 @@ public sealed record ShortcutEntry(string Key, string Shortcut);
 public sealed partial class SettingsViewModel(
     ILanguageService languageService,
     IThemeService themeService,
+    IBackupService backupService,
     ILicenseService licenseService,
     IDialogService dialogService) : ObservableObject, IViewModel
 {
@@ -42,42 +43,34 @@ public sealed partial class SettingsViewModel(
 
     public string AppVersion { get; } = ThisAssembly.Version;
 
-    public AppLanguage SelectedLanguage
-    {
-        get => languageService.CurrentLanguage;
-        set
-        {
-            if (languageService.CurrentLanguage == value)
-                return;
-            languageService.SetLanguage(value);
-            OnPropertyChanged();
-        }
-    }
+    [ObservableProperty]
+    private AppLanguage _selectedLanguage = languageService.CurrentLanguage;
 
-    public AppTheme SelectedTheme
-    {
-        get => themeService.CurrentTheme;
-        set
-        {
-            if (themeService.CurrentTheme == value)
-                return;
-            themeService.SetTheme(value);
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(IsSystemTheme));
-            OnPropertyChanged(nameof(IsLightTheme));
-            OnPropertyChanged(nameof(IsDarkTheme));
-        }
-    }
+    partial void OnSelectedLanguageChanged(AppLanguage value) =>
+        languageService.SetLanguage(value);
+
+    [NotifyPropertyChangedFor(nameof(IsSystemTheme))]
+    [NotifyPropertyChangedFor(nameof(IsLightTheme))]
+    [NotifyPropertyChangedFor(nameof(IsDarkTheme))]
+    [ObservableProperty]
+    private AppTheme _selectedTheme = themeService.CurrentTheme;
+
+    partial void OnSelectedThemeChanged(AppTheme value) =>
+        themeService.SetTheme(value);
 
     public bool IsSystemTheme => SelectedTheme == AppTheme.System;
     public bool IsLightTheme => SelectedTheme == AppTheme.Light;
     public bool IsDarkTheme => SelectedTheme == AppTheme.Dark;
 
     [ObservableProperty]
-    private bool _isAutoBackupEnabled = true;
+    private bool _isAutoBackupEnabled = backupService.BackupSettings.IsAutoBackupEnabled;
 
     [ObservableProperty]
-    private bool _isFileMonitorEnabled = true;
+    private bool _isFileMonitorEnabled = backupService.BackupSettings.IsFileMonitorEnabled;
+
+    partial void OnIsAutoBackupEnabledChanged(bool value) => backupService.SetAutoBackup(value);
+
+    partial void OnIsFileMonitorEnabledChanged(bool value) => backupService.SetFileMonitor(value);
 
     [RelayCommand]
     private void SelectCategory(SettingsCategory category) => SelectedCategory = category;
