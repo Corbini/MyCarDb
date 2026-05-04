@@ -46,6 +46,11 @@
         <Setter Property="Opacity" Value="0.75"/>
     </Style>
 
+    <!-- Weight -->
+    <Style Selector="TextBlock.strong">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
     <!-- Color -->
     <Style Selector="TextBlock.secondary">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>

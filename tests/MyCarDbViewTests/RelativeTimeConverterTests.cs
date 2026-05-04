@@ -1,8 +1,8 @@
 using System.Globalization;
-using MyCarDbView.Localizations;
+using MyCarDbView.Converters;
 using Xunit;
 
-namespace MyCarDbViewTests.Localizations;
+namespace MyCarDbViewTests.Converters;
 
 public class RelativeTimeConverterTests : IDisposable
 {
