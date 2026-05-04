@@ -21,6 +21,7 @@
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Icons.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/TextBlocks.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Segments.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Expanders.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/DialogBackdrop.axaml"/>
 
 </Styles>

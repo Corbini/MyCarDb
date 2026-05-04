@@ -25,12 +25,12 @@
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
     </Style>
 
-    <Style Selector="Button.segment.active">
+    <Style Selector="Button.segment.selected">
         <Setter Property="Background" Value="{DynamicResource BgContent}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 
-    <Style Selector="Button.segment.active:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Style Selector="Button.segment.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource BgContent}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>

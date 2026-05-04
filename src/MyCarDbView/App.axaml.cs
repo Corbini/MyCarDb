@@ -43,9 +43,9 @@ public partial class App : Application
         var services = new ServiceCollection();
         services.AddSingleton<IShellService, ShellService>();
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<ILicenseService, LicenseService>();
         services.AddSingleton<ILanguageService, LanguageService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<ILicenseService, LicenseService>();
         return services.BuildServiceProvider();
     }
 }

@@ -69,11 +69,29 @@
   <data name="Settings_Category_Licenses" xml:space="preserve">
     <value>Licenses</value>
   </data>
-  <data name="Settings_About_Tagline" xml:space="preserve">
-    <value>Save editor for My Summer Car</value>
+  <data name="Settings_About_Header" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Settings_About_Name_Label" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="Settings_About_Version_Label" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="Settings_About_License_Label" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Settings_About_License_Header" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Settings_About_Tagline" xml:space="preserve">
+    <value>Save editor for My Summer Car</value>
+  </data>
+  <data name="Settings_About_OpenSource" xml:space="preserve">
+    <value>Open source</value>
+  </data>
+  <data name="Settings_About_ViewLicense" xml:space="preserve">
+    <value>View license text</value>
   </data>
   <data name="Settings_Licenses_Intro" xml:space="preserve">
     <value>This application uses the following open-source libraries:</value>
@@ -105,10 +123,16 @@
   <data name="Settings_Language_Label" xml:space="preserve">
     <value>Interface language</value>
   </data>
-  <data name="Settings_Language_Polish" xml:space="preserve">
+  <data name="Settings_Language_Caption" xml:space="preserve">
+    <value>Changes apply immediately across the app.</value>
+  </data>
+  <data name="AppLanguage_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="AppLanguage_Polish" xml:space="preserve">
     <value>Polish</value>
   </data>
-  <data name="Settings_Language_English" xml:space="preserve">
+  <data name="AppLanguage_English" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Settings_Save_Header" xml:space="preserve">

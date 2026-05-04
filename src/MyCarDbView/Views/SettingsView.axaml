@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MyCarDbView.ViewModels"
              xmlns:localization="using:MyCarDbView.Localizations"
+             xmlns:converters="using:MyCarDbView.Converters"
+             xmlns:appstate="using:MyCarDbView.Models.AppState"
              mc:Ignorable="d"
              d:DesignWidth="760" d:DesignHeight="640"
              x:Class="MyCarDbView.Views.SettingsView"
@@ -37,6 +39,7 @@
                             Classes="plain"
                             FontWeight="SemiBold"
                             HorizontalAlignment="Right"
+                            Command="{Binding CloseCommand}"
                             Content="{localization:View Settings_Done}"/>
                 </Grid>
             </Border>
@@ -115,9 +118,21 @@
                                             Classes="segmented-control"
                                             HorizontalAlignment="Left">
                                         <UniformGrid Rows="1" Columns="3" Width="280">
-                                            <Button Classes="segment active" Content="{localization:View Settings_Appearance_Theme_Auto}"/>
-                                            <Button Classes="segment" Content="{localization:View Settings_Appearance_Theme_Light}"/>
-                                            <Button Classes="segment" Content="{localization:View Settings_Appearance_Theme_Dark}"/>
+                                            <Button Classes="segment"
+                                                    Classes.selected="{Binding IsSystemTheme}"
+                                                    Command="{Binding SelectThemeCommand}"
+                                                    CommandParameter="{x:Static appstate:AppTheme.System}"
+                                                    Content="{localization:View Settings_Appearance_Theme_Auto}"/>
+                                            <Button Classes="segment"
+                                                    Classes.selected="{Binding IsLightTheme}"
+                                                    Command="{Binding SelectThemeCommand}"
+                                                    CommandParameter="{x:Static appstate:AppTheme.Light}"
+                                                    Content="{localization:View Settings_Appearance_Theme_Light}"/>
+                                            <Button Classes="segment"
+                                                    Classes.selected="{Binding IsDarkTheme}"
+                                                    Command="{Binding SelectThemeCommand}"
+                                                    CommandParameter="{x:Static appstate:AppTheme.Dark}"
+                                                    Content="{localization:View Settings_Appearance_Theme_Dark}"/>
                                         </UniformGrid>
                                     </Border>
                                     <TextBlock Grid.Row="1" Grid.Column="1"
@@ -130,19 +145,30 @@
                             <Border Classes="divider-top" Margin="0,24,0,0" Padding="0,24,0,0">
                                 <StackPanel Spacing="12">
                                     <TextBlock Classes="section-header" Text="{localization:View Settings_Language_Header}"/>
-                                    <Grid ColumnDefinitions="140,*" ColumnSpacing="16">
-                                        <TextBlock Grid.Column="0"
+                                    <Grid ColumnDefinitions="140,*"
+                                          RowDefinitions="Auto,Auto"
+                                          ColumnSpacing="16">
+                                        <TextBlock Grid.Row="0" Grid.Column="0"
                                                    Classes="body"
                                                    Text="{localization:View Settings_Language_Label}"
                                                    VerticalAlignment="Center"/>
-                                        <ComboBox Grid.Column="1"
-                                                  SelectedIndex="0"
+                                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                                  ItemsSource="{Binding AvailableLanguages}"
+                                                  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
                                                   HorizontalAlignment="Left"
                                                   MinWidth="200"
                                                   MaxWidth="200">
-                                            <ComboBoxItem Content="{localization:View Settings_Language_Polish}"/>
-                                            <ComboBoxItem Content="{localization:View Settings_Language_English}"/>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Converter={x:Static converters:EnumDisplayConverter.Instance}}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
                                         </ComboBox>
+                                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                                   Classes="caption"
+                                                   Text="{localization:View Settings_Language_Caption}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,4,0,0"/>
                                     </Grid>
                                 </StackPanel>
                             </Border>
@@ -159,7 +185,7 @@
                                                    Text="{localization:View Settings_Save_AutoBackup_Label}"
                                                    VerticalAlignment="Center"/>
                                         <ToggleSwitch Grid.Row="0" Grid.Column="2"
-                                                      IsChecked="True"/>
+                                                      IsChecked="{Binding IsAutoBackupEnabled, Mode=TwoWay}"/>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                                                    Classes="caption"
                                                    Text="{localization:View Settings_Save_AutoBackup_Description}"
@@ -175,7 +201,7 @@
                                                    Text="{localization:View Settings_Save_FileMonitor_Label}"
                                                    VerticalAlignment="Center"/>
                                         <ToggleSwitch Grid.Row="0" Grid.Column="2"
-                                                      IsChecked="True"/>
+                                                      IsChecked="{Binding IsFileMonitorEnabled, Mode=TwoWay}"/>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                                                    Classes="caption"
                                                    Text="{localization:View Settings_Save_FileMonitor_Description}"
@@ -251,22 +277,46 @@
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Auto"
                                   IsVisible="{Binding IsAboutSelected}">
-                        <StackPanel Margin="24,40" Spacing="8" HorizontalAlignment="Center">
-                            <TextBlock Classes="display"
-                                       Text="MyCarDb"
-                                       HorizontalAlignment="Center"/>
-                            <TextBlock Classes="callout secondary"
-                                       Text="{localization:View Settings_About_Tagline}"
-                                       HorizontalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal"
-                                        Spacing="6"
-                                        HorizontalAlignment="Center"
-                                        Margin="0,16,0,0">
+                        <StackPanel Margin="24,20">
+
+                            <StackPanel Spacing="6" HorizontalAlignment="Center" Margin="0,8,0,0">
+                                <TextBlock Classes="display"
+                                           Text="MyCarDb"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Classes="callout secondary"
+                                           Text="{localization:View Settings_About_Tagline}"
+                                           HorizontalAlignment="Center"/>
                                 <TextBlock Classes="caption"
-                                           Text="{localization:View Settings_About_Version_Label}"/>
-                                <TextBlock Classes="caption"
-                                           Text="0.1.0"/>
+                                           Text="{Binding AppVersion}"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,4,0,0"/>
                             </StackPanel>
+
+                            <Border Classes="divider-top" Margin="0,24,0,0" Padding="0,24,0,0">
+                                <StackPanel Spacing="12">
+                                    <TextBlock Classes="section-header" Text="{localization:View Settings_About_License_Header}"/>
+                                    <Border Classes="divider-bottom">
+                                        <Expander Classes="list-row">
+                                            <Expander.Header>
+                                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                                    <TextBlock Grid.Column="0"
+                                                               Classes="body"
+                                                               Text="MyCarDb"
+                                                               VerticalAlignment="Center"/>
+                                                    <TextBlock Grid.Column="1"
+                                                               Classes="caption"
+                                                               Text="{Binding OwnLicense.LicenseType}"
+                                                               VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Expander.Header>
+                                            <TextBlock Classes="mono caption"
+                                                       Text="{Binding OwnLicense.Content}"
+                                                       TextWrapping="Wrap"
+                                                       Padding="0,4,0,12"/>
+                                        </Expander>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                     </ScrollViewer>
 
@@ -277,6 +327,32 @@
                             <TextBlock Classes="body"
                                        Text="{localization:View Settings_Licenses_Intro}"
                                        TextWrapping="Wrap"/>
+                            <ItemsControl ItemsSource="{Binding Licenses}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="appstate:LicenseEntry">
+                                        <Border Classes="divider-bottom">
+                                            <Expander Classes="list-row">
+                                                <Expander.Header>
+                                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                                        <TextBlock Grid.Column="0"
+                                                                   Classes="body"
+                                                                   Text="{Binding Component}"
+                                                                   VerticalAlignment="Center"/>
+                                                        <TextBlock Grid.Column="1"
+                                                                   Classes="caption"
+                                                                   Text="{Binding LicenseType}"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </Expander.Header>
+                                                <TextBlock Classes="mono caption"
+                                                           Text="{Binding Content}"
+                                                           TextWrapping="Wrap"
+                                                           Padding="0,4,0,12"/>
+                                            </Expander>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </StackPanel>
                     </ScrollViewer>
 

@@ -16,7 +16,7 @@ internal sealed partial class ThemeService : ObservableObject, IThemeService
     {
         if (CurrentTheme == theme)
             return;
-
+            
         CurrentTheme = theme;
         ApplyTheme(theme);
     }
