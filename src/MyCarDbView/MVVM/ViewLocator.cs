@@ -11,6 +11,7 @@ public sealed class ViewLocator : IDataTemplate
     public Control? Build(IViewModel viewModel) => viewModel switch
     {
         WelcomeViewModel => new WelcomeView(),
+        SettingsViewModel => new SettingsView(),
         _ => null,
     };
 

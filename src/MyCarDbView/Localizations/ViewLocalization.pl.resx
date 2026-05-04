@@ -54,4 +54,142 @@
   <data name="Welcome_RelativeTime_Yesterday" xml:space="preserve">
     <value>Wczoraj</value>
   </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="Settings_Category_General" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="Settings_Category_Shortcuts" xml:space="preserve">
+    <value>Skróty klawiszowe</value>
+  </data>
+  <data name="Settings_Category_About" xml:space="preserve">
+    <value>O aplikacji</value>
+  </data>
+  <data name="Settings_Category_Licenses" xml:space="preserve">
+    <value>Licencje</value>
+  </data>
+  <data name="Settings_About_Header" xml:space="preserve">
+    <value>O aplikacji</value>
+  </data>
+  <data name="Settings_About_Name_Label" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="Settings_About_Version_Label" xml:space="preserve">
+    <value>Wersja</value>
+  </data>
+  <data name="Settings_About_License_Label" xml:space="preserve">
+    <value>Licencja</value>
+  </data>
+  <data name="Settings_About_License_Header" xml:space="preserve">
+    <value>Licencja</value>
+  </data>
+  <data name="Settings_About_Tagline" xml:space="preserve">
+    <value>Edytor sejwów My Summer Car</value>
+  </data>
+  <data name="Settings_About_OpenSource" xml:space="preserve">
+    <value>Open source</value>
+  </data>
+  <data name="Settings_About_ViewLicense" xml:space="preserve">
+    <value>Pokaż treść licencji</value>
+  </data>
+  <data name="Settings_Licenses_Intro" xml:space="preserve">
+    <value>Aplikacja korzysta z następujących bibliotek open-source:</value>
+  </data>
+  <data name="Settings_Done" xml:space="preserve">
+    <value>Gotowe</value>
+  </data>
+  <data name="Settings_Appearance_Header" xml:space="preserve">
+    <value>Wygląd</value>
+  </data>
+  <data name="Settings_Appearance_Theme_Label" xml:space="preserve">
+    <value>Motyw</value>
+  </data>
+  <data name="Settings_Appearance_Theme_Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="Settings_Appearance_Theme_Light" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="Settings_Appearance_Theme_Dark" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
+  <data name="Settings_Appearance_Theme_Caption" xml:space="preserve">
+    <value>„Auto” dopasowuje się do motywu systemu Windows.</value>
+  </data>
+  <data name="Settings_Language_Header" xml:space="preserve">
+    <value>Język</value>
+  </data>
+  <data name="Settings_Language_Label" xml:space="preserve">
+    <value>Język interfejsu</value>
+  </data>
+  <data name="Settings_Language_Caption" xml:space="preserve">
+    <value>Zmiany stosują się natychmiast w całej aplikacji.</value>
+  </data>
+  <data name="AppLanguage_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="AppLanguage_Polish" xml:space="preserve">
+    <value>Polski</value>
+  </data>
+  <data name="AppLanguage_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Settings_Save_Header" xml:space="preserve">
+    <value>Sejw</value>
+  </data>
+  <data name="Settings_Save_AutoBackup_Label" xml:space="preserve">
+    <value>Auto-backup</value>
+  </data>
+  <data name="Settings_Save_AutoBackup_Description" xml:space="preserve">
+    <value>Tworzy kopię .bak przy zapisie. Bezpieczeństwo na wypadek nieudanego zapisu lub błędu parsera.</value>
+  </data>
+  <data name="Settings_Save_FileMonitor_Label" xml:space="preserve">
+    <value>Monitoruj plik</value>
+  </data>
+  <data name="Settings_Save_FileMonitor_Description" xml:space="preserve">
+    <value>Wykrywa zmiany pliku przez grę. Wymaga FileSystemWatcher. Wyłącz jeśli powoduje problemy.</value>
+  </data>
+  <data name="Settings_Shortcuts_Header" xml:space="preserve">
+    <value>Skróty klawiaturowe</value>
+  </data>
+  <data name="Settings_Shortcuts_Search" xml:space="preserve">
+    <value>Wyszukaj</value>
+  </data>
+  <data name="Settings_Shortcuts_OpenSave" xml:space="preserve">
+    <value>Otwórz sejw</value>
+  </data>
+  <data name="Settings_Shortcuts_Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Settings_Shortcuts_UndoRedo" xml:space="preserve">
+    <value>Cofnij / Powtórz</value>
+  </data>
+  <data name="Settings_Shortcuts_SheetReload" xml:space="preserve">
+    <value>Sheet reload</value>
+  </data>
+  <data name="Settings_Shortcuts_SatsumaFullView" xml:space="preserve">
+    <value>Pełny widok Satsumy</value>
+  </data>
+  <data name="Settings_Shortcuts_ToggleSidebar" xml:space="preserve">
+    <value>Toggle sidebar</value>
+  </data>
+  <data name="Settings_Shortcuts_ToggleInspector" xml:space="preserve">
+    <value>Toggle inspector</value>
+  </data>
+  <data name="Settings_Shortcuts_CenterPlayer" xml:space="preserve">
+    <value>Centruj na graczu</value>
+  </data>
+  <data name="Settings_Shortcuts_MapZoom" xml:space="preserve">
+    <value>Zoom mapy</value>
+  </data>
+  <data name="Settings_Shortcuts_ResetZoom" xml:space="preserve">
+    <value>Reset zoom</value>
+  </data>
+  <data name="Settings_Shortcuts_OpenSettings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="Settings_Shortcuts_DismissSheet" xml:space="preserve">
+    <value>Odznacz / zamknij sheet</value>
+  </data>
 </root>
