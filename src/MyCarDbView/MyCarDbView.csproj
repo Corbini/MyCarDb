@@ -5,6 +5,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <VersionPrefix>0.0.2</VersionPrefix>
+    <VersionSuffix>dev</VersionSuffix>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <PublishAot>false</PublishAot>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
@@ -67,5 +72,28 @@
       <NativePdbsToDelete Include="$(PublishDir)*.pdb" />
     </ItemGroup>
     <Delete Files="@(NativePdbsToDelete)" />
+  </Target>
+
+
+  <Target Name="GenerateThisAssembly" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <_ThisAssemblyFile>$(IntermediateOutputPath)ThisAssembly.g.cs</_ThisAssemblyFile>
+      <_ThisAssemblyContent>
+        namespace MyCarDbView%3B
+
+        internal static class ThisAssembly
+        {
+            public const string Version = "$(Version)"%3B
+        }
+        </_ThisAssemblyContent>
+    </PropertyGroup>
+    <WriteLinesToFile
+      File="$(_ThisAssemblyFile)"
+      Lines="$(_ThisAssemblyContent)"
+      Overwrite="true"
+      WriteOnlyWhenDifferent="true" />
+    <ItemGroup>
+      <Compile Include="$(_ThisAssemblyFile)" KeepDuplicates="false" />
+    </ItemGroup>
   </Target>
 </Project>
