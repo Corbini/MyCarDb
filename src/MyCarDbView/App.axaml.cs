@@ -44,6 +44,7 @@ public partial class App : Application
         services.AddSingleton<IShellService, ShellService>();
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<ILicenseService, LicenseService>();
+        services.AddSingleton<ILanguageService, LanguageService>();
         services.AddSingleton<IThemeService, ThemeService>();
         return services.BuildServiceProvider();
     }
