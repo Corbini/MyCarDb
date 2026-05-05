@@ -6,7 +6,7 @@ internal sealed class SaveFolderResolver : ISaveFolderResolver
     {
         get
         {
-            foreach (var candidate in EnumerateCandidatePaths())
+            foreach (string candidate in EnumerateCandidatePaths())
             {
                 if (Directory.Exists(candidate))
                     return candidate;
