@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using MyCarDbView.Dto;
 using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 using MyCarDbView.Views;
@@ -20,6 +21,9 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         _services = BuildServices();
+
+        _services.GetRequiredService<ILanguageService>();
+        _services.GetRequiredService<IThemeService>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -46,6 +50,10 @@ public partial class App : Application
         services.AddSingleton<ILicenseService, LicenseService>();
         services.AddSingleton<ILanguageService, LanguageService>();
         services.AddSingleton<IThemeService, ThemeService>();
+        services.AddSingleton<IBackupService, BackupService>();
+        services.AddSingleton<IWritableOptions<AppSettings>>(_ =>
+            new WritableOptions<AppSettings>(AppPaths.AppSettingsFile, AppJsonContext.Default.AppSettings));
+        services.AddSingleton<ILastOpenedService, LastOpenedService>();
         return services.BuildServiceProvider();
     }
 }

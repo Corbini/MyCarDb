@@ -24,6 +24,9 @@
   <data name="Welcome_Recent_Header" xml:space="preserve">
     <value>Ostatnie</value>
   </data>
+  <data name="Welcome_Recent_Empty" xml:space="preserve">
+    <value>Brak ostatnich sejwów</value>
+  </data>
   <data name="Welcome_Subtitle_Prefix" xml:space="preserve">
     <value>Edytor sejwów </value>
   </data>

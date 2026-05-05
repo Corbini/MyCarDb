@@ -55,7 +55,15 @@
                                         Text="{localization:View Welcome_Recent_Header}"
                                         Margin="20,4,20,4"/>
 
-                            <ItemsControl x:Name="RecentList" ItemsSource="{Binding RecentFiles}">
+                            <TextBlock Classes="subhead empty"
+                                       Text="{localization:View Welcome_Recent_Empty}"
+                                       HorizontalAlignment="Center"
+                                       Margin="20,16,20,16"
+                                       IsVisible="{Binding IsRecentEmpty}"/>
+
+                            <ItemsControl x:Name="RecentList"
+                                          ItemsSource="{Binding RecentFiles}"
+                                          IsVisible="{Binding !IsRecentEmpty}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="appstate:LastOpenedFile">
                                         <Button Classes="borderless"

@@ -1,16 +1,13 @@
 using Avalonia;
 using Avalonia.Styling;
-using CommunityToolkit.Mvvm.ComponentModel;
+using MyCarDbView.Dto;
 using MyCarDbView.Models.AppState;
 
 namespace MyCarDbView.Services;
 
-internal sealed partial class ThemeService : ObservableObject, IThemeService
+internal sealed class ThemeService(IWritableOptions<AppSettings> settings) : IThemeService
 {
-    [ObservableProperty]
-    private AppTheme _currentTheme = AppTheme.System;
-
-    public ThemeService() => ApplyTheme(_currentTheme);
+    public AppTheme CurrentTheme { get; private set; } = LoadAndApply(settings);
 
     public void SetTheme(AppTheme theme)
     {
@@ -19,8 +16,15 @@ internal sealed partial class ThemeService : ObservableObject, IThemeService
 
         CurrentTheme = theme;
         ApplyTheme(theme);
+        settings.Update(s => s.Theme = theme);
     }
 
+    private static AppTheme LoadAndApply(IWritableOptions<AppSettings> settings)
+    {
+        var theme = settings.Value.Theme;
+        ApplyTheme(theme);
+        return theme;
+    }
 
     private static void ApplyTheme(AppTheme theme)
     {

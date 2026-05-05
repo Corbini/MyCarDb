@@ -24,6 +24,9 @@
   <data name="Welcome_Recent_Header" xml:space="preserve">
     <value>Recent</value>
   </data>
+  <data name="Welcome_Recent_Empty" xml:space="preserve">
+    <value>No recent saves</value>
+  </data>
   <data name="Welcome_Subtitle_Prefix" xml:space="preserve">
     <value>Save editor for </value>
   </data>

@@ -1,9 +1,8 @@
-using System.ComponentModel;
 using MyCarDbView.Models.AppState;
 
 namespace MyCarDbView.Services;
 
-public interface IThemeService : INotifyPropertyChanged
+public interface IThemeService
 {
     AppTheme CurrentTheme { get; }
 
