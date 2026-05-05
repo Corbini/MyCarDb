@@ -36,6 +36,9 @@
   <data name="Welcome_OpenSave_Tooltip" xml:space="preserve">
     <value>Ctrl+O</value>
   </data>
+  <data name="Welcome_OpenSave_FileType" xml:space="preserve">
+    <value>Save files</value>
+  </data>
   <data name="Welcome_Or" xml:space="preserve">
     <value>OR</value>
   </data>
