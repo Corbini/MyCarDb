@@ -1,5 +1,6 @@
-using MyCarDB.Values;
-namespace MyCarDB.ValueParsers;
+using MyCarDb.Values;
+
+namespace MyCarDb.ValueParsers;
 
 public class ColorParser : IValueParser<ColorValue>
 {

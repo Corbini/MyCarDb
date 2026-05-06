@@ -1,6 +1,7 @@
 using System.Text;
-using MyCarDB.Values;
-namespace MyCarDB.ValueParsers;
+
+using MyCarDb.Values;
+namespace MyCarDb.ValueParsers;
 
 public class ArrayStringParser : IValueParser<ArrayStringValue>
 {

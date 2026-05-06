@@ -1,8 +1,8 @@
-using MyCarDB.Extensions;
-using MyCarDB.ValueParsers;
-using MyCarDB.Values;
+using MyCarDb.Extensions;
+using MyCarDb.ValueParsers;
+using MyCarDb.Values;
 
-namespace MyCarDB;
+namespace MyCarDb;
 
 public class ValueParserFactory
 {

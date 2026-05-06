@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace MyCarDB.Extensions;
+namespace MyCarDb.Extensions;
 
 public static class ByteArrayExtensions
 {
