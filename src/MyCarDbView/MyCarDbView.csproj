@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MyCarDb\MyCarDb.csproj" />
+    <ProjectReference Include="..\..\src\MyCarDbWorld\MyCarDbWorld.csproj" />
     <ProjectReference Include="..\..\src\AvaloniaStyles\AvaloniaStyles.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
 using MyCarDbView.Localizations;
+using MyCarDbView.Models;
 using MyCarDbView.Models.AppState;
 using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
@@ -13,7 +14,8 @@ public sealed partial class WelcomeViewModel(
     ILastOpenedService _lastOpenedService,
     IFileOpenPickerService _filePicker,
     ISaveFolderResolver _folderResolver,
-    IStringLocalizer<ViewLocalization> _viewLoc) : ObservableObject, IViewModel
+    IStringLocalizer<ViewLocalization> _viewLoc,
+    IWorldArchive _worldArchive) : ObservableObject, IViewModel
 {
     public IReadOnlyList<LastOpenedFile> RecentFiles => _lastOpenedService.Recent;
 
@@ -42,13 +44,22 @@ public sealed partial class WelcomeViewModel(
         if (path is null)
             return;
 
-        OpenFileFromPath(path);
+        await OpenFileFromPath(path);
     }
 
     [RelayCommand]
-    private void OpenFileFromPath(string path)
+    private async Task OpenFileFromPath(string path)
     {
-        // TODO: load the save and open it in the editor; show an error if it fails.
+        switch (await _worldArchive.LoadWorldAsync(path))
+        {
+            case ArchiveResult.Success success:
+                // TODO: open the world in the editor
+                break;
+            case ArchiveResult.Failed failed:
+                // TODO: show an error.
+                return;
+        }
+
         _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
     }
 }
