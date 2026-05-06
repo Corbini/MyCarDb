@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MyCarDB\MyCarDB.csproj" />
+    <ProjectReference Include="..\..\src\MyCarDb\MyCarDb.csproj" />
   </ItemGroup>
 
 </Project>
