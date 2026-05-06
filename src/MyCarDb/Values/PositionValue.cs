@@ -1,4 +1,4 @@
-namespace MyCarDB.Values;
+namespace MyCarDb.Values;
 
 public record PositionValue(
     string Name,

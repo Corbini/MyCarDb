@@ -1,6 +1,6 @@
 using System.Text;
-using MyCarDB;
-using MyCarDB.Values;
+using MyCarDb;
+using MyCarDb.Values;
 using Xunit;
 
 namespace MyCarDBTests;
@@ -29,7 +29,7 @@ public class FileParserTests
         File.WriteAllBytes(tempFile, bytes);
 
         var parser = new FileParser();
-        var result = parser.Read(tempFile);
+        var result = parser.Parse(File.ReadAllBytes(tempFile));
 
         Assert.Equal(2, result.Count);
 
@@ -60,7 +60,7 @@ public class FileParserTests
             "test_data",
             "carparts.txt"
         );
-        var carpartsResult = parser.Read(carpartsPath);
+        var carpartsResult = parser.Parse(File.ReadAllBytes(carpartsPath));
         Assert.NotEmpty(carpartsResult);
         Assert.All(carpartsResult, item => Assert.NotNull(item.Name));
 
@@ -70,7 +70,7 @@ public class FileParserTests
             "test_data",
             "savefile.txt"
         );
-        var savefileResult = parser.Read(savefilePath);
+        var savefileResult = parser.Parse(File.ReadAllBytes(savefilePath));
         Assert.NotEmpty(savefileResult);
         Assert.All(savefileResult, item => Assert.NotNull(item.Name));
     }

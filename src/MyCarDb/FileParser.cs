@@ -1,14 +1,13 @@
-using MyCarDB.Extensions;
-using MyCarDB.Values;
-namespace MyCarDB;
+using MyCarDb.Extensions;
+using MyCarDb.Values;
 
-public class FileParser
+namespace MyCarDb;
+
+public class FileParser : IFileParser
 {
-    public List<IFileValue> Read(string filePath)
+    public List<IFileValue> Parse(byte[] fileContent)
     {
-        byte[] file = File.ReadAllBytes(filePath);
-
-        var stream = new MemoryStream(file);
+        var stream = new MemoryStream(fileContent);
         var reader = new BinaryReader(stream);
 
         ValueParserFactory factory = new();
@@ -40,7 +39,7 @@ public class FileParser
         return files;
     }
 
-    public void Write(string filePath, List<IFileValue> values)
+    public byte[] Serialize(List<IFileValue> values)
     {
         throw new NotImplementedException();
     }
