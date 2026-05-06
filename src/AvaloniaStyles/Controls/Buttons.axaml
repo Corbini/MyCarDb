@@ -54,9 +54,11 @@
     </Style>
 
     <Style Selector="Button.filled">
+        <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
+    </Style>
+    <Style Selector="Button.filled /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource Accent}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
     </Style>
     <Style Selector="Button.filled:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource Accent}"/>
@@ -71,7 +73,7 @@
         <Setter Property="Opacity" Value="0.85"/>
     </Style>
 
-    <Style Selector="Button.filled.danger">
+    <Style Selector="Button.filled.danger /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="{DynamicResource Danger}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
     </Style>

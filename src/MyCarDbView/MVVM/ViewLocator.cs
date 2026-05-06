@@ -12,6 +12,7 @@ public sealed class ViewLocator : IDataTemplate
     {
         WelcomeViewModel => new WelcomeView(),
         SettingsViewModel => new SettingsView(),
+        AlertViewModel => new AlertView(),
         _ => null,
     };
 

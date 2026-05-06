@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             mc:Ignorable="d"
+             d:DesignWidth="480" d:DesignHeight="240"
+             x:Class="MyCarDbView.Views.AlertView"
+             x:DataType="vm:AlertViewModel"
+             Width="480">
+
+    <Border Classes="sheet" ClipToBounds="True">
+        <Grid RowDefinitions="*,Auto">
+
+            <Border Grid.Row="0" Classes="divider-bottom" Padding="28,28,28,16">
+                <StackPanel HorizontalAlignment="Center" Spacing="12">
+
+                    <Border Width="56" Height="56" CornerRadius="999"
+                            Classes.severity-info="{Binding IsInformational}"
+                            Classes.severity-warn="{Binding IsWarning}"
+                            Classes.severity-critical="{Binding IsCritical}"
+                            HorizontalAlignment="Center">
+                        <Icon Classes="size-2xl"
+                              Classes.severity-info="{Binding IsInformational}"
+                              Classes.severity-warn="{Binding IsWarning}"
+                              Classes.severity-critical="{Binding IsCritical}"
+                              Symbol="{Binding IconSymbol}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                    </Border>
+
+                    <TextBlock Classes="headline"
+                               Text="{Binding Options.Title}"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               MaxWidth="360"/>
+
+                    <TextBlock Classes="body secondary"
+                               Text="{Binding Options.Message}"
+                               IsVisible="{Binding Options.Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               MaxWidth="360"/>
+
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="1" Spacing="8" Margin="24,14,24,18">
+                <ActionButton Variant="Filled"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Center"
+                              Command="{Binding CloseCommand}"
+                              Content="{localization:View Alert_OK}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
