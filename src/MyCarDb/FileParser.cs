@@ -3,7 +3,7 @@ using MyCarDb.Values;
 
 namespace MyCarDb;
 
-public class FileParser: IFileParser
+public class FileParser : IFileParser
 {
     public List<IFileValue> Parse(byte[] fileContent)
     {
