@@ -2,11 +2,13 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
+using MyCarDb;
 using MyCarDbView.Dto;
 using MyCarDbView.Localizations;
 using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 using MyCarDbView.Views;
+using MyCarDbWorld;
 
 namespace MyCarDbView;
 
@@ -59,6 +61,10 @@ public partial class App : Application
         services.AddSingleton<IWritableOptions<AppSettings>>(_ =>
             new WritableOptions<AppSettings>(AppPaths.AppSettingsFile, AppJsonContext.Default.AppSettings));
         services.AddSingleton<ILastOpenedService, LastOpenedService>();
+        services.AddSingleton<IFileService, FileService>();
+        services.AddSingleton<IWorldArchive, WorldArchive>();
+        services.AddSingleton<IFileParser, FileParser>();
+        services.AddSingleton<IWorldCoder, WorldCoder>();
         return services.BuildServiceProvider();
     }
 }
