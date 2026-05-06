@@ -103,4 +103,15 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
     </Style>
 
+    <!-- Severity fill (tinted background) -->
+    <Style Selector="Border.severity-info">
+        <Setter Property="Background" Value="{DynamicResource AccentFill}"/>
+    </Style>
+    <Style Selector="Border.severity-warn">
+        <Setter Property="Background" Value="{DynamicResource WarnFill}"/>
+    </Style>
+    <Style Selector="Border.severity-critical">
+        <Setter Property="Background" Value="{DynamicResource DangerFill}"/>
+    </Style>
+
 </Styles>

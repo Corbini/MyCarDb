@@ -198,4 +198,19 @@
   <data name="Settings_Shortcuts_DismissSheet" xml:space="preserve">
     <value>Odznacz / zamknij sheet</value>
   </data>
+  <data name="Alert_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Welcome_OpenSave_FailedTitle" xml:space="preserve">
+    <value>Nie udało się otworzyć sejwa</value>
+  </data>
+  <data name="WorldArchive_FileReadFailed" xml:space="preserve">
+    <value>Nie udało się odczytać pliku. Mógł zostać przeniesiony, jego nazwa zmieniona albo nie masz do niego uprawnień.</value>
+  </data>
+  <data name="WorldArchive_ParseFailed" xml:space="preserve">
+    <value>Nieznany format pliku. Plik może być uszkodzony lub nie być sejwem My Summer Car.</value>
+  </data>
+  <data name="WorldArchive_DecodeFailed" xml:space="preserve">
+    <value>Nie udało się wczytać danych sejwa. Plik może być w nieobsługiwanej wersji formatu.</value>
+  </data>
 </root>

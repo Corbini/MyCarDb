@@ -67,4 +67,15 @@
         <Setter Property="Foreground" Value="{DynamicResource Success}"/>
     </Style>
 
+    <!-- Severity foreground -->
+    <Style Selector="Icon.severity-info">
+        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+    </Style>
+    <Style Selector="Icon.severity-warn">
+        <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
+    </Style>
+    <Style Selector="Icon.severity-critical">
+        <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
+    </Style>
+
 </Styles>

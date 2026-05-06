@@ -8,6 +8,12 @@
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
     </Style>
 
+    <Style Selector="TextBlock.headline">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+    </Style>
+
     <Style Selector="TextBlock.callout">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="{DynamicResource Text}"/>
@@ -54,6 +60,17 @@
     <!-- Color -->
     <Style Selector="TextBlock.secondary">
         <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+    </Style>
+
+    <!-- Severity foreground -->
+    <Style Selector="TextBlock.severity-info">
+        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+    </Style>
+    <Style Selector="TextBlock.severity-warn">
+        <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
+    </Style>
+    <Style Selector="TextBlock.severity-critical">
+        <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
     </Style>
 
     <!-- Preset -->

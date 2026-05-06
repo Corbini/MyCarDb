@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models;
+using MyCarDbView.Models.Alerts;
 using MyCarDbView.Models.AppState;
 using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
@@ -56,7 +57,13 @@ public sealed partial class WelcomeViewModel(
                 // TODO: open the world in the editor
                 break;
             case ArchiveResult.Failed failed:
-                // TODO: show an error.
+                await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
+                    new AlertOptions
+                    {
+                        Severity = AlertSeverity.Critical,
+                        Title = _viewLoc["Welcome_OpenSave_FailedTitle"].Value,
+                        Message = _viewLoc[failed.DetailKey].Value,
+                    });
                 return;
         }
 
