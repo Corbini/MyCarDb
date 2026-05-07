@@ -1,6 +1,6 @@
 using MyCarDbView.Models.Pickers;
 
-namespace MyCarDbView.Services;
+namespace MyCarDbView.Services.Pickers;
 
 public interface IFilesOpenPickerService
 {

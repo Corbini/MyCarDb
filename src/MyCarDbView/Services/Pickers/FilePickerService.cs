@@ -3,7 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
 using MyCarDbView.Models.Pickers;
 
-namespace MyCarDbView.Services;
+namespace MyCarDbView.Services.Pickers;
 
 public sealed class FilePickerService :
     IFileOpenPickerService,
