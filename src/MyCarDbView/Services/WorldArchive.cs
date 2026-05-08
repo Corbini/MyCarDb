@@ -43,7 +43,7 @@ public class WorldArchive(IFileService _fileService, IFileParser _fileParser, IW
         }
     }
 
-    public Task<bool> SaveWorldAsync(World world)
+    public Task<bool> SaveWorldAsync(World world, string path)
     {
         throw new NotImplementedException();
     }
