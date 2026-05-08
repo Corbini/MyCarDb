@@ -52,6 +52,12 @@
         <Setter Property="BoxShadow" Value="0 2 8 #1F000000"/>
     </Style>
 
+    <Style Selector="Border.segmented-control">
+        <Setter Property="Background" Value="{DynamicResource BorderStrong}"/>
+        <Setter Property="CornerRadius" Value="7"/>
+        <Setter Property="Padding" Value="2"/>
+    </Style>
+
     <Style Selector="Border.dropzone">
         <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
         <Setter Property="BorderThickness" Value="1.5"/>

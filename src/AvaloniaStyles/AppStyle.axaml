@@ -16,11 +16,10 @@
     </Styles.Resources>
 
     <StyleInclude Source="avares://AvaloniaStyles/Typography.axaml"/>
-    <StyleInclude Source="avares://AvaloniaStyles/Controls/Buttons.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Button.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Borders.axaml"/>
-    <StyleInclude Source="avares://AvaloniaStyles/Controls/Icons.axaml"/>
+    <StyleInclude Source="avares://AvaloniaStyles/Controls/Icon.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/TextBlocks.axaml"/>
-    <StyleInclude Source="avares://AvaloniaStyles/Controls/Segments.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Expanders.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/DialogBackdrop.axaml"/>
 

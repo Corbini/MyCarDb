@@ -49,11 +49,11 @@
             </Border>
 
             <StackPanel Grid.Row="1" Spacing="8" Margin="24,14,24,18">
-                <ActionButton Variant="Filled"
-                              HorizontalAlignment="Stretch"
-                              HorizontalContentAlignment="Center"
-                              Command="{Binding CloseCommand}"
-                              Content="{localization:View Alert_OK}"/>
+                <Button Classes="filled"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding CloseCommand}"
+                        Content="{localization:View Alert_OK}"/>
             </StackPanel>
         </Grid>
     </Border>
