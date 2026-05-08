@@ -49,60 +49,70 @@
             <Style Selector="^.icon">
                 <Setter Property="Width" Value="32"/>
                 <Setter Property="Padding" Value="0"/>
+                
+                <Style Selector="^.small">
+                    <Setter Property="Width" Value="24"/>
+                </Style>
+                <Style Selector="^.large">
+                    <Setter Property="Width" Value="44"/>
+                </Style>
             </Style>
-            <Style Selector="^.icon.small">
-                <Setter Property="Width" Value="24"/>
-            </Style>
-            <Style Selector="^.icon.large">
-                <Setter Property="Width" Value="44"/>
-            </Style>
+
             <Style Selector="^.pill">
                 <Setter Property="CornerRadius" Value="999"/>
             </Style>
 
             <Style Selector="^.filled">
                 <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-            </Style>
-            <Style Selector="^.filled /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Accent}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
-            </Style>
-            <Style Selector="^.filled:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Accent}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-                <Setter Property="Opacity" Value="0.92"/>
-            </Style>
-            <Style Selector="^.filled:pressed /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Accent}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-                <Setter Property="Opacity" Value="0.85"/>
-            </Style>
-            <Style Selector="^.filled.danger /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Danger}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
-            </Style>
-            <Style Selector="^.filled.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Danger}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
+                
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource Accent}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                </Style>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource Accent}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
+                    <Setter Property="Opacity" Value="0.92"/>
+                </Style>
+                
+                <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource Accent}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
+                    <Setter Property="Opacity" Value="0.85"/>
+                </Style>
+
+                <Style Selector="^.danger /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource Danger}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
+                    
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="{DynamicResource Danger}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource Danger}"/>
+                    </Style>
+                </Style>
             </Style>
 
             <Style Selector="^.bordered">
                 <Setter Property="Background" Value="{DynamicResource BgContent}"/>
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
                 <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-            </Style>
-            <Style Selector="^.bordered:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-            </Style>
-            <Style Selector="^.bordered.accent">
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
-            </Style>
-            <Style Selector="^.bordered.accent:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                </Style>
+                
+                <Style Selector="^.accent">
+                    <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                    
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                    </Style>
+                </Style>
             </Style>
 
             <Style Selector="^.plain">
@@ -110,23 +120,28 @@
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
-            </Style>
-            <Style Selector="^.plain:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
-            </Style>
-            <Style Selector="^.plain.warn">
-                <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
-            </Style>
-            <Style Selector="^.plain.warn:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
-            </Style>
-            <Style Selector="^.plain.danger">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-            </Style>
-            <Style Selector="^.plain.danger:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                </Style>
+                
+                <Style Selector="^.warn">
+                    <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
+                    
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource Warn}"/>
+                    </Style>
+                </Style>
+                
+                <Style Selector="^.danger">
+                    <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
+                    
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
+                    </Style>
+                </Style>
             </Style>
 
             <Style Selector="^.borderless">
@@ -134,21 +149,23 @@
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
-            </Style>
-            <Style Selector="^.borderless:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-            </Style>
-            <Style Selector="^.borderless.selected">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
-                <Setter Property="FontWeight" Value="Medium"/>
-            </Style>
-            <Style Selector="^.borderless.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                </Style>
+                <Style Selector="^.selected">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                    <Setter Property="FontWeight" Value="Medium"/>
+                    
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                    </Style>
+                </Style>
             </Style>
 
             <Style Selector="^.segment">
@@ -160,27 +177,29 @@
                 <Setter Property="Foreground" Value="{DynamicResource Text}"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            </Style>
-            <Style Selector="^.segment /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-            </Style>
-            <Style Selector="^.segment:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-            </Style>
-            <Style Selector="^.segment.selected">
-                <Setter Property="FontWeight" Value="SemiBold"/>
-            </Style>
-            <Style Selector="^.segment.selected /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgContent}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-            </Style>
-            <Style Selector="^.segment.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgContent}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                
+                <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                </Style>
+                <Style Selector="^.selected">
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    
+                    <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="{DynamicResource BgContent}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="{DynamicResource BgContent}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                    </Style>
+                </Style>
             </Style>
 
             <Style Selector="^.strong">
@@ -199,20 +218,18 @@
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="CornerRadius" Value="0"/>
                 <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                
+                <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                </Style>
+                <Style Selector="^.close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="{DynamicResource Danger}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
+                </Style>
             </Style>
-            <Style Selector="^.window-control:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource Text}"/>
-            </Style>
-            <Style Selector="^.window-control.close:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="{DynamicResource Danger}"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-            </Style>
-
         </ControlTheme>
-
     </Styles.Resources>
-
 </Styles>
