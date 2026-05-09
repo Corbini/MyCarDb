@@ -43,8 +43,18 @@ public class WorldArchive(IFileService _fileService, IFileParser _fileParser, IW
         }
     }
 
-    public Task<bool> SaveWorldAsync(World world)
+    public async Task<bool> SaveWorldAsync(World world, string path)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var fileValues = _worldCoder.Encode(world);
+            byte[] fileContent = _fileParser.Serialize(fileValues);
+            await _fileService.WriteFileAsync(path, fileContent);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

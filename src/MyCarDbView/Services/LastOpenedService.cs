@@ -17,6 +17,8 @@ internal sealed class LastOpenedService : ILastOpenedService
 
     public void Add(LastOpenedFile file)
     {
+        _state.Files.RemoveAll(f => f.Path == file.Path);
+
         _state.Files.Add(file);
         Persist();
     }

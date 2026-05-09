@@ -12,6 +12,7 @@ using MyCarDbView.Services.Pickers;
 namespace MyCarDbView.ViewModels;
 
 public sealed partial class WelcomeViewModel(
+    IShellService _shellService,
     IDialogService _dialogService,
     ILastOpenedService _lastOpenedService,
     IFileOpenPickerService _filePicker,
@@ -55,7 +56,8 @@ public sealed partial class WelcomeViewModel(
         switch (await _worldArchive.LoadWorldAsync(path))
         {
             case ArchiveResult.Success success:
-                // TODO: open the world in the editor
+                _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
+                _shellService.NavigateTo<EditorViewModel, EditorViewModelParameters>(new EditorViewModelParameters(success.Content, path));
                 break;
             case ArchiveResult.Failed failed:
                 await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
@@ -67,7 +69,5 @@ public sealed partial class WelcomeViewModel(
                     });
                 return;
         }
-
-        _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
     }
 }

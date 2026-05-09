@@ -1,0 +1,109 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:views="using:MyCarDbView.Views"
+             xmlns:controls="using:MyCarDbView.Controls"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             xmlns:appstate="using:MyCarDbView.Models.AppState"
+             mc:Ignorable="d"
+             d:DesignWidth="1100" d:DesignHeight="720"
+             x:Class="MyCarDbView.Views.EditorView"
+             x:DataType="vm:EditorViewModel">
+
+    <views:EditorView.TitleBarLeading>
+        <StackPanel Orientation="Horizontal" Spacing="6">
+            <Button Classes="bordered icon"
+                    Classes.active="{Binding IsSidebarVisible}"
+                    Command="{Binding ToggleSidebarCommand}"
+                    ToolTip.Tip="{localization:View Sidebar_Toggle_Tooltip}">
+                <Icon Symbol="sidebar-left" Classes="size-base"/>
+            </Button>
+            <TextBlock Classes="subhead"
+                    Text="{Binding FileName}"
+                    VerticalAlignment="Center"
+                    Margin="14,0,0,0"/>
+        </StackPanel>
+    </views:EditorView.TitleBarLeading>
+
+    <views:EditorView.TitleBarTrailing>
+        <StackPanel Orientation="Horizontal" Spacing="4">
+            <Button Classes="bordered icon"
+                    ToolTip.Tip="{localization:View Editor_OpenFile_Tooltip}"
+                    Command="{Binding OpenFileDialogCommand}">
+                <Icon Symbol="folder-open" Classes="size-base"/>
+            </Button>
+            <Button Classes="bordered filled"
+                    Command="{Binding SaveFileCommand}"
+                    ToolTip.Tip="{localization:View Editor_Save_Tooltip}"
+                    Margin="0,0,12,0">
+                <StackPanel Orientation="Horizontal" Spacing="2">
+                    <Icon Symbol="floppy-disk" Classes="size-base"/>
+                    <TextBlock Text="{localization:View Editor_Save_Label}" />
+                </StackPanel>
+            </Button>
+            <Button Classes="bordered icon"
+                    ToolTip.Tip="{localization:View Editor_CarDetails_Tooltip}">
+                <Icon Symbol="car" Classes="size-base"/>
+            </Button>
+            <Button Classes="bordered icon"
+                    Classes.active="{Binding IsInspectorVisible}"
+                    Command="{Binding ToggleInspectorCommand}"
+                    ToolTip.Tip="{localization:View Editor_Inspector_Toggle_Tooltip}">
+                <Icon Symbol="sidebar-right" Classes="size-base"/>
+            </Button>
+        </StackPanel>
+    </views:EditorView.TitleBarTrailing>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="244"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0"
+                Grid.ColumnSpan="2"
+                IsVisible="{Binding IsSidebarVisible}"
+                Classes="divider-right"
+                Background="{DynamicResource BgSidebar}">
+            <DockPanel>
+                <Border DockPanel.Dock="Bottom"
+                        Classes="divider-top"
+                        Padding="8,6">
+                    <Button Classes="borderless icon small"
+                            HorizontalAlignment="Left"
+                            Command="{Binding OpenSettingsCommand}"
+                            ToolTip.Tip="{localization:View Welcome_Settings_Tooltip}">
+                        <Icon Symbol="settings" Classes="size-base"/>
+                    </Button>
+                </Border>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="0,12,0,6">
+                    <StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+        <GridSplitter Grid.Column="1"
+                      Background="Transparent"
+                      IsVisible="{Binding IsSidebarVisible}"/>
+        <Panel Grid.Column="2">
+            
+        </Panel>
+        <Border Grid.Column="3"
+                Grid.ColumnSpan="2"
+                IsVisible="{Binding IsInspectorVisible}"
+                Classes="divider-left"
+                Background="{DynamicResource BgSidebar}">
+            <DockPanel>
+                <Panel/>
+            </DockPanel>
+        </Border>
+        <GridSplitter Grid.Column="3"
+                      Background="Transparent"
+                      IsVisible="{Binding IsInspectorVisible}"/>
+</Grid>
+</UserControl>
