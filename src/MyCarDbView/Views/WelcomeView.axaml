@@ -17,7 +17,7 @@
             <Button Classes="bordered icon"
                     Classes.active="{Binding IsSidebarVisible}"
                     Command="{Binding ToggleSidebarCommand}"
-                    ToolTip.Tip="{localization:View Welcome_Sidebar_Toggle_Tooltip}">
+                    ToolTip.Tip="{localization:View Sidebar_Toggle_Tooltip}">
                 <Icon Symbol="sidebar-left" Classes="size-base"/>
             </Button>
             <TextBlock Classes="subhead empty"
