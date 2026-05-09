@@ -12,7 +12,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome_Sidebar_Toggle_Tooltip" xml:space="preserve">
+  <data name="Sidebar_Toggle_Tooltip" xml:space="preserve">
     <value>Toggle sidebar (Ctrl+Alt+S)</value>
   </data>
   <data name="Welcome_NoSaveLoaded" xml:space="preserve">
@@ -59,6 +59,27 @@
   </data>
   <data name="Welcome_RelativeTime_Yesterday" xml:space="preserve">
     <value>Yesterday</value>
+  </data>
+  <data name="Editor_OpenFile_Tooltip" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="Editor_Save_Label" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Editor_Save_Tooltip" xml:space="preserve">
+    <value>Save (Ctrl+S)</value>
+  </data>
+  <data name="Editor_CarDetails_Tooltip" xml:space="preserve">
+    <value>Car details</value>
+  </data>
+  <data name="Editor_Inspector_Toggle_Tooltip" xml:space="preserve">
+    <value>Toggle inspector (Ctrl+Alt+I)</value>
+  </data>
+  <data name="Editor_Save_FailedTitle" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="Editor_Save_FailedMessage" xml:space="preserve">
+    <value>Can not save the file. Please try again.</value>
   </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Settings</value>

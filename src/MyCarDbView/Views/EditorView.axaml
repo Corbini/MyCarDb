@@ -17,7 +17,7 @@
             <Button Classes="bordered icon"
                     Classes.active="{Binding IsSidebarVisible}"
                     Command="{Binding ToggleSidebarCommand}"
-                    ToolTip.Tip="{localization:View Welcome_Sidebar_Toggle_Tooltip}">
+                    ToolTip.Tip="{localization:View Sidebar_Toggle_Tooltip}">
                 <Icon Symbol="sidebar-left" Classes="size-base"/>
             </Button>
             <TextBlock Classes="subhead"
@@ -30,27 +30,27 @@
     <views:EditorView.TitleBarTrailing>
         <StackPanel Orientation="Horizontal" Spacing="4">
             <Button Classes="bordered icon"
-                    ToolTip.Tip="Open file"
+                    ToolTip.Tip="{localization:View Editor_OpenFile_Tooltip}"
                     Command="{Binding OpenFileDialogCommand}">
                 <Icon Symbol="folder-open" Classes="size-base"/>
             </Button>
             <Button Classes="bordered filled"
                     Command="{Binding SaveFileCommand}"
-                    ToolTip.Tip="Car details"
+                    ToolTip.Tip="{localization:View Editor_Save_Tooltip}"
                     Margin="0,0,12,0">
                 <StackPanel Orientation="Horizontal" Spacing="2">
                     <Icon Symbol="floppy-disk" Classes="size-base"/>
-                    <TextBlock Text="Save" />
+                    <TextBlock Text="{localization:View Editor_Save_Label}" />
                 </StackPanel>
             </Button>
             <Button Classes="bordered icon"
-                    ToolTip.Tip="Car details">
+                    ToolTip.Tip="{localization:View Editor_CarDetails_Tooltip}">
                 <Icon Symbol="car" Classes="size-base"/>
             </Button>
             <Button Classes="bordered icon"
                     Classes.active="{Binding IsInspectorVisible}"
                     Command="{Binding ToggleInspectorCommand}"
-                    ToolTip.Tip="{localization:View Welcome_Sidebar_Toggle_Tooltip}">
+                    ToolTip.Tip="{localization:View Editor_Inspector_Toggle_Tooltip}">
                 <Icon Symbol="sidebar-right" Classes="size-base"/>
             </Button>
         </StackPanel>
@@ -58,11 +58,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="244"/>
+            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="244"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" MinWidth="244"/>
+            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"
                 Grid.ColumnSpan="2"

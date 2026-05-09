@@ -12,7 +12,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome_Sidebar_Toggle_Tooltip" xml:space="preserve">
+  <data name="Sidebar_Toggle_Tooltip" xml:space="preserve">
     <value>Pokaż/ukryj sidebar (Ctrl+Alt+S)</value>
   </data>
   <data name="Welcome_NoSaveLoaded" xml:space="preserve">
@@ -59,6 +59,27 @@
   </data>
   <data name="Welcome_RelativeTime_Yesterday" xml:space="preserve">
     <value>Wczoraj</value>
+  </data>
+  <data name="Editor_OpenFile_Tooltip" xml:space="preserve">
+    <value>Otwórz plik</value>
+  </data>
+  <data name="Editor_Save_Label" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Editor_Save_Tooltip" xml:space="preserve">
+    <value>Zapisz (Ctrl+S)</value>
+  </data>
+  <data name="Editor_CarDetails_Tooltip" xml:space="preserve">
+    <value>Szczegóły auta</value>
+  </data>
+  <data name="Editor_Inspector_Toggle_Tooltip" xml:space="preserve">
+    <value>Pokaż/ukryj inspektora (Ctrl+Alt+I)</value>
+  </data>
+  <data name="Editor_Save_FailedTitle" xml:space="preserve">
+    <value>Zapis nie powiódł się</value>
+  </data>
+  <data name="Editor_Save_FailedMessage" xml:space="preserve">
+    <value>Nie udało się zapisać pliku. Spróbuj ponownie.</value>
   </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Ustawienia</value>

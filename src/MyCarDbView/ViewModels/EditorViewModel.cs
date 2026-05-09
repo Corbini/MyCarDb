@@ -26,7 +26,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     private readonly IDialogService _dialogService;
     private readonly ILastOpenedService _lastOpenedService;
 
-    private readonly World _world;
+    private World _world;
     private string _filePath;
 
     [ObservableProperty]
@@ -51,7 +51,6 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _world = parameters.World;
         _filePath = parameters.FilePath;
         FileName = Path.GetFileName(parameters.FilePath);
-
     }
 
     [ObservableProperty]
@@ -96,6 +95,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
             case ArchiveResult.Success success:
                 _filePath = path;
                 FileName = Path.GetFileName(path);
+                _world = success.Content;
                 break;
             case ArchiveResult.Failed failed:
                 await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
@@ -112,6 +112,18 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     }
 
     [RelayCommand]
-    private Task SaveFileAsync()
-        => _worldArchive.SaveWorldAsync(_world, _filePath);
+    private async Task SaveFileAsync()
+    {
+        bool isSaved = await _worldArchive.SaveWorldAsync(_world, _filePath);
+        if (!isSaved)
+        {
+            await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
+                    new AlertOptions
+                    {
+                        Severity = AlertSeverity.Critical,
+                        Title = _viewLoc["Editor_Save_FailedTitle"].Value,
+                        Message = _viewLoc["Editor_Save_FailedMessage"].Value,
+                    });
+        }
+    }
 }
