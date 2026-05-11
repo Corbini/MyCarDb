@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using MyCarDb;
 using MyCarDb.Values;
 using Xunit;
@@ -7,6 +9,25 @@ namespace MyCarDBTests;
 
 public class FileParserTests
 {
+    [Fact]
+    public void RoundTrip_SavefileShouldBeBitwiseIdentical()
+    {
+        string savefilePath = Path.Combine(
+            AppContext.BaseDirectory,
+            "test_data",
+            "savefile.txt"
+        );
+
+        byte[] original = File.ReadAllBytes(savefilePath);
+
+        var parser = new FileParser();
+        var values = parser.Parse(original);
+        byte[] roundTripped = parser.Serialize(values);
+
+        Assert.Equal(original.Length, roundTripped.Length);
+        Assert.Equal(original, roundTripped);
+    }
+
     [Fact]
     public void Parse_ShouldReadIntegerAndPositionEntries()
     {
@@ -50,6 +71,34 @@ public class FileParserTests
     }
 
     [Fact]
+    public void DumpSavefileAsJson()
+    {
+        string savefilePath = Path.Combine(
+            AppContext.BaseDirectory,
+            "test_data",
+            "savefile.txt"
+        );
+
+        var parser = new FileParser();
+        var values = parser.Parse(File.ReadAllBytes(savefilePath));
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+
+        string json = JsonSerializer.Serialize(values.Cast<object>().ToList(), options);
+
+        Assert.False(string.IsNullOrWhiteSpace(json));
+        using var roundTrip = JsonDocument.Parse(json);
+        Assert.Equal(values.Count, roundTrip.RootElement.GetArrayLength());
+
+        string repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
+        File.WriteAllText(Path.Combine(repoRoot, "savefile.json"), json);
+    }
+
+    [Fact]
     public void Parse_ShouldParseRealSaveFiles()
     {
         var parser = new FileParser();
@@ -75,7 +124,7 @@ public class FileParserTests
         Assert.All(savefileResult, item => Assert.NotNull(item.Name));
     }
 
-    private static byte[] BuildEntry(byte firstByte, string title, byte[] type, byte[] rawData, byte endByte = 0x00)
+    private static byte[] BuildEntry(byte firstByte, string title, byte[] type, byte[] rawData, byte endByte = 0x7b)
     {
         byte[] titleBytes = Encoding.UTF8.GetBytes(title);
         int dataLength = 6 + rawData.Length;

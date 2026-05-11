@@ -1,5 +1,6 @@
 using System.Text;
 
+using MyCarDb.Extensions;
 using MyCarDb.Values;
 
 namespace MyCarDb.ValueParsers;
@@ -7,10 +8,12 @@ namespace MyCarDb.ValueParsers;
 public class PositionParser : IValueParser<PositionValue>
 {
     public const ulong TypeId = 0xff76fa7a09;
+    private readonly byte _startValue = 0x04;
 
     public PositionValue Parse(string name, byte[] data)
     {
-        byte amout = data[0];
+        if (_startValue != data[0])
+            throw new Exception("Unknown file");
 
         float axisX = BitConverter.ToSingle(data, 1);
         float axisY = BitConverter.ToSingle(data, 5);
@@ -37,11 +40,37 @@ public class PositionParser : IValueParser<PositionValue>
             axisX,
             axisY,
             axisZ,
+            scaleX,
+            scaleY,
+            scaleZ,
             layer);
     }
 
     public byte[] Serialize(PositionValue value)
     {
-        throw new NotImplementedException();
+        MemoryStream stream = new();
+        BinaryWriter writer = new(stream);
+        writer.WriteTypeId(TypeId);
+
+        writer.Write(_startValue);
+
+        writer.Write(value.AxisX);
+        writer.Write(value.AxisY);
+        writer.Write(value.AxisZ);
+
+        writer.Write(value.RotationX);
+        writer.Write(value.RotationY);
+        writer.Write(value.RotationZ);
+        writer.Write(value.RotationW);
+
+        writer.Write(value.ScaleX);
+        writer.Write(value.ScaleY);
+        writer.Write(value.ScaleZ);
+
+        byte[] layerBytes = Encoding.UTF8.GetBytes(value.Layer);
+        writer.Write((byte)layerBytes.Length);
+        writer.Write(layerBytes);
+
+        return stream.ToArray();
     }
 }

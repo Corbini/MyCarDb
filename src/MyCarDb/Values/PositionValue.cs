@@ -9,4 +9,7 @@ public record PositionValue(
     float AxisX,
     float AxisY,
     float AxisZ,
+    float ScaleX,
+    float ScaleY,
+    float ScaleZ,
     string Layer) : IFileValue;
