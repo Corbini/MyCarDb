@@ -1,5 +1,6 @@
 using System.Text;
 
+using MyCarDb.Extensions;
 using MyCarDb.Values;
 
 namespace MyCarDb.ValueParsers;
@@ -10,11 +11,23 @@ public class StringValueParser : IValueParser<StringValue>
 
     public StringValue Parse(string name, byte[] rawData)
     {
-        return new(name, Encoding.UTF8.GetString(rawData.Skip(1).ToArray()));
+        byte stringLength = rawData[0];
+
+        string newString = Encoding.UTF8.GetString(rawData, 1, stringLength);
+
+        return new(name, newString);
     }
 
     public byte[] Serialize(StringValue value)
     {
-        throw new NotImplementedException();
+        MemoryStream stream = new();
+        BinaryWriter writer = new(stream);
+        writer.WriteTypeId(TypeId);
+
+        byte[] valueBytes = Encoding.UTF8.GetBytes(value.Value);
+        writer.Write((byte)valueBytes.Length);
+        writer.Write(valueBytes);
+
+        return stream.ToArray();
     }
 }

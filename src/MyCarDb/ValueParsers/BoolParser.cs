@@ -1,3 +1,4 @@
+using MyCarDb.Extensions;
 using MyCarDb.Values;
 
 namespace MyCarDb.ValueParsers;
@@ -13,6 +14,12 @@ public class BooleanValueParser : IValueParser<BooleanValue>
 
     public byte[] Serialize(BooleanValue value)
     {
-        throw new NotImplementedException();
+        MemoryStream stream = new();
+        BinaryWriter writer = new(stream);
+
+        writer.WriteTypeId(TypeId);
+        writer.Write(value.Value);
+
+        return stream.ToArray();
     }
 }

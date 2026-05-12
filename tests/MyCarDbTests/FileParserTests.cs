@@ -1,4 +1,8 @@
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using MyCarDb;
 using MyCarDb.Values;
 using Xunit;
@@ -7,6 +11,25 @@ namespace MyCarDBTests;
 
 public class FileParserTests
 {
+    [Fact]
+    public void RoundTrip_SavefileShouldBeBitwiseIdentical()
+    {
+        string savefilePath = Path.Combine(
+            AppContext.BaseDirectory,
+            "test_data",
+            "savefile.txt"
+        );
+
+        byte[] original = File.ReadAllBytes(savefilePath);
+
+        var parser = new FileParser();
+        var values = parser.Parse(original);
+        byte[] roundTripped = parser.Serialize(values);
+
+        Assert.Equal(original.Length, roundTripped.Length);
+        Assert.Equal(original, roundTripped);
+    }
+
     [Fact]
     public void Parse_ShouldReadIntegerAndPositionEntries()
     {
@@ -50,6 +73,63 @@ public class FileParserTests
     }
 
     [Fact]
+    public void DumpSavefileAsJson()
+    {
+        string savefilePath = Path.Combine(
+            AppContext.BaseDirectory,
+            "test_data",
+            "savefile.txt"
+        );
+
+        var parser = new FileParser();
+        var values = parser.Parse(File.ReadAllBytes(savefilePath));
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver
+            {
+                Modifiers =
+                {
+                    info =>
+                    {
+                        if (info.Type != typeof(IFileValue))
+                            return;
+
+                        info.PolymorphismOptions = new JsonPolymorphismOptions
+                        {
+                            TypeDiscriminatorPropertyName = "$type",
+                            DerivedTypes =
+                            {
+                                new JsonDerivedType(typeof(IntegerValue), nameof(IntegerValue)),
+                                new JsonDerivedType(typeof(FloatValue), nameof(FloatValue)),
+                                new JsonDerivedType(typeof(BooleanValue), nameof(BooleanValue)),
+                                new JsonDerivedType(typeof(StringValue), nameof(StringValue)),
+                                new JsonDerivedType(typeof(ColorValue), nameof(ColorValue)),
+                                new JsonDerivedType(typeof(Vector3Value), nameof(Vector3Value)),
+                                new JsonDerivedType(typeof(PositionValue), nameof(PositionValue)),
+                                new JsonDerivedType(typeof(ArrayStringValue), nameof(ArrayStringValue)),
+                                new JsonDerivedType(typeof(DictionaryStringStringValue), nameof(DictionaryStringStringValue)),
+                                new JsonDerivedType(typeof(RawValue), nameof(RawValue)),
+                            }
+                        };
+                    }
+                }
+            }
+        };
+
+        string json = JsonSerializer.Serialize(values, options);
+
+        Assert.False(string.IsNullOrWhiteSpace(json));
+        using var roundTrip = JsonDocument.Parse(json);
+        Assert.Equal(values.Count, roundTrip.RootElement.GetArrayLength());
+
+        string repoRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
+        File.WriteAllText(Path.Combine(repoRoot, "savefile.json"), json);
+    }
+
+    [Fact]
     public void Parse_ShouldParseRealSaveFiles()
     {
         var parser = new FileParser();
@@ -75,7 +155,7 @@ public class FileParserTests
         Assert.All(savefileResult, item => Assert.NotNull(item.Name));
     }
 
-    private static byte[] BuildEntry(byte firstByte, string title, byte[] type, byte[] rawData, byte endByte = 0x00)
+    private static byte[] BuildEntry(byte firstByte, string title, byte[] type, byte[] rawData, byte endByte = 0x7b)
     {
         byte[] titleBytes = Encoding.UTF8.GetBytes(title);
         int dataLength = 6 + rawData.Length;
@@ -108,7 +188,7 @@ public class FileParserTests
         string layer)
     {
         var bytes = new List<byte>();
-        bytes.Add(0x01);
+        bytes.Add(0x04);
         bytes.AddRange(BitConverter.GetBytes(axisX));
         bytes.AddRange(BitConverter.GetBytes(axisY));
         bytes.AddRange(BitConverter.GetBytes(axisZ));
