@@ -1,6 +1,8 @@
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using MyCarDb;
 using MyCarDb.Values;
 using Xunit;
@@ -85,10 +87,39 @@ public class FileParserTests
         var options = new JsonSerializerOptions
         {
             WriteIndented = true,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver
+            {
+                Modifiers =
+                {
+                    info =>
+                    {
+                        if (info.Type != typeof(IFileValue))
+                            return;
+
+                        info.PolymorphismOptions = new JsonPolymorphismOptions
+                        {
+                            TypeDiscriminatorPropertyName = "$type",
+                            DerivedTypes =
+                            {
+                                new JsonDerivedType(typeof(IntegerValue), nameof(IntegerValue)),
+                                new JsonDerivedType(typeof(FloatValue), nameof(FloatValue)),
+                                new JsonDerivedType(typeof(BooleanValue), nameof(BooleanValue)),
+                                new JsonDerivedType(typeof(StringValue), nameof(StringValue)),
+                                new JsonDerivedType(typeof(ColorValue), nameof(ColorValue)),
+                                new JsonDerivedType(typeof(Vector3Value), nameof(Vector3Value)),
+                                new JsonDerivedType(typeof(PositionValue), nameof(PositionValue)),
+                                new JsonDerivedType(typeof(ArrayStringValue), nameof(ArrayStringValue)),
+                                new JsonDerivedType(typeof(DictionaryStringStringValue), nameof(DictionaryStringStringValue)),
+                                new JsonDerivedType(typeof(RawValue), nameof(RawValue)),
+                            }
+                        };
+                    }
+                }
+            }
         };
 
-        string json = JsonSerializer.Serialize(values.Cast<object>().ToList(), options);
+        string json = JsonSerializer.Serialize(values, options);
 
         Assert.False(string.IsNullOrWhiteSpace(json));
         using var roundTrip = JsonDocument.Parse(json);
@@ -157,7 +188,7 @@ public class FileParserTests
         string layer)
     {
         var bytes = new List<byte>();
-        bytes.Add(0x01);
+        bytes.Add(0x04);
         bytes.AddRange(BitConverter.GetBytes(axisX));
         bytes.AddRange(BitConverter.GetBytes(axisY));
         bytes.AddRange(BitConverter.GetBytes(axisZ));
