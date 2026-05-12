@@ -37,7 +37,11 @@ public class DictionaryStringStringParser : IValueParser<DictionaryStringStringV
             dictionary.Add(key, value);
         }
 
-        return new(name, dictionary);
+        return new DictionaryStringStringValue
+        {
+            Name = name,
+            Value = dictionary
+        };
     }
 
     public byte[] Serialize(DictionaryStringStringValue value)

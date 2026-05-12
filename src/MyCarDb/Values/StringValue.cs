@@ -1,6 +1,7 @@
 namespace MyCarDb.Values;
 
-public record StringValue(
-    string Name,
-    string Value
-    ) : IFileValue;
+public record StringValue : IFileValue
+{
+    public required string Name { get; init; }
+    public required string Value { get; set; }
+}
