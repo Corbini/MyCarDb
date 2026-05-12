@@ -31,19 +31,21 @@ public class PositionParser : IValueParser<PositionValue>
         byte stringLenght = data[41];
         string layer = Encoding.UTF8.GetString(data, 42, stringLenght);
 
-        return new(
-            name,
-            rotationX,
-            rotationY,
-            rotationZ,
-            rotationW,
-            axisX,
-            axisY,
-            axisZ,
-            scaleX,
-            scaleY,
-            scaleZ,
-            layer);
+        return new PositionValue
+        {
+            Name = name,
+            RotationX = rotationX,
+            RotationY = rotationY,
+            RotationZ = rotationZ,
+            RotationW = rotationW,
+            AxisX = axisX,
+            AxisY = axisY,
+            AxisZ = axisZ,
+            ScaleX = scaleX,
+            ScaleY = scaleY,
+            ScaleZ = scaleZ,
+            Layer = layer
+        };
     }
 
     public byte[] Serialize(PositionValue value)

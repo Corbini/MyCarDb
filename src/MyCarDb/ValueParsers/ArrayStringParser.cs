@@ -32,7 +32,11 @@ public class ArrayStringParser : IValueParser<ArrayStringValue>
             readingIndex += stringLength;
         }
 
-        return new(name, strings.ToArray());
+        return new ArrayStringValue
+        {
+            Name = name,
+            Value = strings.ToArray()
+        };
     }
 
     public byte[] Serialize(ArrayStringValue value)

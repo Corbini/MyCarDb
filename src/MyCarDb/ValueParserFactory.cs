@@ -29,7 +29,7 @@ public class ValueParserFactory
             FloatValueParser.TypeId => _floatValueParser.Parse(name, rawData),
             BooleanValueParser.TypeId => _booleanValueParser.Parse(name, rawData),
             StringValueParser.TypeId => _stringValueParser.Parse(name, rawData),
-            _ => new RawValue(name, type, rawData.ToHexString())
+            _ => new RawValue { Name = name, type = type, RawData = rawData.ToHexString() }
         };
     }
 

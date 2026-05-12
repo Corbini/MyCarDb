@@ -15,7 +15,11 @@ public class StringValueParser : IValueParser<StringValue>
 
         string newString = Encoding.UTF8.GetString(rawData, 1, stringLength);
 
-        return new(name, newString);
+        return new StringValue
+        {
+            Name = name,
+            Value = newString
+        };
     }
 
     public byte[] Serialize(StringValue value)

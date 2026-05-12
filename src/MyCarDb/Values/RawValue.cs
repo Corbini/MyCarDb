@@ -1,7 +1,8 @@
 namespace MyCarDb.Values;
 
-public record RawValue(
-    string Name,
-    ulong type,
-    string RawData
-    ) : IFileValue;
+public record RawValue : IFileValue
+{
+    public required string Name { get; init; }
+    public required ulong type { get; set; }
+    public required string RawData { get; set; }
+}

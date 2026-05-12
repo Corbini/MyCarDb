@@ -14,12 +14,14 @@ public class ColorParser : IValueParser<ColorValue>
         float blue = BitConverter.ToSingle(data, 8);
         float alpha = BitConverter.ToSingle(data, 12);
 
-        return new(
-            name,
-            red,
-            green,
-            blue,
-            alpha);
+        return new ColorValue
+        {
+            Name = name,
+            Red = red,
+            Green = green,
+            Blue = blue,
+            Alpha = alpha
+        };
     }
 
     public byte[] Serialize(ColorValue value)

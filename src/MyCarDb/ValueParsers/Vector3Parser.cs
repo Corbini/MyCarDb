@@ -13,7 +13,13 @@ public class Vector3Parser : IValueParser<Vector3Value>
         float x = BitConverter.ToSingle(data, 0);
         float y = BitConverter.ToSingle(data, 4);
         float z = BitConverter.ToSingle(data, 8);
-        return new(name, x, y, z);
+        return new Vector3Value
+        {
+            Name = name,
+            AxisX = x,
+            AxisY = y,
+            AxisZ = z
+        };
     }
 
 
