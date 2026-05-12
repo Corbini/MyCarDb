@@ -3,6 +3,7 @@
   <Project Path="src/AvaloniaStyles/AvaloniaStyles.csproj" />
   <Project Path="src/AvaloniaStyles.Generators/AvaloniaStyles.Generators.csproj" />
   <Project Path="src/MyCarDbView/MyCarDbView.csproj" />
+  <Project Path="src/MyCarDbWorld/MyCarDbWorld.csproj" />
   <Project Path="tests/MyCarDbTests/MyCarDbTests.csproj" />
   <Project Path="tests/MyCarDbViewTests/MyCarDbViewTests.csproj" />
 </Solution>
