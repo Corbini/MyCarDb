@@ -1,0 +1,15 @@
+using MyCarDbWorld;
+using MyCarDbWorld.Coders;
+using MyCarDbWorld.Models;
+
+namespace Microsoft.Extensions.DependencyInjection;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddMyCarDbWorld(this IServiceCollection services)
+    {
+        services.AddSingleton<IWorldCoder, WorldCoder>();
+        services.AddSingleton<IEntityCoder<PropertyEntity>, PropertyCoder>();
+        return services;
+    }
+}

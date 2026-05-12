@@ -1,15 +1,19 @@
 using MyCarDb.Values;
+using MyCarDbWorld.Coders;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbWorld;
 
-public class WorldCoder : IWorldCoder
+public sealed class WorldCoder(
+    IEntityCoder<PropertyEntity> propertyCoder) : IWorldCoder
 {
     public World Decode(List<IFileValue> source)
     {
-        return new()
+        return new World
         {
-            Values = source
+            Values = source,
+            Entities = [
+                .. propertyCoder.Decode(source)],
         };
     }
 
