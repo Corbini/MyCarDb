@@ -24,6 +24,7 @@ packages/
 
 # Visual Studio cache files
 *.cache
+*.lscache
 *.ilk
 *.meta
 *.obj
