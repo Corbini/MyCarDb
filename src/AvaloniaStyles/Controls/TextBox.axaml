@@ -1,0 +1,56 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="TextBox.search">
+        <Setter Property="Cursor" Value="Ibeam"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource TextTertiary}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="InnerLeftContent">
+            <Template>
+                <Icon Symbol="magnifying-glass"
+                      Classes="size-base muted"
+                      Margin="8,0,8,0"
+                      VerticalAlignment="Center"/>
+            </Template>
+        </Setter>
+        
+        <Style Selector="^ /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="MinHeight" Value="0"/>
+        </Style>
+
+        <Style Selector="^:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="^:focus-within /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style Selector="^:not(TextBox:empty)">
+            <Setter Property="InnerRightContent">
+                <Template>
+                    <Button Classes="borderless icon small pill"
+                            Command="{Binding $parent[TextBox].Clear}"
+                            Margin="0,0,4,0"
+                            VerticalAlignment="Center">
+                        <Icon Symbol="x-circle" Classes="size-base"/>
+                    </Button>
+                </Template>
+            </Setter>
+        </Style>
+    </Style>
+</Styles>

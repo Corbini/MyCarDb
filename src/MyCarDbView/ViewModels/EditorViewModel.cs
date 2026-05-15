@@ -32,6 +32,11 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [ObservableProperty]
     private string _fileName;
 
+    [ObservableProperty]
+    private IEntity? _selectedEntity;
+
+    public IReadOnlyList<IEntity> Entities => _world.Entities;
+
     public EditorViewModel(
         IWorldArchive worldArchive,
         IFileOpenPickerService filePicker,

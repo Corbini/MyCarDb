@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:MyCarDbView.Controls"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Controls.EntityBrowser"
+             x:Name="Root">
+    <DockPanel>
+        <TextBox DockPanel.Dock="Top"
+                 Classes="search"
+                 Margin="12,10"
+                 PlaceholderText="{localization:View EntityBrowser_Search_Placeholder}"
+                 ToolTip.Tip="{localization:View EntityBrowser_Search_Tooltip}"
+                 Text="{Binding #Root.ViewModel.SearchText, Mode=TwoWay}"/>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,6,0,6">
+            <StackPanel Spacing="4">
+                <Expander Classes="list-row" IsExpanded="True">
+                    <Expander.Header>
+                        <TextBlock Classes="section-header"
+                                   Text="{localization:View EntityBrowser_Section_Pinned}"/>
+                    </Expander.Header>
+                    <StackPanel>
+                        <TextBlock Classes="empty"
+                                   Text="{localization:View EntityBrowser_Pinned_Empty}"
+                                   IsVisible="{Binding #Root.ViewModel.IsPinnedEmpty}"
+                                   Margin="16,2,16,4"/>
+                        <ListBox ItemsSource="{Binding #Root.ViewModel.Pinned}"
+                                 SelectedItem="{Binding #Root.ViewModel.SelectedPinnedNode, Mode=TwoWay}"
+                                 IsVisible="{Binding !#Root.ViewModel.IsPinnedEmpty}"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="controls:BrowserNode">
+                                    <DockPanel>
+                                        <Button DockPanel.Dock="Right"
+                                                Classes="borderless icon small"
+                                                Command="{Binding #Root.ViewModel.TogglePinCommand}"
+                                                CommandParameter="{Binding}"
+                                                VerticalAlignment="Center"
+                                                Margin="8,0,0,0">
+                                            <Icon Symbol="star-fill" Classes="size-sm accent"/>
+                                        </Button>
+                                        <TextBlock Classes="body"
+                                                   Text="{Binding Title}"
+                                                   VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Expander>
+
+                <StackPanel>
+                    <TextBlock Classes="section-header"
+                               Text="{localization:View EntityBrowser_Section_OnMap}"
+                               Margin="16,4"/>
+
+                    <TextBlock Classes="empty"
+                               Text="{localization:View EntityBrowser_NoResults}"
+                               IsVisible="{Binding #Root.ViewModel.IsEmptyResults}"
+                               Margin="16,2,16,4"/>
+
+                    <TreeView ItemsSource="{Binding #Root.ViewModel.Categories}"
+                              SelectedItem="{Binding #Root.ViewModel.SelectedTreeNode, Mode=TwoWay}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <TreeView.ItemContainerTheme>
+                            <ControlTheme x:DataType="controls:BrowserNode"
+                                          BasedOn="{StaticResource {x:Type TreeViewItem}}"
+                                          TargetType="TreeViewItem">
+                                <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
+                            </ControlTheme>
+                        </TreeView.ItemContainerTheme>
+                        <TreeView.ItemTemplate>
+                            <TreeDataTemplate DataType="controls:BrowserNode"
+                                              ItemsSource="{Binding Items}">
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Classes="borderless icon small"
+                                            Command="{Binding #Root.ViewModel.TogglePinCommand}"
+                                            CommandParameter="{Binding}"
+                                            IsVisible="{Binding IsLeaf}"
+                                            VerticalAlignment="Center"
+                                            Margin="8,0,0,0">
+                                        <Icon Symbol="star" Classes="size-sm muted"/>
+                                    </Button>
+                                    <TextBlock Classes="body"
+                                               Text="{Binding Title}"
+                                               VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </TreeDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

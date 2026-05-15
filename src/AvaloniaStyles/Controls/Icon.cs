@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using AvaloniaStyles.Generated;
@@ -7,6 +8,8 @@ namespace AvaloniaStyles.Controls;
 
 public class Icon : TemplatedControl
 {
+    private const string _fillSuffix = "-fill";
+
     public static readonly StyledProperty<string?> SymbolProperty =
         AvaloniaProperty.Register<Icon, string?>(nameof(Symbol));
 
@@ -41,6 +44,8 @@ public class Icon : TemplatedControl
 
     private void UpdateFromSymbol()
     {
+        PseudoClasses.Set(":fill", Symbol?.EndsWith(_fillSuffix, StringComparison.Ordinal) == true);
+
         if (Symbol is null || !IconCatalog.All.TryGetValue(Symbol, out var def))
         {
             Data = null;

@@ -234,4 +234,25 @@
   <data name="WorldArchive_DecodeFailed" xml:space="preserve">
     <value>The save data couldn't be loaded. The file may use an unsupported format version.</value>
   </data>
+  <data name="EntityBrowser_Search_Placeholder" xml:space="preserve">
+    <value>Search Entities</value>
+  </data>
+  <data name="EntityBrowser_Search_Tooltip" xml:space="preserve">
+    <value>Search Entities (Ctrl+F)</value>
+  </data>
+  <data name="EntityBrowser_Section_Pinned" xml:space="preserve">
+    <value>PINNED</value>
+  </data>
+  <data name="EntityBrowser_Pinned_Empty" xml:space="preserve">
+    <value>No pinned items</value>
+  </data>
+  <data name="EntityBrowser_Section_OnMap" xml:space="preserve">
+    <value>ON MAP</value>
+  </data>
+  <data name="EntityBrowser_Category_Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="EntityBrowser_NoResults" xml:space="preserve">
+    <value>No results</value>
+  </data>
 </root>

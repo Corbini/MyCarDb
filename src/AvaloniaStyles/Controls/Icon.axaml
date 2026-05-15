@@ -24,6 +24,12 @@
                 </ControlTemplate>
             </Setter>
 
+            <Style Selector="^:fill /template/ Path">
+                <Setter Property="Stroke" Value="{x:Null}"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+                <Setter Property="Fill" Value="{Binding $parent[Icon].Foreground}"/>
+            </Style>
+
             <Style Selector="^.size-xs">
                 <Setter Property="Width" Value="12"/>
                 <Setter Property="Height" Value="12"/>
