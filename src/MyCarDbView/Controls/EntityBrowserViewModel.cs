@@ -23,6 +23,12 @@ public partial class EntityBrowserViewModel : ObservableObject
     private BrowserNode? _selectedNode;
 
     [ObservableProperty]
+    private BrowserNode? _selectedPinnedNode;
+
+    [ObservableProperty]
+    private BrowserNode? _selectedTreeNode;
+
+    [ObservableProperty]
     private string _searchText = "";
 
     [ObservableProperty]
@@ -47,6 +53,20 @@ public partial class EntityBrowserViewModel : ObservableObject
     private void SelectNode(BrowserNode? node) => SelectedNode = node;
 
     partial void OnSelectedNodeChanged(BrowserNode? value) => SyncSelectionToNodes();
+
+    partial void OnSelectedPinnedNodeChanged(BrowserNode? value)
+    {
+        if (value is not null)
+            SelectedTreeNode = null;
+        SelectedNode = value ?? SelectedTreeNode;
+    }
+
+    partial void OnSelectedTreeNodeChanged(BrowserNode? value)
+    {
+        if (value is not null)
+            SelectedPinnedNode = null;
+        SelectedNode = value ?? SelectedPinnedNode;
+    }
 
     partial void OnSearchTextChanged(string value) => Rebuild();
 
