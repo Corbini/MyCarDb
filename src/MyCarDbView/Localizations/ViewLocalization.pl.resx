@@ -234,4 +234,25 @@
   <data name="WorldArchive_DecodeFailed" xml:space="preserve">
     <value>Nie udało się wczytać danych sejwa. Plik może być w nieobsługiwanej wersji formatu.</value>
   </data>
+  <data name="EntityBrowser_Search_Placeholder" xml:space="preserve">
+    <value>Szukaj obiektów</value>
+  </data>
+  <data name="EntityBrowser_Search_Tooltip" xml:space="preserve">
+    <value>Szukaj obiektów (Ctrl+F)</value>
+  </data>
+  <data name="EntityBrowser_Section_Pinned" xml:space="preserve">
+    <value>PRZYPIĘTE</value>
+  </data>
+  <data name="EntityBrowser_Pinned_Empty" xml:space="preserve">
+    <value>Brak przypiętych</value>
+  </data>
+  <data name="EntityBrowser_Section_OnMap" xml:space="preserve">
+    <value>NA MAPIE</value>
+  </data>
+  <data name="EntityBrowser_Category_Items" xml:space="preserve">
+    <value>Przedmioty</value>
+  </data>
+  <data name="EntityBrowser_NoResults" xml:space="preserve">
+    <value>Brak wyników</value>
+  </data>
 </root>

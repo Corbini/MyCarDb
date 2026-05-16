@@ -65,6 +65,7 @@ public partial class App : Application
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IWorldArchive, WorldArchive>();
         services.AddSingleton<IFileParser, FileParser>();
+        services.AddTransient<EntityBrowserViewModel>();
         services.AddMyCarDbWorld();
         return services.BuildServiceProvider();
     }

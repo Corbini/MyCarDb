@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MyCarDbView.ViewModels"
              xmlns:views="using:MyCarDbView.Views"
-             xmlns:controls="using:MyCarDbView.Controls"
              xmlns:localization="using:MyCarDbView.Localizations"
              xmlns:appstate="using:MyCarDbView.Models.AppState"
              mc:Ignorable="d"
@@ -58,11 +57,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="244" MinWidth="244" MaxWidth="400"/>
+            <ColumnDefinition Width="4"/>
             <ColumnDefinition Width="*" MinWidth="244"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="244" MinWidth="244" MaxWidth="400"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0"
                 Grid.ColumnSpan="2"
@@ -81,10 +80,7 @@
                     </Button>
                 </Border>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="0,12,0,6">
-                    <StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
+                <views:EntityBrowserView DataContext="{Binding EntityBrowser}"/>
             </DockPanel>
         </Border>
         <GridSplitter Grid.Column="1"

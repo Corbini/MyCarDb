@@ -25,8 +25,16 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     private readonly IStringLocalizer<ViewLocalization> _viewLoc;
     private readonly IDialogService _dialogService;
     private readonly ILastOpenedService _lastOpenedService;
+    public EntityBrowserViewModel EntityBrowser { get; }
 
+    [ObservableProperty]
     private World _world;
+
+    partial void OnWorldChanged(World value)
+    {
+        EntityBrowser.UpdateEntities(value.Entities);
+    }
+
     private string _filePath;
 
     [ObservableProperty]
@@ -39,7 +47,8 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         IStringLocalizer<ViewLocalization> viewLoc,
         IDialogService dialogService,
         ILastOpenedService lastOpenedService,
-        EditorViewModelParameters parameters)
+        EditorViewModelParameters parameters,
+        EntityBrowserViewModel entityBrowserViewModel)
     {
         _worldArchive = worldArchive;
         _filePicker = filePicker;
@@ -47,8 +56,9 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _viewLoc = viewLoc;
         _dialogService = dialogService;
         _lastOpenedService = lastOpenedService;
+        EntityBrowser = entityBrowserViewModel;
 
-        _world = parameters.World;
+        World = parameters.World;
         _filePath = parameters.FilePath;
         FileName = Path.GetFileName(parameters.FilePath);
     }
@@ -95,7 +105,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
             case ArchiveResult.Success success:
                 _filePath = path;
                 FileName = Path.GetFileName(path);
-                _world = success.Content;
+                World = success.Content;
                 break;
             case ArchiveResult.Failed failed:
                 await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
@@ -114,7 +124,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [RelayCommand]
     private async Task SaveFileAsync()
     {
-        bool isSaved = await _worldArchive.SaveWorldAsync(_world, _filePath);
+        bool isSaved = await _worldArchive.SaveWorldAsync(World, _filePath);
         if (!isSaved)
         {
             await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(

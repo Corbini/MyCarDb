@@ -32,8 +32,8 @@
                              Caption="{localization:View Welcome_Drop_Caption}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" MinWidth="244" MaxWidth="400"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="244" MinWidth="244" MaxWidth="400"/>
+                <ColumnDefinition Width="4"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0"

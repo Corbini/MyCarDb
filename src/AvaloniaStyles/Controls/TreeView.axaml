@@ -1,0 +1,134 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="TreeView">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style Selector="TreeViewItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel>
+                    <ToggleButton Name="PART_Header"
+                                  ClickMode="Press"
+                                  Focusable="False"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  Padding="0"
+                                  HorizontalAlignment="Stretch"
+                                  HorizontalContentAlignment="Stretch"
+                                  IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}">
+                        <Border Name="PART_Pill"
+                                CornerRadius="6"
+                                Margin="8,1"
+                                MinHeight="28"
+                                Padding="6,0">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="Background" Duration="0:0:0.08"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <DockPanel>
+                                <Panel Name="ChevronArea"
+                                       DockPanel.Dock="Left"
+                                       Width="18"
+                                       VerticalAlignment="Center">
+                                    <Icon Name="ChevronCollapsed"
+                                          Symbol="caret-right"
+                                          Classes="size-sm muted"
+                                          HorizontalAlignment="Center"/>
+                                    <Icon Name="ChevronExpanded"
+                                          Symbol="caret-down"
+                                          Classes="size-sm muted"
+                                          HorizontalAlignment="Center"
+                                          IsVisible="False"/>
+                                </Panel>
+                                <ContentPresenter Name="PART_HeaderPresenter"
+                                                  Content="{TemplateBinding Header}"
+                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                  Margin="4,0,0,0"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Stretch"/>
+                            </DockPanel>
+                        </Border>
+                    </ToggleButton>
+                    <ItemsPresenter IsVisible="{TemplateBinding IsExpanded}"/>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:empty">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="PART_Pill"
+                            CornerRadius="6"
+                            Margin="8,1"
+                            MinHeight="28"
+                            Padding="6,0">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.08"/>
+                            </Transitions>
+                        </Border.Transitions>
+                        <DockPanel>
+                            <Panel DockPanel.Dock="Left"
+                                   Width="18"/>
+                            <ContentPresenter Name="PART_HeaderPresenter"
+                                              Content="{TemplateBinding Header}"
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                              Margin="4,0,0,0"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Stretch"/>
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="^ /template/ ToggleButton#PART_Header:checked Icon#ChevronCollapsed">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_Header:checked Icon#ChevronExpanded">
+            <Setter Property="IsVisible" Value="True"/>
+        </Style>
+
+        <Style Selector="^ /template/ ToggleButton#PART_Header /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_Header:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_Header:checked /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_Header:checked:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="^ /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <Style Selector="^:pointerover /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
+        </Style>
+        <Style Selector="^:selected /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="{DynamicResource Border}"/>
+        </Style>
+        <Style Selector="^:selected:pointerover /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="{DynamicResource Border}"/>
+        </Style>
+        <Style Selector="^:selected:focus-within /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="{DynamicResource AccentFill}"/>
+        </Style>
+
+    </Style>
+
+</Styles>
