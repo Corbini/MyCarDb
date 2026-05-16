@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MyCarDbView.ViewModels"
              xmlns:views="using:MyCarDbView.Views"
-             xmlns:controls="using:MyCarDbView.Controls"
              xmlns:localization="using:MyCarDbView.Localizations"
              xmlns:appstate="using:MyCarDbView.Models.AppState"
              mc:Ignorable="d"
@@ -81,8 +80,7 @@
                     </Button>
                 </Border>
 
-                <controls:EntityBrowser Entities="{Binding Entities}"
-                                        SelectedEntity="{Binding SelectedEntity, Mode=TwoWay}"/>
+                <views:EntityBrowserView DataContext="{Binding EntityBrowser}"/>
             </DockPanel>
         </Border>
         <GridSplitter Grid.Column="1"

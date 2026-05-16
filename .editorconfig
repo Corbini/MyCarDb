@@ -70,11 +70,6 @@ dotnet_diagnostic.IDE0051.severity = warning   # unused private member
 dotnet_diagnostic.IDE0052.severity = warning   # unread private member
 dotnet_diagnostic.IDE0060.severity = warning   # unused parameter
 
-# - XML Doc Comments ----
-# Internal-only library; type names are self-documenting. Re-enable per-project
-# via #pragma warning restore CS1591 if a public API surface is ever published.
-dotnet_diagnostic.CS1591.severity = none
-
 # -------------------------
 # Naming Conventions
 # -------------------------

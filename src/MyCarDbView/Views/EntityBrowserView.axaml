@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:items="using:MyCarDbView.Items"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.EntityBrowserView"
+             x:DataType="vm:EntityBrowserViewModel"
+             x:Name="Root">
+    <Grid RowDefinitions="Auto,*">
+        <TextBox Grid.Row="0"
+                 Classes="search"
+                 Margin="12,8"
+                 PlaceholderText="{localization:View EntityBrowser_Search_Placeholder}"
+                 ToolTip.Tip="{localization:View EntityBrowser_Search_Tooltip}"
+                 Text="{Binding SearchText, Mode=TwoWay}"/>
+
+        <ScrollViewer Grid.Row="1">
+            <Panel Margin="0,8">
+                <TextBlock Classes="empty"
+                           Text="{localization:View EntityBrowser_NoResults}"
+                           IsVisible="{Binding IsEmptyResults}"
+                           Margin="16,4"/>
+                <TreeView ItemsSource="{Binding Categories}"
+                          SelectedItem="{Binding SelectedNode, Mode=TwoWay}">
+                    <TreeView.ItemContainerTheme>
+                        <ControlTheme x:DataType="items:EntityBrowserItem"
+                                      BasedOn="{StaticResource {x:Type TreeViewItem}}"
+                                      TargetType="TreeViewItem">
+                            <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
+                        </ControlTheme>
+                    </TreeView.ItemContainerTheme>
+                    <TreeView.ItemTemplate>
+                        <TreeDataTemplate ItemsSource="{Binding Items}">
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right"
+                                        Classes="borderless icon small"
+                                        Command="{Binding #Root.DataContext.TogglePinCommand}"
+                                        CommandParameter="{Binding}"
+                                        IsVisible="{Binding IsLeaf}"
+                                        VerticalAlignment="Center"
+                                        Margin="8,0,0,0">
+                                    <Panel>
+                                        <Icon Symbol="star-fill" Classes="size-sm accent" IsVisible="{Binding IsPinned}"/>
+                                        <Icon Symbol="star" Classes="size-sm muted" IsVisible="{Binding !IsPinned}"/>
+                                    </Panel>
+                                </Button>
+                                <TextBlock Classes="body"
+                                           Text="{Binding Title}"
+                                           VerticalAlignment="Center"/>
+                            </DockPanel>
+                        </TreeDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Panel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
