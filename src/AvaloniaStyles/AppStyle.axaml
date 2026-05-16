@@ -23,7 +23,6 @@
     <StyleInclude Source="avares://AvaloniaStyles/Controls/TextBox.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/Expanders.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/TreeView.axaml"/>
-    <StyleInclude Source="avares://AvaloniaStyles/Controls/ListBox.axaml"/>
     <StyleInclude Source="avares://AvaloniaStyles/Controls/DialogBackdrop.axaml"/>
 
 </Styles>

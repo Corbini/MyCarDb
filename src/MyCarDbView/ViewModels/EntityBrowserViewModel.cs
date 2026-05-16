@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MyCarDbWorld.Models;
 using MyCarDbView.Items;
+using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
@@ -54,7 +54,7 @@ public partial class EntityBrowserViewModel : ObservableObject
     private void Rebuild()
     {
         var pinnedGroup = _allNodes.ToLookup(node => node.IsPinned);
-        List<EntityBrowserItem> pinned = [..pinnedGroup[true]];
+        List<EntityBrowserItem> pinned = [.. pinnedGroup[true]];
         var notPinned = pinnedGroup[false];
 
         string filter = SearchText.Trim();
@@ -62,7 +62,7 @@ public partial class EntityBrowserViewModel : ObservableObject
         if (hasFilter)
             notPinned = notPinned.Where(n => n.Title.Contains(filter, StringComparison.OrdinalIgnoreCase));
 
-        Categories = [..GetPinnedSection(pinned), ..GetCatalogs(notPinned)];
+        Categories = [.. GetPinnedSection(pinned), .. GetCatalogs(notPinned)];
         IsEmptyResults = Categories.Count == 0;
     }
 
@@ -84,7 +84,7 @@ public partial class EntityBrowserViewModel : ObservableObject
             yield return new()
             {
                 Title = group.Key,
-                Items = [..group],
+                Items = [.. group],
                 IsExpanded = true,
             };
         }

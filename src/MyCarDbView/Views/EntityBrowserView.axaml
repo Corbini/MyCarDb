@@ -45,6 +45,7 @@
                                     </Panel>
                                 </Button>
                                 <TextBlock Classes="body"
+                                           Classes.strong="{Binding !IsLeaf}"
                                            Text="{Binding Title}"
                                            VerticalAlignment="Center"/>
                             </DockPanel>

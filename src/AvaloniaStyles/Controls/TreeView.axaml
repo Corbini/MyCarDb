@@ -25,6 +25,11 @@
                                 Margin="8,1"
                                 MinHeight="28"
                                 Padding="6,0">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <BrushTransition Property="Background" Duration="0:0:0.08"/>
+                                </Transitions>
+                            </Border.Transitions>
                             <DockPanel>
                                 <Panel Name="ChevronArea"
                                        DockPanel.Dock="Left"
@@ -62,6 +67,11 @@
                             Margin="8,1"
                             MinHeight="28"
                             Padding="6,0">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.08"/>
+                            </Transitions>
+                        </Border.Transitions>
                         <DockPanel>
                             <Panel DockPanel.Dock="Left"
                                    Width="18"/>
@@ -110,18 +120,15 @@
             <Setter Property="Background" Value="{DynamicResource BgRowHover}"/>
         </Style>
         <Style Selector="^:selected /template/ Border#PART_Pill">
-            <Setter Property="Background" Value="{DynamicResource BgRowSelectedStrong}"/>
+            <Setter Property="Background" Value="{DynamicResource Border}"/>
         </Style>
         <Style Selector="^:selected:pointerover /template/ Border#PART_Pill">
-            <Setter Property="Background" Value="{DynamicResource BgRowSelectedStrong}"/>
+            <Setter Property="Background" Value="{DynamicResource Border}"/>
+        </Style>
+        <Style Selector="^:selected:focus-within /template/ Border#PART_Pill">
+            <Setter Property="Background" Value="{DynamicResource AccentFill}"/>
         </Style>
 
-        <Style Selector="^:selected TextBlock">
-            <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-        </Style>
-        <Style Selector="^:selected Icon">
-            <Setter Property="Foreground" Value="{DynamicResource TextOnAccent}"/>
-        </Style>
     </Style>
 
 </Styles>
