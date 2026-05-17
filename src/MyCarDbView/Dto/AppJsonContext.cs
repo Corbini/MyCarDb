@@ -12,4 +12,5 @@ namespace MyCarDbView.Dto;
     })]
 [JsonSerializable(typeof(AppSettings))]
 [JsonSerializable(typeof(RecentFiles))]
+[JsonSerializable(typeof(PinnedEntities))]
 internal partial class AppJsonContext : JsonSerializerContext;

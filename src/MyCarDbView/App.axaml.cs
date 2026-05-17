@@ -61,7 +61,12 @@ public partial class App : Application
         services.AddSingleton<IFolderPickerService>(sp => sp.GetRequiredService<FilePickerService>());
         services.AddSingleton<IWritableOptions<AppSettings>>(_ =>
             new WritableOptions<AppSettings>(AppPaths.AppSettingsFile, AppJsonContext.Default.AppSettings));
+        services.AddSingleton<IWritableOptions<RecentFiles>>(_ =>
+            new WritableOptions<RecentFiles>(AppPaths.RecentFilesFile, AppJsonContext.Default.RecentFiles));
         services.AddSingleton<ILastOpenedService, LastOpenedService>();
+        services.AddSingleton<IWritableOptions<PinnedEntities>>(_ =>
+            new WritableOptions<PinnedEntities>(AppPaths.PinnedEntitiesFile, AppJsonContext.Default.PinnedEntities));
+        services.AddSingleton<IPinnedEntitiesService, PinnedEntitiesService>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IWorldArchive, WorldArchive>();
         services.AddSingleton<IFileParser, FileParser>();

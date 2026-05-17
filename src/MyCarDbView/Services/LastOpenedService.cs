@@ -1,51 +1,19 @@
-using System.Text.Json;
 using MyCarDbView.Dto;
 using MyCarDbView.Models.AppState;
 
 namespace MyCarDbView.Services;
 
-internal sealed class LastOpenedService : ILastOpenedService
+internal sealed class LastOpenedService(IWritableOptions<RecentFiles> settings) : ILastOpenedService
 {
-    private readonly RecentFiles _state;
+    public IReadOnlyList<LastOpenedFile> Recent => settings.Value.Files;
 
-    public IReadOnlyList<LastOpenedFile> Recent => _state.Files;
-
-    public LastOpenedService()
-    {
-        _state = TryLoad() ?? new RecentFiles();
-    }
-
-    public void Add(LastOpenedFile file)
-    {
-        _state.Files.RemoveAll(f => f.Path == file.Path);
-
-        _state.Files.Add(file);
-        Persist();
-    }
-
-    public void Remove(string path)
-    {
-        _state.Files.RemoveAll(f => f.Path == path);
-        Persist();
-    }
-
-    private static RecentFiles? TryLoad()
-    {
-        try
+    public void Add(LastOpenedFile file) =>
+        settings.Update(s =>
         {
-            string content = File.ReadAllText(AppPaths.RecentFilesFile);
-            return JsonSerializer.Deserialize(content, AppJsonContext.Default.RecentFiles);
-        }
-        catch
-        {
-            return null;
-        }
-    }
+            s.Files.RemoveAll(f => f.Path == file.Path);
+            s.Files.Insert(0, file);
+        });
 
-    private void Persist()
-    {
-        AppPaths.EnsureExists();
-        string json = JsonSerializer.Serialize(_state, AppJsonContext.Default.RecentFiles);
-        File.WriteAllText(AppPaths.RecentFilesFile, json);
-    }
+    public void Remove(string path) =>
+        settings.Update(s => s.Files.RemoveAll(f => f.Path == path));
 }
