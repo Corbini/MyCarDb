@@ -1,11 +1,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyCarDbView.Items;
+using MyCarDbView.Services;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public partial class EntityBrowserViewModel : ObservableObject
+public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService) : ObservableObject
 {
     [ObservableProperty]
     private IReadOnlyList<EntityBrowserItem> _categories = [];
@@ -21,7 +22,6 @@ public partial class EntityBrowserViewModel : ObservableObject
     private bool _isEmptyResults;
 
     private List<EntityBrowserItem> _allNodes = [];
-    private readonly HashSet<string> _pinnedIds = [];
 
     public void UpdateEntities(IEnumerable<IEntity>? entities)
     {
@@ -31,7 +31,7 @@ public partial class EntityBrowserViewModel : ObservableObject
                 Title = entity.Id,
                 Entity = entity,
                 Items = [],
-                IsPinned = _pinnedIds.Contains(entity.Id),
+                IsPinned = pinnedService.Entities.Contains(entity.Id),
             }).ToList()
             ?? [];
 
@@ -44,8 +44,10 @@ public partial class EntityBrowserViewModel : ObservableObject
         if (node.Entity?.Id is not string id)
             return;
 
-        if (!_pinnedIds.Add(id))
-            _pinnedIds.Remove(id);
+        if (node.IsPinned)
+            pinnedService.Remove(id);
+        else
+            pinnedService.Add(id);
 
         node.IsPinned = !node.IsPinned;
         Rebuild();
