@@ -1,17 +1,14 @@
-using System.ComponentModel;
-using Microsoft.Extensions.Localization;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyCarDbView.Localizations;
 
-public sealed class LocalizedString(string key, IStringLocalizer localizer) : INotifyPropertyChanged
+public sealed class LocalizedString(string key) : ObservableObject
 {
-    private static readonly PropertyChangedEventArgs _valueChangedArgs = new(nameof(Value));
+    public string Key { get; } = key;
 
-    public LocalizedString(string key) : this(key, Localizer.View) { }
-
-    public string Value => localizer[key].Value;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    internal void RaiseValueChanged() => PropertyChanged?.Invoke(this, _valueChangedArgs);
+    public string Value
+    {
+        get;
+        internal set => SetProperty(ref field, value);
+    } = string.Empty;
 }

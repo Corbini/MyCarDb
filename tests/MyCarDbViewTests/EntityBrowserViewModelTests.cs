@@ -1,5 +1,6 @@
 using Moq;
 using MyCarDbView.Items;
+using MyCarDbView.Localizations;
 using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 using MyCarDbWorld.Models;
@@ -11,7 +12,22 @@ public class EntityBrowserViewModelTests
 {
     private sealed record TestEntity(string Id) : IEntity;
 
-    private static DisplayEntity Display(string id) => new(new TestEntity(id));
+    private readonly Mock<ILocalizationSource> _localization = CreateLocalizationMock();
+
+    private static EntityItem Display(string id)
+    {
+        var ls = new LocalizedString($"Entity_{id}");
+        ls.Value = id;
+        return new EntityItem
+        {
+            Value = new TestEntity(id),
+            Title = ls,
+            Serial = null,
+        };
+    }
+
+    private EntityBrowserViewModel Create(IPinnedEntitiesService pinned) =>
+        new(pinned, _localization.Object);
 
     private static Mock<IPinnedEntitiesService> CreatePinnedMock(params string[] initiallyPinned)
     {
@@ -25,10 +41,25 @@ public class EntityBrowserViewModelTests
         return mock;
     }
 
+    private static Mock<ILocalizationSource> CreateLocalizationMock()
+    {
+        var mock = new Mock<ILocalizationSource>();
+        mock.Setup(x => x.Get(It.IsAny<string>())).Returns<string>(EchoLocalizedString);
+        mock.Setup(x => x.GetDb(It.IsAny<string>())).Returns<string>(EchoLocalizedString);
+        return mock;
+    }
+
+    private static LocalizedString EchoLocalizedString(string key)
+    {
+        var ls = new LocalizedString(key);
+        ls.Value = key;
+        return ls;
+    }
+
     [Fact]
     public void UpdateEntities_Null_ClearsCategories()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
 
         vm.UpdateEntities(null);
 
@@ -39,12 +70,12 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void UpdateEntities_BuildsCategoryGroupedByType()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
 
         vm.UpdateEntities([Display("a"), Display("b")]);
 
         var category = Assert.Single(vm.Categories);
-        Assert.Equal("Entity_Category_Others", category.Title);
+        Assert.Equal("Entity_Category_Others", category.Title?.Key);
         Assert.Equal(2, category.Items.Count);
     }
 
@@ -52,12 +83,12 @@ public class EntityBrowserViewModelTests
     public void UpdateEntities_MarksPinned_FromService()
     {
         var pinned = CreatePinnedMock("a");
-        var vm = new EntityBrowserViewModel(pinned.Object);
+        var vm = Create(pinned.Object);
 
         vm.UpdateEntities([Display("a"), Display("b")]);
 
         var pinnedSection = vm.Categories.First();
-        Assert.Equal("EntityBrowser_Section_Pinned", pinnedSection.Title);
+        Assert.Equal("EntityBrowser_Section_Pinned", pinnedSection.Title?.Key);
         var pinnedItem = Assert.Single(pinnedSection.Items);
         Assert.Equal("a", pinnedItem.Entity?.Value.Id);
         Assert.True(pinnedItem.IsPinned);
@@ -66,18 +97,18 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void UpdateEntities_NoPinned_SkipsPinnedSection()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
 
         vm.UpdateEntities([Display("a")]);
 
-        Assert.DoesNotContain(vm.Categories, c => c.Title == "EntityBrowser_Section_Pinned");
+        Assert.DoesNotContain(vm.Categories, c => c.Title?.Key == "EntityBrowser_Section_Pinned");
     }
 
     [Fact]
     public void TogglePin_NotPinned_CallsAdd_AndFlipsItem()
     {
         var pinned = CreatePinnedMock();
-        var vm = new EntityBrowserViewModel(pinned.Object);
+        var vm = Create(pinned.Object);
         vm.UpdateEntities([Display("a")]);
         var item = vm.Categories.SelectMany(c => c.Items).First();
 
@@ -92,7 +123,7 @@ public class EntityBrowserViewModelTests
     public void TogglePin_Pinned_CallsRemove_AndFlipsItem()
     {
         var pinned = CreatePinnedMock("a");
-        var vm = new EntityBrowserViewModel(pinned.Object);
+        var vm = Create(pinned.Object);
         vm.UpdateEntities([Display("a")]);
         var item = vm.Categories.SelectMany(c => c.Items).First();
 
@@ -107,8 +138,8 @@ public class EntityBrowserViewModelTests
     public void TogglePin_NullEntity_NoOp()
     {
         var pinned = CreatePinnedMock();
-        var vm = new EntityBrowserViewModel(pinned.Object);
-        var orphan = new EntityBrowserItem { Title = "x", Items = [] };
+        var vm = Create(pinned.Object);
+        var orphan = new EntityBrowserItem { Title = null, Items = [] };
 
         vm.TogglePinCommand.Execute(orphan);
 
@@ -119,18 +150,18 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void Rebuild_PinnedSection_AppearsFirst()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock("b").Object);
+        var vm = Create(CreatePinnedMock("b").Object);
 
         vm.UpdateEntities([Display("a"), Display("b"), Display("c")]);
 
-        Assert.Equal("EntityBrowser_Section_Pinned", vm.Categories[0].Title);
-        Assert.Equal("Entity_Category_Others", vm.Categories[1].Title);
+        Assert.Equal("EntityBrowser_Section_Pinned", vm.Categories[0].Title?.Key);
+        Assert.Equal("Entity_Category_Others", vm.Categories[1].Title?.Key);
     }
 
     [Fact]
     public void SearchText_Filters_NonPinnedItems()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
         vm.UpdateEntities([Display("satsuma"), Display("kilju"), Display("spark")]);
 
         vm.SearchText = "sa";
@@ -143,12 +174,12 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void SearchText_PinnedItems_NotFiltered()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock("kilju").Object);
+        var vm = Create(CreatePinnedMock("kilju").Object);
         vm.UpdateEntities([Display("satsuma"), Display("kilju")]);
 
         vm.SearchText = "satsuma";
 
-        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_Section_Pinned");
+        var pinnedSection = vm.Categories.First(c => c.Title?.Key == "EntityBrowser_Section_Pinned");
         Assert.Single(pinnedSection.Items);
         Assert.Equal("kilju", pinnedSection.Items[0].Entity?.Value.Id);
     }
@@ -156,7 +187,7 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void SearchText_NoMatches_IsEmptyResultsTrue()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
         vm.UpdateEntities([Display("satsuma")]);
 
         vm.SearchText = "xxxx";
@@ -168,7 +199,7 @@ public class EntityBrowserViewModelTests
     [Fact]
     public void SearchText_CaseInsensitive()
     {
-        var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
+        var vm = Create(CreatePinnedMock().Object);
         vm.UpdateEntities([Display("Satsuma"), Display("KILJU")]);
 
         vm.SearchText = "satsuma";
@@ -181,16 +212,14 @@ public class EntityBrowserViewModelTests
     public void UpdateEntities_AfterReload_PinnedStateRecovers()
     {
         var pinned = CreatePinnedMock("a");
-        var vm = new EntityBrowserViewModel(pinned.Object);
+        var vm = Create(pinned.Object);
 
-        // simulate first load
         vm.UpdateEntities([Display("a"), Display("b")]);
         Assert.True(vm.Categories[0].Items[0].IsPinned);
 
-        // simulate file reload — new entity instances same Ids
         vm.UpdateEntities([Display("a"), Display("c")]);
 
-        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_Section_Pinned");
+        var pinnedSection = vm.Categories.First(c => c.Title?.Key == "EntityBrowser_Section_Pinned");
         Assert.Single(pinnedSection.Items);
         Assert.Equal("a", pinnedSection.Items[0].Entity?.Value.Id);
         Assert.True(pinnedSection.Items[0].IsPinned);

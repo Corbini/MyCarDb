@@ -1,16 +1,10 @@
 using MyCarDbView.Items;
-using MyCarDbWorld.Models;
 using Xunit;
 
 namespace MyCarDbViewTests.Items;
 
-public class DisplayEntityTests
+public class EntityItemTests
 {
-    private sealed class FakeEntity(string id) : IEntity
-    {
-        public string Id { get; } = id;
-    }
-
     [Theory]
     [InlineData("ax(item3)", "Entity_ax", " #3")]
     [InlineData("ax(item4)", "Entity_ax", " #4")]
@@ -24,24 +18,14 @@ public class DisplayEntityTests
     [InlineData("basketball(Clone)", "Entity_basketball", null)]
     [InlineData("ratchet set(Clone)", "Entity_ratchet_set", null)]
     [InlineData("fireworksbag0", "Entity_fireworksbag0", null)]
-    public void Constructor_ParsesIdFromSaveFormat(
+    public void ParseId_ExtractsKeyAndSerial(
         string id,
-        string expectedTitleKey,
+        string expectedKey,
         string? expectedSerial)
     {
-        var display = new DisplayEntity(new FakeEntity(id));
+        var (key, serial) = EntityItem.ParseId(id);
 
-        Assert.Equal(expectedTitleKey, display.TitleKey);
-        Assert.Equal(expectedSerial, display.Serial);
-    }
-
-    [Fact]
-    public void Constructor_ExposesSourceEntity()
-    {
-        IEntity source = new FakeEntity("ax(item3)");
-
-        var display = new DisplayEntity(source);
-
-        Assert.Same(source, display.Value);
+        Assert.Equal(expectedKey, key);
+        Assert.Equal(expectedSerial, serial);
     }
 }

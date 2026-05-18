@@ -47,6 +47,7 @@ public partial class App : Application
         var services = new ServiceCollection();
         services.AddSingleton(Localizer.View);
         services.AddSingleton(Localizer.Db);
+        services.AddSingleton<ILocalizationSource>(LocalizationSource.Instance);
         services.AddSingleton<IShellService, ShellService>();
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<ILicenseService, LicenseService>();

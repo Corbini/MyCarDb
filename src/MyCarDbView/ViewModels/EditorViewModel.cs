@@ -26,18 +26,30 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     private readonly IStringLocalizer<ViewLocalization> _viewLoc;
     private readonly IDialogService _dialogService;
     private readonly ILastOpenedService _lastOpenedService;
+    private readonly ILocalizationSource _localization;
     public EntityBrowserViewModel EntityBrowser { get; }
 
     [ObservableProperty]
     private World _world;
 
     [ObservableProperty]
-    private IReadOnlyList<DisplayEntity> _displayEntities = [];
+    private IReadOnlyList<EntityItem> _displayEntities = [];
 
     partial void OnWorldChanged(World value)
     {
-        DisplayEntities = value.Entities.Select(e => new DisplayEntity(e)).ToList();
+        DisplayEntities = value.Entities.Select(CreateEntityItem).ToList();
         EntityBrowser.UpdateEntities(DisplayEntities);
+    }
+
+    private EntityItem CreateEntityItem(IEntity entity)
+    {
+        var (key, serial) = EntityItem.ParseId(entity.Id);
+        return new EntityItem
+        {
+            Value = entity,
+            Title = _localization.GetDb(key),
+            Serial = serial,
+        };
     }
 
     private string _filePath;
@@ -52,6 +64,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         IStringLocalizer<ViewLocalization> viewLoc,
         IDialogService dialogService,
         ILastOpenedService lastOpenedService,
+        ILocalizationSource localization,
         EditorViewModelParameters parameters,
         EntityBrowserViewModel entityBrowserViewModel)
     {
@@ -61,6 +74,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _viewLoc = viewLoc;
         _dialogService = dialogService;
         _lastOpenedService = lastOpenedService;
+        _localization = localization;
         EntityBrowser = entityBrowserViewModel;
 
         World = parameters.World;

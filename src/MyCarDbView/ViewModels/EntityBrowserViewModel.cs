@@ -1,13 +1,17 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyCarDbView.Items;
+using MyCarDbView.Localizations;
 using MyCarDbView.Services;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService) : ObservableObject
+public partial class EntityBrowserViewModel : ObservableObject
 {
+    private readonly IPinnedEntitiesService _pinnedService;
+    private readonly ILocalizationSource _localization;
+
     [ObservableProperty]
     private IReadOnlyList<EntityBrowserItem> _categories = [];
 
@@ -23,15 +27,24 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
 
     private List<EntityBrowserItem> _allNodes = [];
 
-    public void UpdateEntities(IEnumerable<DisplayEntity>? entities)
+    public EntityBrowserViewModel(
+        IPinnedEntitiesService pinnedService,
+        ILocalizationSource localization)
+    {
+        _pinnedService = pinnedService;
+        _localization = localization;
+        _localization.Refreshed += OnLanguageRefreshed;
+    }
+
+    public void UpdateEntities(IEnumerable<EntityItem>? entities)
     {
         _allNodes = entities?.Select(entity =>
             new EntityBrowserItem
             {
-                Title = entity.TitleKey,
+                Title = null,
                 Entity = entity,
                 Items = [],
-                IsPinned = pinnedService.Entities.Contains(entity.Value.Id),
+                IsPinned = _pinnedService.Entities.Contains(entity.Value.Id),
             }).ToList()
             ?? [];
 
@@ -45,13 +58,15 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
             return;
 
         if (node.IsPinned)
-            pinnedService.Remove(id);
+            _pinnedService.Remove(id);
         else
-            pinnedService.Add(id);
+            _pinnedService.Add(id);
 
         node.IsPinned = !node.IsPinned;
         Rebuild();
     }
+
+    private void OnLanguageRefreshed() => Rebuild();
 
     private void Rebuild()
     {
@@ -62,30 +77,33 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
         string filter = SearchText.Trim();
         bool hasFilter = !string.IsNullOrWhiteSpace(filter);
         if (hasFilter)
-            notPinned = notPinned.Where(n => n.Title.Contains(filter, StringComparison.OrdinalIgnoreCase));
+            notPinned = notPinned.Where(n => Match(n, filter));
 
         Categories = [.. GetPinnedSection(pinned), .. GetCatalogs(notPinned)];
         IsEmptyResults = Categories.Count == 0;
     }
 
-    private static IEnumerable<EntityBrowserItem> GetPinnedSection(List<EntityBrowserItem> pinned)
+    private static bool Match(EntityBrowserItem item, string filter) =>
+        (item.Entity?.Title.Value ?? "").Contains(filter, StringComparison.OrdinalIgnoreCase);
+
+    private IEnumerable<EntityBrowserItem> GetPinnedSection(List<EntityBrowserItem> pinned)
     {
         if (pinned.Count > 0)
             yield return new()
             {
-                Title = "EntityBrowser_Section_Pinned",
+                Title = _localization.Get("EntityBrowser_Section_Pinned"),
                 Items = pinned,
                 IsExpanded = true,
             };
     }
 
-    private static IEnumerable<EntityBrowserItem> GetCatalogs(IEnumerable<EntityBrowserItem> items)
+    private IEnumerable<EntityBrowserItem> GetCatalogs(IEnumerable<EntityBrowserItem> items)
     {
         foreach (var group in items.GroupBy(GetCategoryKey))
         {
             yield return new()
             {
-                Title = group.Key,
+                Title = _localization.Get(group.Key),
                 Items = [.. group],
                 IsExpanded = true,
             };
