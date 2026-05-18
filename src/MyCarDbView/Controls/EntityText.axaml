@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:MyCarDbView.Converters"
+             x:Class="MyCarDbView.Controls.EntityText"
+             xmlns:items="using:MyCarDbView.Items"
+             x:DataType="items:DisplayEntity">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock VerticalAlignment="Center"
+            Text="{Binding TitleKey, Converter={x:Static converters:DbLocalizeConverter.Instance}}"/>
+        <TextBlock VerticalAlignment="Center"
+            Text="{Binding Serial}"/>
+    </StackPanel>
+</UserControl>

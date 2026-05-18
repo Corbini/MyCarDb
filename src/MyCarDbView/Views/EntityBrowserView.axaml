@@ -3,6 +3,8 @@
              xmlns:vm="using:MyCarDbView.ViewModels"
              xmlns:items="using:MyCarDbView.Items"
              xmlns:localization="using:MyCarDbView.Localizations"
+             xmlns:converters="using:MyCarDbView.Converters"
+             xmlns:controls="using:MyCarDbView.Controls"
              x:Class="MyCarDbView.Views.EntityBrowserView"
              x:DataType="vm:EntityBrowserViewModel"
              x:Name="Root">
@@ -44,10 +46,13 @@
                                         <Icon Symbol="star" Classes="size-sm muted" IsVisible="{Binding !IsPinned}"/>
                                     </Panel>
                                 </Button>
-                                <TextBlock Classes="body"
-                                           Classes.strong="{Binding !IsLeaf}"
-                                           Text="{Binding Title}"
-                                           VerticalAlignment="Center"/>
+                                <Panel VerticalAlignment="Center">
+                                    <controls:EntityText Classes="body"
+                                               DataContext="{Binding Entity}"/>
+                                    <TextBlock Classes="body strong"
+                                               IsVisible="{Binding !IsLeaf}"
+                                               Text="{Binding Title, Converter={x:Static converters:ViewLocalizeConverter.Instance}}"/>
+                                </Panel>
                             </DockPanel>
                         </TreeDataTemplate>
                     </TreeView.ItemTemplate>

@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
+using MyCarDbView.Items;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models;
 using MyCarDbView.Models.Alerts;
@@ -30,9 +31,13 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [ObservableProperty]
     private World _world;
 
+    [ObservableProperty]
+    private IReadOnlyList<DisplayEntity> _displayEntities = [];
+
     partial void OnWorldChanged(World value)
     {
-        EntityBrowser.UpdateEntities(value.Entities);
+        DisplayEntities = value.Entities.Select(e => new DisplayEntity(e)).ToList();
+        EntityBrowser.UpdateEntities(DisplayEntities);
     }
 
     private string _filePath;

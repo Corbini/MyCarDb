@@ -11,6 +11,8 @@ public class EntityBrowserViewModelTests
 {
     private sealed record TestEntity(string Id) : IEntity;
 
+    private static DisplayEntity Display(string id) => new(new TestEntity(id));
+
     private static Mock<IPinnedEntitiesService> CreatePinnedMock(params string[] initiallyPinned)
     {
         var current = new List<string>(initiallyPinned);
@@ -39,10 +41,10 @@ public class EntityBrowserViewModelTests
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
 
-        vm.UpdateEntities([new TestEntity("a"), new TestEntity("b")]);
+        vm.UpdateEntities([Display("a"), Display("b")]);
 
         var category = Assert.Single(vm.Categories);
-        Assert.Equal(nameof(TestEntity), category.Title);
+        Assert.Equal("Entity_Category_Others", category.Title);
         Assert.Equal(2, category.Items.Count);
     }
 
@@ -52,12 +54,12 @@ public class EntityBrowserViewModelTests
         var pinned = CreatePinnedMock("a");
         var vm = new EntityBrowserViewModel(pinned.Object);
 
-        vm.UpdateEntities([new TestEntity("a"), new TestEntity("b")]);
+        vm.UpdateEntities([Display("a"), Display("b")]);
 
         var pinnedSection = vm.Categories.First();
-        Assert.Equal("EntityBrowser_pinned", pinnedSection.Title);
+        Assert.Equal("EntityBrowser_Section_Pinned", pinnedSection.Title);
         var pinnedItem = Assert.Single(pinnedSection.Items);
-        Assert.Equal("a", pinnedItem.Entity?.Id);
+        Assert.Equal("a", pinnedItem.Entity?.Value.Id);
         Assert.True(pinnedItem.IsPinned);
     }
 
@@ -66,9 +68,9 @@ public class EntityBrowserViewModelTests
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
 
-        vm.UpdateEntities([new TestEntity("a")]);
+        vm.UpdateEntities([Display("a")]);
 
-        Assert.DoesNotContain(vm.Categories, c => c.Title == "EntityBrowser_pinned");
+        Assert.DoesNotContain(vm.Categories, c => c.Title == "EntityBrowser_Section_Pinned");
     }
 
     [Fact]
@@ -76,7 +78,7 @@ public class EntityBrowserViewModelTests
     {
         var pinned = CreatePinnedMock();
         var vm = new EntityBrowserViewModel(pinned.Object);
-        vm.UpdateEntities([new TestEntity("a")]);
+        vm.UpdateEntities([Display("a")]);
         var item = vm.Categories.SelectMany(c => c.Items).First();
 
         vm.TogglePinCommand.Execute(item);
@@ -91,7 +93,7 @@ public class EntityBrowserViewModelTests
     {
         var pinned = CreatePinnedMock("a");
         var vm = new EntityBrowserViewModel(pinned.Object);
-        vm.UpdateEntities([new TestEntity("a")]);
+        vm.UpdateEntities([Display("a")]);
         var item = vm.Categories.SelectMany(c => c.Items).First();
 
         vm.TogglePinCommand.Execute(item);
@@ -106,7 +108,7 @@ public class EntityBrowserViewModelTests
     {
         var pinned = CreatePinnedMock();
         var vm = new EntityBrowserViewModel(pinned.Object);
-        var orphan = new EntityBrowserItem { Title = "x", Entity = null, Items = [] };
+        var orphan = new EntityBrowserItem { Title = "x", Items = [] };
 
         vm.TogglePinCommand.Execute(orphan);
 
@@ -119,43 +121,43 @@ public class EntityBrowserViewModelTests
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock("b").Object);
 
-        vm.UpdateEntities([new TestEntity("a"), new TestEntity("b"), new TestEntity("c")]);
+        vm.UpdateEntities([Display("a"), Display("b"), Display("c")]);
 
-        Assert.Equal("EntityBrowser_pinned", vm.Categories[0].Title);
-        Assert.Equal(nameof(TestEntity), vm.Categories[1].Title);
+        Assert.Equal("EntityBrowser_Section_Pinned", vm.Categories[0].Title);
+        Assert.Equal("Entity_Category_Others", vm.Categories[1].Title);
     }
 
     [Fact]
     public void SearchText_Filters_NonPinnedItems()
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
-        vm.UpdateEntities([new TestEntity("satsuma"), new TestEntity("kilju"), new TestEntity("spark")]);
+        vm.UpdateEntities([Display("satsuma"), Display("kilju"), Display("spark")]);
 
         vm.SearchText = "sa";
 
         var category = Assert.Single(vm.Categories);
         var item = Assert.Single(category.Items);
-        Assert.Equal("satsuma", item.Entity?.Id);
+        Assert.Equal("satsuma", item.Entity?.Value.Id);
     }
 
     [Fact]
     public void SearchText_PinnedItems_NotFiltered()
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock("kilju").Object);
-        vm.UpdateEntities([new TestEntity("satsuma"), new TestEntity("kilju")]);
+        vm.UpdateEntities([Display("satsuma"), Display("kilju")]);
 
         vm.SearchText = "satsuma";
 
-        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_pinned");
+        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_Section_Pinned");
         Assert.Single(pinnedSection.Items);
-        Assert.Equal("kilju", pinnedSection.Items[0].Entity?.Id);
+        Assert.Equal("kilju", pinnedSection.Items[0].Entity?.Value.Id);
     }
 
     [Fact]
     public void SearchText_NoMatches_IsEmptyResultsTrue()
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
-        vm.UpdateEntities([new TestEntity("satsuma")]);
+        vm.UpdateEntities([Display("satsuma")]);
 
         vm.SearchText = "xxxx";
 
@@ -167,7 +169,7 @@ public class EntityBrowserViewModelTests
     public void SearchText_CaseInsensitive()
     {
         var vm = new EntityBrowserViewModel(CreatePinnedMock().Object);
-        vm.UpdateEntities([new TestEntity("Satsuma"), new TestEntity("KILJU")]);
+        vm.UpdateEntities([Display("Satsuma"), Display("KILJU")]);
 
         vm.SearchText = "satsuma";
 
@@ -182,15 +184,15 @@ public class EntityBrowserViewModelTests
         var vm = new EntityBrowserViewModel(pinned.Object);
 
         // simulate first load
-        vm.UpdateEntities([new TestEntity("a"), new TestEntity("b")]);
+        vm.UpdateEntities([Display("a"), Display("b")]);
         Assert.True(vm.Categories[0].Items[0].IsPinned);
 
         // simulate file reload — new entity instances same Ids
-        vm.UpdateEntities([new TestEntity("a"), new TestEntity("c")]);
+        vm.UpdateEntities([Display("a"), Display("c")]);
 
-        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_pinned");
+        var pinnedSection = vm.Categories.First(c => c.Title == "EntityBrowser_Section_Pinned");
         Assert.Single(pinnedSection.Items);
-        Assert.Equal("a", pinnedSection.Items[0].Entity?.Id);
+        Assert.Equal("a", pinnedSection.Items[0].Entity?.Value.Id);
         Assert.True(pinnedSection.Items[0].IsPinned);
     }
 }

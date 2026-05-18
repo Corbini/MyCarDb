@@ -23,15 +23,15 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
 
     private List<EntityBrowserItem> _allNodes = [];
 
-    public void UpdateEntities(IEnumerable<IEntity>? entities)
+    public void UpdateEntities(IEnumerable<DisplayEntity>? entities)
     {
         _allNodes = entities?.Select(entity =>
             new EntityBrowserItem
             {
-                Title = entity.Id,
+                Title = entity.TitleKey,
                 Entity = entity,
                 Items = [],
-                IsPinned = pinnedService.Entities.Contains(entity.Id),
+                IsPinned = pinnedService.Entities.Contains(entity.Value.Id),
             }).ToList()
             ?? [];
 
@@ -41,7 +41,7 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
     [RelayCommand]
     private void TogglePin(EntityBrowserItem node)
     {
-        if (node.Entity?.Id is not string id)
+        if (node.Entity?.Value.Id is not string id)
             return;
 
         if (node.IsPinned)
@@ -73,15 +73,15 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
         if (pinned.Count > 0)
             yield return new()
             {
-                Title = "EntityBrowser_pinned",
+                Title = "EntityBrowser_Section_Pinned",
                 Items = pinned,
                 IsExpanded = true,
             };
     }
 
-    private IEnumerable<EntityBrowserItem> GetCatalogs(IEnumerable<EntityBrowserItem> items)
+    private static IEnumerable<EntityBrowserItem> GetCatalogs(IEnumerable<EntityBrowserItem> items)
     {
-        foreach (var group in items.GroupBy(item => item.Entity?.GetType().Name ?? "unknown_type"))
+        foreach (var group in items.GroupBy(GetCategoryKey))
         {
             yield return new()
             {
@@ -91,4 +91,10 @@ public partial class EntityBrowserViewModel(IPinnedEntitiesService pinnedService
             };
         }
     }
+
+    private static string GetCategoryKey(EntityBrowserItem item) => item.Entity?.Value switch
+    {
+        PropertyEntity => "Entity_Category_Items",
+        _ => "Entity_Category_Others",
+    };
 }
