@@ -1,14 +1,14 @@
-using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyCarDbView.Localizations;
 
-public sealed class LocalizedString(string key) : INotifyPropertyChanged
+public sealed class LocalizedString(string key) : ObservableObject
 {
-    private static readonly PropertyChangedEventArgs _valueChangedArgs = new(nameof(Value));
+    public string Key { get; } = key;
 
-    public string Value => Localizer.View[key].Value;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    internal void RaiseValueChanged() => PropertyChanged?.Invoke(this, _valueChangedArgs);
+    public string Value
+    {
+        get;
+        internal set => SetProperty(ref field, value);
+    } = string.Empty;
 }

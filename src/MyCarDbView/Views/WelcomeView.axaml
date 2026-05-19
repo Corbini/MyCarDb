@@ -6,6 +6,7 @@
              xmlns:views="using:MyCarDbView.Views"
              xmlns:controls="using:MyCarDbView.Controls"
              xmlns:localization="using:MyCarDbView.Localizations"
+             xmlns:converters="using:MyCarDbView.Converters"
              xmlns:appstate="using:MyCarDbView.Models.AppState"
              mc:Ignorable="d"
              d:DesignWidth="1100" d:DesignHeight="720"
@@ -79,7 +80,7 @@
                                                 Padding="12,6"
                                                 Command="{Binding #RecentList.((vm:WelcomeViewModel)DataContext).OpenFileFromPathCommand}"
                                                 CommandParameter="{Binding Path}"
-                                                ToolTip.Tip="{Binding LastOpenedAt, Converter={x:Static localization:FullTimestampConverter.Instance}}">
+                                                ToolTip.Tip="{Binding LastOpenedAt, Converter={x:Static converters:FullTimestampConverter.Instance}}">
                                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                                 <TextBlock Grid.Column="0"
                                                            Classes="body"
@@ -88,7 +89,7 @@
                                                            VerticalAlignment="Center"/>
                                                 <TextBlock Grid.Column="1"
                                                            Classes="caption"
-                                                           Text="{Binding LastOpenedAt, Converter={x:Static localization:RelativeTimeConverter.Instance}}"
+                                                           Text="{Binding LastOpenedAt, Converter={x:Static converters:RelativeTimeConverter.Instance}}"
                                                            VerticalAlignment="Center"/>
                                             </Grid>
                                         </Button>

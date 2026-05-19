@@ -246,11 +246,11 @@
   <data name="EntityBrowser_Pinned_Empty" xml:space="preserve">
     <value>No pinned items</value>
   </data>
-  <data name="EntityBrowser_Section_OnMap" xml:space="preserve">
-    <value>ON MAP</value>
-  </data>
-  <data name="EntityBrowser_Category_Items" xml:space="preserve">
+  <data name="Entity_Category_Items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="Entity_Category_Others" xml:space="preserve">
+    <value>Others</value>
   </data>
   <data name="EntityBrowser_NoResults" xml:space="preserve">
     <value>No results</value>

@@ -24,14 +24,37 @@ public class LocalizationSourceTests
     }
 
     [Fact]
-    public void Refresh_RaisesPropertyChangedForValueOnCachedInstance()
+    public void Refresh_FiresRefreshedEvent()
     {
-        var ls = LocalizationSource.Instance.Get("_TEST_LSrc_RefreshKey");
-        var raised = new List<string?>();
-        ls.PropertyChanged += (_, e) => raised.Add(e.PropertyName);
+        bool raised = false;
+        void Handler() => raised = true;
+        LocalizationSource.Instance.Refreshed += Handler;
 
-        LocalizationSource.Instance.Refresh();
+        try
+        {
+            LocalizationSource.Instance.Refresh();
+        }
+        finally
+        {
+            LocalizationSource.Instance.Refreshed -= Handler;
+        }
 
-        Assert.Contains(nameof(LocalizedString.Value), raised);
+        Assert.True(raised);
+    }
+
+    [Fact]
+    public void LocalizedString_ValueChange_FiresPropertyChanged()
+    {
+        var ls = new LocalizedString("k");
+        bool raised = false;
+        ls.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(LocalizedString.Value))
+                raised = true;
+        };
+
+        ls.Value = "new";
+
+        Assert.True(raised);
     }
 }

@@ -12,4 +12,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Entity_ax" xml:space="preserve">
+    <value>Axe</value>
+  </data>
+  <data name="Entity_basketball" xml:space="preserve">
+    <value>Basketball</value>
+  </data>
+  <data name="Entity_camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Entity_car_jack" xml:space="preserve">
+    <value>Car Jack</value>
+  </data>
+  <data name="Entity_diesel" xml:space="preserve">
+    <value>Diesel</value>
+  </data>
+  <data name="Entity_diggingbar" xml:space="preserve">
+    <value>Digging Bar</value>
+  </data>
+  <data name="Entity_dipper" xml:space="preserve">
+    <value>Dipper</value>
+  </data>
+  <data name="Entity_fireworks_bag" xml:space="preserve">
+    <value>Fireworks Bag</value>
+  </data>
+  <data name="Entity_fireworksbag0" xml:space="preserve">
+    <value>Fireworks Bag</value>
+  </data>
+  <data name="Entity_fish_trap" xml:space="preserve">
+    <value>Fish Trap</value>
+  </data>
+  <data name="Entity_floor_jack" xml:space="preserve">
+    <value>Floor Jack</value>
+  </data>
+  <data name="Entity_garbage_barrel" xml:space="preserve">
+    <value>Garbage Barrel</value>
+  </data>
+  <data name="Entity_gasoline" xml:space="preserve">
+    <value>Gasoline</value>
+  </data>
+  <data name="Entity_lantern" xml:space="preserve">
+    <value>Lantern</value>
+  </data>
+  <data name="Entity_notepad" xml:space="preserve">
+    <value>Notepad</value>
+  </data>
+  <data name="Entity_parts_magazine" xml:space="preserve">
+    <value>Parts Magazine</value>
+  </data>
+  <data name="Entity_ratchet_set" xml:space="preserve">
+    <value>Ratchet Set</value>
+  </data>
+  <data name="Entity_sandbag" xml:space="preserve">
+    <value>Sandbag</value>
+  </data>
+  <data name="Entity_sledgehammer" xml:space="preserve">
+    <value>Sledgehammer</value>
+  </data>
+  <data name="Entity_sofa" xml:space="preserve">
+    <value>Sofa</value>
+  </data>
+  <data name="Entity_spanner_set" xml:space="preserve">
+    <value>Spanner Set</value>
+  </data>
+  <data name="Entity_tv_remote_control" xml:space="preserve">
+    <value>TV Remote Control</value>
+  </data>
+  <data name="Entity_warningtrianglex" xml:space="preserve">
+    <value>Warning Triangle</value>
+  </data>
+  <data name="Entity_water_bucket" xml:space="preserve">
+    <value>Water Bucket</value>
+  </data>
+  <data name="Entity_wiring_mess" xml:space="preserve">
+    <value>Wiring Mess</value>
+  </data>
 </root>

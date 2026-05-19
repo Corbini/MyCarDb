@@ -1,12 +1,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using MyCarDbWorld.Models;
+using MyCarDbView.Localizations;
 
 namespace MyCarDbView.Items;
 
 public sealed partial class EntityBrowserItem : ObservableObject
 {
-    public required string Title { get; init; }
-    public IEntity? Entity { get; init; } = null;
+    public required LocalizedString? Title { get; init; }
+    public EntityItem? Entity { get; init; } = null;
     public required IReadOnlyList<EntityBrowserItem> Items { get; init; }
 
     [ObservableProperty]
