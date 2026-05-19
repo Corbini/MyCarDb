@@ -9,6 +9,7 @@ using MyCarDbView.Models.AppState;
 using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
+using MyCarDbWorld.Commands;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
@@ -29,16 +30,29 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     private readonly ILocalizationSource _localization;
     public EntityBrowserViewModel EntityBrowser { get; }
 
+    public InspectorViewModel Inspector { get; }
+
+    public MapViewModel Map { get; }
+
+    public CommandStack Stack { get; }
+
     [ObservableProperty]
     private World _world;
 
     [ObservableProperty]
     private IReadOnlyList<EntityItem> _displayEntities = [];
 
+    [ObservableProperty]
+    private EntityItem? _selectedEntity;
+
+    partial void OnSelectedEntityChanged(EntityItem? value)
+        => Inspector.SelectedEntity = value;
+
     partial void OnWorldChanged(World value)
     {
         DisplayEntities = value.Entities.Select(CreateEntityItem).ToList();
         EntityBrowser.UpdateEntities(DisplayEntities);
+        Stack.ChangeWorld(value);
     }
 
     private EntityItem CreateEntityItem(IEntity entity)
@@ -66,7 +80,8 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         ILastOpenedService lastOpenedService,
         ILocalizationSource localization,
         EditorViewModelParameters parameters,
-        EntityBrowserViewModel entityBrowserViewModel)
+        EntityBrowserViewModel entityBrowserViewModel,
+        MapViewModel mapViewModel)
     {
         _worldArchive = worldArchive;
         _filePicker = filePicker;
@@ -75,7 +90,12 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _dialogService = dialogService;
         _lastOpenedService = lastOpenedService;
         _localization = localization;
+        Stack = new CommandStack(parameters.World);
         EntityBrowser = entityBrowserViewModel;
+        Inspector = new InspectorViewModel(Stack);
+        Map = mapViewModel;
+
+        EntityBrowser.SelectionChanged += entity => SelectedEntity = entity;
 
         World = parameters.World;
         _filePath = parameters.FilePath;
@@ -95,6 +115,12 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [RelayCommand]
     private void ToggleInspector()
         => IsInspectorVisible = !IsInspectorVisible;
+
+    [RelayCommand]
+    private void Undo() => Stack.Undo();
+
+    [RelayCommand]
+    private void Redo() => Stack.Redo();
 
     [RelayCommand]
     private Task OpenSettingsAsync(CancellationToken ct) =>

@@ -75,6 +75,12 @@
   <data name="Editor_Inspector_Toggle_Tooltip" xml:space="preserve">
     <value>Toggle inspector (Ctrl+Alt+I)</value>
   </data>
+  <data name="Editor_Inspector_NoSelection" xml:space="preserve">
+    <value>Nothing selected</value>
+  </data>
+  <data name="Inspector_PropertyEntity_PositionSection" xml:space="preserve">
+    <value>Position</value>
+  </data>
   <data name="Editor_Save_FailedTitle" xml:space="preserve">
     <value>Save Failed</value>
   </data>

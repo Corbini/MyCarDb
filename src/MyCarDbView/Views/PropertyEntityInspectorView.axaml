@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.PropertyEntityInspectorView"
+             x:DataType="vm:PropertyEntityInspectorViewModel">
+    <StackPanel Spacing="8">
+        <TextBlock Classes="section-header"
+                   Text="{localization:View Inspector_PropertyEntity_PositionSection}"/>
+        <Grid ColumnDefinitions="Auto,*"
+              RowDefinitions="Auto,Auto"
+              RowSpacing="6"
+              ColumnSpacing="8">
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Classes="body"
+                       Text="X"
+                       VerticalAlignment="Center"/>
+            <NumericUpDown Grid.Row="0" Grid.Column="1"
+                           Value="{Binding PositionX}"
+                           FormatString="0.######"/>
+            <TextBlock Grid.Row="1" Grid.Column="0"
+                       Classes="body"
+                       Text="Y"
+                       VerticalAlignment="Center"/>
+            <NumericUpDown Grid.Row="1" Grid.Column="1"
+                           Value="{Binding PositionY}"
+                           FormatString="0.######"/>
+        </Grid>
+    </StackPanel>
+</UserControl>
