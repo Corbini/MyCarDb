@@ -30,8 +30,6 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     public IEntityBrowserViewModel EntityBrowser { get; }
     public IInspectorViewModel Inspector { get; }
 
-    public CommandStack Stack => _session.Stack;
-
     [ObservableProperty]
     private IReadOnlyList<EntityItem> _displayEntities = [];
 
@@ -89,7 +87,6 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _session = _docMgr.ActiveDocument
             ?? throw new InvalidOperationException("ActiveDocument went null while EditorViewModel is alive.");
         SelectedEntity = null;
-        OnPropertyChanged(nameof(Stack));
         RefreshFromSession();
     }
 

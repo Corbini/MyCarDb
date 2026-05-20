@@ -6,22 +6,15 @@ using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public sealed partial class InspectorViewModel : ObservableObject, IInspectorViewModel
+public sealed partial class InspectorViewModel(IDocumentManager docMgr) : ObservableObject, IInspectorViewModel
 {
-    private readonly IDocumentManager _docMgr;
-
-    public InspectorViewModel(IDocumentManager docMgr)
-    {
-        _docMgr = docMgr;
-    }
-
     [NotifyPropertyChangedFor(nameof(HasSelection))]
     [ObservableProperty]
     private EntityItem? _selectedEntity;
 
     partial void OnSelectedEntityChanged(EntityItem? value)
     {
-        var session = _docMgr.ActiveDocument
+        var session = docMgr.ActiveDocument
             ?? throw new InvalidOperationException("InspectorViewModel active without document.");
 
         CurrentInspector = value?.Value switch
