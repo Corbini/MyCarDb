@@ -72,6 +72,7 @@ public partial class App : Application
         services.AddSingleton<IFileParser, FileParser>();
         services.AddTransient<IEntityBrowserViewModel, EntityBrowserViewModel>();
         services.AddTransient<IInspectorViewModel, InspectorViewModel>();
+        services.AddTransient<IMapViewModel, MapViewModel>();
         services.AddSingleton<IDocumentManager, DocumentManager>();
         services.AddMyCarDbWorld();
         return services.BuildServiceProvider();

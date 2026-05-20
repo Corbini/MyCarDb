@@ -7,26 +7,46 @@ using System.Xml.Linq;
 
 namespace AvaloniaStyles.Generators;
 
+internal readonly record struct SvgFigureData(string PathData, uint? FillArgb);
+
 internal static class SvgParser
 {
     private static readonly CultureInfo _inv = CultureInfo.InvariantCulture;
 
-    public static (ViewBox ViewBox, string PathData) Parse(string svgContent)
+    private static readonly HashSet<string> _skipElements = new()
+    {
+        "defs", "clipPath", "mask", "title", "desc", "metadata", "style"
+    };
+
+    public static (ViewBox ViewBox, IReadOnlyList<SvgFigureData> Figures) Parse(string svgContent)
     {
         var doc = XDocument.Parse(svgContent);
         var root = doc.Root ?? throw new InvalidOperationException("SVG has no root element");
 
         var viewBox = ParseViewBox(root.Attribute("viewBox")?.Value);
-        var parts = new List<string>();
+        var figures = new List<SvgFigureData>();
+        uint? rootFill = ParseFill(root.Attribute("fill")?.Value);
 
-        foreach (var element in root.Descendants())
-        {
-            string part = ConvertShape(element, viewBox);
-            if (!string.IsNullOrEmpty(part))
-                parts.Add(part);
-        }
+        foreach (var child in root.Elements())
+            Visit(child, rootFill, viewBox, figures);
 
-        return (viewBox, string.Join(" ", parts));
+        return (viewBox, figures);
+    }
+
+    private static void Visit(XElement el, uint? inheritedFill, ViewBox viewBox, List<SvgFigureData> figures)
+    {
+        if (_skipElements.Contains(el.Name.LocalName))
+            return;
+
+        uint? elFill = ParseFill(el.Attribute("fill")?.Value);
+        uint? currentFill = elFill ?? inheritedFill;
+
+        string part = ConvertShape(el, viewBox);
+        if (!string.IsNullOrEmpty(part))
+            figures.Add(new SvgFigureData(part, currentFill));
+
+        foreach (var child in el.Elements())
+            Visit(child, currentFill, viewBox, figures);
     }
 
     private static string ConvertShape(XElement el, ViewBox viewBox)
@@ -67,7 +87,6 @@ internal static class SvgParser
 
         if (rx > 0)
         {
-            // Rounded rect — 4 corners as arcs.
             var sb = new StringBuilder();
             sb.Append($"M{F(x + rx)},{F(y)} ");
             sb.Append($"H{F(x + w - rx)} ");
@@ -89,7 +108,6 @@ internal static class SvgParser
         double cx = D(el, "cx");
         double cy = D(el, "cy");
         double r = D(el, "r");
-        // Two semicircular arcs to close the loop.
         return $"M{F(cx - r)},{F(cy)} A{F(r)},{F(r)} 0 1 0 {F(cx + r)},{F(cy)} A{F(r)},{F(r)} 0 1 0 {F(cx - r)},{F(cy)} Z";
     }
 
@@ -117,6 +135,33 @@ internal static class SvgParser
         if (closed)
             sb.Append(" Z");
         return sb.ToString();
+    }
+
+    private static uint? ParseFill(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+        value = value!.Trim();
+        if (value.Equals("none", StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        if (value.StartsWith("#"))
+        {
+            string hex = value.Substring(1);
+            if (hex.Length == 3)
+                hex = $"{hex[0]}{hex[0]}{hex[1]}{hex[1]}{hex[2]}{hex[2]}";
+            if (hex.Length == 6 && uint.TryParse(hex, NumberStyles.HexNumber, _inv, out uint rgb))
+                return 0xFF000000u | rgb;
+            if (hex.Length == 8 && uint.TryParse(hex, NumberStyles.HexNumber, _inv, out uint argb))
+                return argb;
+        }
+
+        if (value.Equals("white", StringComparison.OrdinalIgnoreCase))
+            return 0xFFFFFFFFu;
+        if (value.Equals("black", StringComparison.OrdinalIgnoreCase))
+            return 0xFF000000u;
+
+        return null;
     }
 
     private static double D(XElement el, string attr)

@@ -87,6 +87,12 @@
   <data name="Editor_Save_FailedMessage" xml:space="preserve">
     <value>Nie udało się zapisać pliku. Spróbuj ponownie.</value>
   </data>
+  <data name="Map_ZoomIn_Tooltip" xml:space="preserve">
+    <value>Powiększ (Ctrl++)</value>
+  </data>
+  <data name="Map_ZoomOut_Tooltip" xml:space="preserve">
+    <value>Pomniejsz (Ctrl+-)</value>
+  </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Ustawienia</value>
   </data>

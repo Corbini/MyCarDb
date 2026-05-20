@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:ctrl="clr-namespace:AvaloniaStyles.Controls;assembly=AvaloniaStyles"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.MapView"
+             x:DataType="vm:MapViewModel">
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+OemPlus" Command="{Binding #viewport.ZoomInCommand}"/>
+        <KeyBinding Gesture="Ctrl+Shift+OemPlus" Command="{Binding #viewport.ZoomInCommand}"/>
+        <KeyBinding Gesture="Ctrl+Add" Command="{Binding #viewport.ZoomInCommand}"/>
+        <KeyBinding Gesture="Ctrl+OemMinus" Command="{Binding #viewport.ZoomOutCommand}"/>
+        <KeyBinding Gesture="Ctrl+Subtract" Command="{Binding #viewport.ZoomOutCommand}"/>
+    </UserControl.KeyBindings>
+    <Panel Background="{DynamicResource MapBackground}"
+           ClipToBounds="True">
+        <ctrl:Viewport Name="viewport">
+            <ctrl:Map Symbol="{DynamicResource MapSymbol}"/>
+        </ctrl:Viewport>
+        <Border Classes="popover"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="14"
+                ClipToBounds="True">
+            <StackPanel Orientation="Vertical">
+                <Button Classes="borderless icon"
+                        Command="{Binding #viewport.ZoomInCommand}"
+                        ToolTip.Tip="{localization:View Map_ZoomIn_Tooltip}">
+                    <Icon Symbol="plus" Classes="size-sm"/>
+                </Button>
+                <Border Classes="divider-top">
+                    <Button Classes="borderless icon"
+                            Command="{Binding #viewport.ZoomOutCommand}"
+                            ToolTip.Tip="{localization:View Map_ZoomOut_Tooltip}">
+                        <Icon Symbol="minus" Classes="size-sm"/>
+                    </Button>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Panel>
+</UserControl>

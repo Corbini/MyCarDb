@@ -29,6 +29,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
 
     public IEntityBrowserViewModel EntityBrowser { get; }
     public IInspectorViewModel Inspector { get; }
+    public IMapViewModel Map { get; }
 
     [ObservableProperty]
     private IReadOnlyList<EntityItem> _displayEntities = [];
@@ -55,7 +56,8 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         ILastOpenedService lastOpenedService,
         ILocalizationSource localization,
         IEntityBrowserViewModel entityBrowserViewModel,
-        IInspectorViewModel inspectorViewModel)
+        IInspectorViewModel inspectorViewModel,
+        IMapViewModel mapViewModel)
     {
         _docMgr = docMgr;
         _worldArchive = worldArchive;
@@ -67,6 +69,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         _localization = localization;
         EntityBrowser = entityBrowserViewModel;
         Inspector = inspectorViewModel;
+        Map = mapViewModel;
 
         _session = docMgr.ActiveDocument
             ?? throw new InvalidOperationException("EditorViewModel requires an active document.");
