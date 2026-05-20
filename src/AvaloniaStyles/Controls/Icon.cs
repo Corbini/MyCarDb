@@ -46,12 +46,12 @@ public class Icon : TemplatedControl
     {
         PseudoClasses.Set(":fill", Symbol?.EndsWith(_fillSuffix, StringComparison.Ordinal) == true);
 
-        if (Symbol is null || !IconCatalog.All.TryGetValue(Symbol, out var def))
+        if (Symbol is null || !SvgCatalog.All.TryGetValue(Symbol, out var def))
         {
             Data = null;
             return;
         }
-        Data = def.Geometry;
+        Data = def.CombinedGeometry;
         ViewBox = def.ViewBox;
     }
 }

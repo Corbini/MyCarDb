@@ -1,0 +1,42 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:ctrl="clr-namespace:AvaloniaStyles.Controls">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <sys:String x:Key="MapSymbol">LightThemeMap</sys:String>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <sys:String x:Key="MapSymbol">DarkThemeMap</sys:String>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <ControlTheme x:Key="{x:Type ctrl:Map}" TargetType="ctrl:Map">
+                <Setter Property="Template">
+                    <ControlTemplate TargetType="ctrl:Map">
+                        <Viewbox Stretch="Uniform">
+                            <ItemsControl ItemsSource="{TemplateBinding Figures}"
+                                          Width="{Binding ViewBox.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Height="{Binding ViewBox.Height, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="ctrl:MapFigure">
+                                        <Path Data="{Binding Geometry}" Fill="{Binding Brush}"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter>
+            </ControlTheme>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+</Styles>

@@ -87,6 +87,12 @@
   <data name="Editor_Save_FailedMessage" xml:space="preserve">
     <value>Can not save the file. Please try again.</value>
   </data>
+  <data name="Map_ZoomIn_Tooltip" xml:space="preserve">
+    <value>Zoom in (Ctrl++)</value>
+  </data>
+  <data name="Map_ZoomOut_Tooltip" xml:space="preserve">
+    <value>Zoom out (Ctrl+-)</value>
+  </data>
   <data name="Settings_Title" xml:space="preserve">
     <value>Settings</value>
   </data>

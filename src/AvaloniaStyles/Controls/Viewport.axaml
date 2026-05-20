@@ -1,0 +1,31 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:AvaloniaStyles.Controls">
+
+    <Styles.Resources>
+
+        <ControlTheme x:Key="{x:Type controls:Viewport}" TargetType="controls:Viewport">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="ClipToBounds" Value="True"/>
+            <Setter Property="Template">
+                <ControlTemplate TargetType="controls:Viewport">
+                    <Panel Background="{TemplateBinding Background}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}">
+                            <ContentPresenter.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="{Binding Zoom, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    ScaleY="{Binding Zoom, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <TranslateTransform X="{Binding OffsetX, RelativeSource={RelativeSource TemplatedParent}}"
+                                                        Y="{Binding OffsetY, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </TransformGroup>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+
+    </Styles.Resources>
+
+</Styles>

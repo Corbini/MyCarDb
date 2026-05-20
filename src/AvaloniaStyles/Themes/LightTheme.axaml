@@ -37,4 +37,7 @@
     <!-- Modal backdrop -->
     <SolidColorBrush x:Key="Backdrop"    Color="#80000000"/>
 
+    <!-- Map -->
+    <SolidColorBrush x:Key="MapBackground" Color="#F5EFE4"/>
+
 </ResourceDictionary>
