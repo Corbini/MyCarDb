@@ -11,6 +11,17 @@
              x:Class="MyCarDbView.Views.EditorView"
              x:DataType="vm:EditorViewModel">
 
+    <UserControl.KeyBindings>
+        <KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}"/>
+        <KeyBinding Gesture="Ctrl+Shift+Z" Command="{Binding RedoCommand}"/>
+        <KeyBinding Gesture="Ctrl+Y" Command="{Binding RedoCommand}"/>
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}"/>
+        <KeyBinding Gesture="Ctrl+O" Command="{Binding OpenFileDialogCommand}"/>
+        <KeyBinding Gesture="Ctrl+OemComma" Command="{Binding OpenSettingsCommand}"/>
+        <KeyBinding Gesture="Ctrl+Alt+S" Command="{Binding ToggleSidebarCommand}"/>
+        <KeyBinding Gesture="Ctrl+Alt+I" Command="{Binding ToggleInspectorCommand}"/>
+    </UserControl.KeyBindings>
+
     <views:EditorView.TitleBarLeading>
         <StackPanel Orientation="Horizontal" Spacing="6">
             <Button Classes="bordered icon"
@@ -86,17 +97,13 @@
         <GridSplitter Grid.Column="1"
                       Background="Transparent"
                       IsVisible="{Binding IsSidebarVisible}"/>
-        <Panel Grid.Column="2">
-            
-        </Panel>
+        <Panel Grid.Column="2"/>
         <Border Grid.Column="3"
                 Grid.ColumnSpan="2"
                 IsVisible="{Binding IsInspectorVisible}"
                 Classes="divider-left"
                 Background="{DynamicResource BgSidebar}">
-            <DockPanel>
-                <Panel/>
-            </DockPanel>
+            <views:InspectorView DataContext="{Binding Inspector}"/>
         </Border>
         <GridSplitter Grid.Column="3"
                       Background="Transparent"

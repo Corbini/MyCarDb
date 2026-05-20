@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:views="using:MyCarDbView.Views"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.InspectorView"
+             x:DataType="vm:InspectorViewModel">
+    <Panel>
+        <DockPanel IsVisible="{Binding HasSelection}"
+                   Margin="20,18">
+            <StackPanel DockPanel.Dock="Top"
+                        Orientation="Horizontal"
+                        Spacing="2"
+                        Margin="0,0,0,16">
+                <TextBlock Classes="headline"
+                           Text="{Binding SelectedEntity.Title.Value}"/>
+                <TextBlock Classes="headline secondary"
+                           Text="{Binding SelectedEntity.Serial}"/>
+            </StackPanel>
+            <ContentControl Content="{Binding CurrentInspector}">
+                <ContentControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type vm:PropertyEntityInspectorViewModel}">
+                        <views:PropertyEntityInspectorView DataContext="{Binding}"/>
+                    </DataTemplate>
+                </ContentControl.DataTemplates>
+            </ContentControl>
+        </DockPanel>
+
+        <TextBlock Classes="empty"
+                   IsVisible="{Binding !HasSelection}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{localization:View Editor_Inspector_NoSelection}"/>
+    </Panel>
+</UserControl>

@@ -9,7 +9,6 @@ using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
 using MyCarDbView.ViewModels;
 using MyCarDbView.Views;
-using MyCarDbWorld;
 
 namespace MyCarDbView;
 
@@ -71,7 +70,9 @@ public partial class App : Application
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IWorldArchive, WorldArchive>();
         services.AddSingleton<IFileParser, FileParser>();
-        services.AddTransient<EntityBrowserViewModel>();
+        services.AddTransient<IEntityBrowserViewModel, EntityBrowserViewModel>();
+        services.AddTransient<IInspectorViewModel, InspectorViewModel>();
+        services.AddSingleton<IDocumentManager, DocumentManager>();
         services.AddMyCarDbWorld();
         return services.BuildServiceProvider();
     }

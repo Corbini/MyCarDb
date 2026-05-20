@@ -7,7 +7,7 @@ using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public partial class EntityBrowserViewModel : ObservableObject
+public partial class EntityBrowserViewModel : ObservableObject, IEntityBrowserViewModel
 {
     private readonly IPinnedEntitiesService _pinnedService;
     private readonly ILocalizationSource _localization;
@@ -17,6 +17,10 @@ public partial class EntityBrowserViewModel : ObservableObject
 
     [ObservableProperty]
     private EntityBrowserItem? _selectedNode;
+    partial void OnSelectedNodeChanged(EntityBrowserItem? value)
+        => SelectionChanged?.Invoke(value?.Entity);
+
+    public event Action<EntityItem?>? SelectionChanged;
 
     [ObservableProperty]
     private string _searchText = "";

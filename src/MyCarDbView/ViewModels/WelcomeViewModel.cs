@@ -18,7 +18,7 @@ public sealed partial class WelcomeViewModel(
     IFileOpenPickerService _filePicker,
     ISaveFolderResolver _folderResolver,
     IStringLocalizer<ViewLocalization> _viewLoc,
-    IWorldArchive _worldArchive) : ObservableObject, IViewModel
+    IDocumentManager _documentManager) : ObservableObject, IViewModel
 {
     public IReadOnlyList<LastOpenedFile> RecentFiles => _lastOpenedService.Recent;
 
@@ -53,11 +53,11 @@ public sealed partial class WelcomeViewModel(
     [RelayCommand]
     private async Task OpenFileFromPath(string path)
     {
-        switch (await _worldArchive.LoadWorldAsync(path))
+        switch (await _documentManager.OpenFromPathAsync(path))
         {
-            case ArchiveResult.Success success:
+            case ArchiveResult.Success:
                 _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
-                _shellService.NavigateTo<EditorViewModel, EditorViewModelParameters>(new EditorViewModelParameters(success.Content, path));
+                _shellService.NavigateTo<EditorViewModel>();
                 break;
             case ArchiveResult.Failed failed:
                 await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
@@ -67,7 +67,7 @@ public sealed partial class WelcomeViewModel(
                         Title = _viewLoc["Welcome_OpenSave_FailedTitle"].Value,
                         Message = _viewLoc[failed.DetailKey].Value,
                     });
-                return;
+                break;
         }
     }
 }
