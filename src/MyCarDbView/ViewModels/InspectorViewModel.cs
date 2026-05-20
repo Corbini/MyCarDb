@@ -1,17 +1,18 @@
+using System.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MyCarDbView.Items;
-using MyCarDbWorld.Commands;
+using MyCarDbView.Services;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public sealed partial class InspectorViewModel : ObservableObject
+public sealed partial class InspectorViewModel : ObservableObject, IInspectorViewModel
 {
-    private readonly ICommandExecutor _stack;
+    private readonly IDocumentManager _docMgr;
 
-    public InspectorViewModel(ICommandExecutor stack)
+    public InspectorViewModel(IDocumentManager docMgr)
     {
-        _stack = stack;
+        _docMgr = docMgr;
     }
 
     [NotifyPropertyChangedFor(nameof(HasSelection))]
@@ -20,9 +21,12 @@ public sealed partial class InspectorViewModel : ObservableObject
 
     partial void OnSelectedEntityChanged(EntityItem? value)
     {
+        var session = _docMgr.ActiveDocument
+            ?? throw new InvalidOperationException("InspectorViewModel active without document.");
+
         CurrentInspector = value?.Value switch
         {
-            PropertyEntity property => new PropertyEntityInspectorViewModel(_stack, property),
+            PropertyEntity property => new PropertyEntityInspectorViewModel(session.Stack, property),
             _ => null,
         };
     }

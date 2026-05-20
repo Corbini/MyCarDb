@@ -7,7 +7,7 @@ using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public partial class EntityBrowserViewModel : ObservableObject
+public partial class EntityBrowserViewModel : ObservableObject, IEntityBrowserViewModel
 {
     private readonly IPinnedEntitiesService _pinnedService;
     private readonly ILocalizationSource _localization;

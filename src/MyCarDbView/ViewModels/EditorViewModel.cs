@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Localization;
@@ -14,13 +15,9 @@ using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
-public record EditorViewModelParameters(
-    World World,
-    string FilePath
-);
-
 public sealed partial class EditorViewModel : ObservableObject, IViewModel
 {
+    private readonly IDocumentManager _docMgr;
     private readonly IWorldArchive _worldArchive;
     private readonly IFileOpenPickerService _filePicker;
     private readonly ISaveFolderResolver _folderResolver;
@@ -28,16 +25,12 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     private readonly IDialogService _dialogService;
     private readonly ILastOpenedService _lastOpenedService;
     private readonly ILocalizationSource _localization;
-    public EntityBrowserViewModel EntityBrowser { get; }
+    private FileSession _session;
 
-    public InspectorViewModel Inspector { get; }
+    public IEntityBrowserViewModel EntityBrowser { get; }
+    public IInspectorViewModel Inspector { get; }
 
-    public MapViewModel Map { get; }
-
-    public CommandStack Stack { get; }
-
-    [ObservableProperty]
-    private World _world;
+    public CommandStack Stack => _session.Stack;
 
     [ObservableProperty]
     private IReadOnlyList<EntityItem> _displayEntities = [];
@@ -45,14 +38,66 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [ObservableProperty]
     private EntityItem? _selectedEntity;
 
+    [ObservableProperty]
+    private string _fileName = string.Empty;
+
+    [ObservableProperty]
+    private bool _isSidebarVisible = true;
+
+    [ObservableProperty]
+    private bool _isInspectorVisible = true;
+
+    public EditorViewModel(
+        IDocumentManager docMgr,
+        IWorldArchive worldArchive,
+        IFileOpenPickerService filePicker,
+        ISaveFolderResolver folderResolver,
+        IStringLocalizer<ViewLocalization> viewLoc,
+        IDialogService dialogService,
+        ILastOpenedService lastOpenedService,
+        ILocalizationSource localization,
+        IEntityBrowserViewModel entityBrowserViewModel,
+        IInspectorViewModel inspectorViewModel)
+    {
+        _docMgr = docMgr;
+        _worldArchive = worldArchive;
+        _filePicker = filePicker;
+        _folderResolver = folderResolver;
+        _viewLoc = viewLoc;
+        _dialogService = dialogService;
+        _lastOpenedService = lastOpenedService;
+        _localization = localization;
+        EntityBrowser = entityBrowserViewModel;
+        Inspector = inspectorViewModel;
+
+        _session = docMgr.ActiveDocument
+            ?? throw new InvalidOperationException("EditorViewModel requires an active document.");
+
+        _docMgr.PropertyChanged += OnDocMgrChanged;
+        EntityBrowser.SelectionChanged += entity => SelectedEntity = entity;
+
+        RefreshFromSession();
+    }
+
     partial void OnSelectedEntityChanged(EntityItem? value)
         => Inspector.SelectedEntity = value;
 
-    partial void OnWorldChanged(World value)
+    private void OnDocMgrChanged(object? sender, PropertyChangedEventArgs e)
     {
-        DisplayEntities = value.Entities.Select(CreateEntityItem).ToList();
+        if (e.PropertyName != nameof(IDocumentManager.ActiveDocument))
+            return;
+        _session = _docMgr.ActiveDocument
+            ?? throw new InvalidOperationException("ActiveDocument went null while EditorViewModel is alive.");
+        SelectedEntity = null;
+        OnPropertyChanged(nameof(Stack));
+        RefreshFromSession();
+    }
+
+    private void RefreshFromSession()
+    {
+        FileName = Path.GetFileName(_session.FilePath);
+        DisplayEntities = _session.World.Entities.Select(CreateEntityItem).ToList();
         EntityBrowser.UpdateEntities(DisplayEntities);
-        Stack.ChangeWorld(value);
     }
 
     private EntityItem CreateEntityItem(IEntity entity)
@@ -66,61 +111,17 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         };
     }
 
-    private string _filePath;
-
-    [ObservableProperty]
-    private string _fileName;
-
-    public EditorViewModel(
-        IWorldArchive worldArchive,
-        IFileOpenPickerService filePicker,
-        ISaveFolderResolver folderResolver,
-        IStringLocalizer<ViewLocalization> viewLoc,
-        IDialogService dialogService,
-        ILastOpenedService lastOpenedService,
-        ILocalizationSource localization,
-        EditorViewModelParameters parameters,
-        EntityBrowserViewModel entityBrowserViewModel,
-        MapViewModel mapViewModel)
-    {
-        _worldArchive = worldArchive;
-        _filePicker = filePicker;
-        _folderResolver = folderResolver;
-        _viewLoc = viewLoc;
-        _dialogService = dialogService;
-        _lastOpenedService = lastOpenedService;
-        _localization = localization;
-        Stack = new CommandStack(parameters.World);
-        EntityBrowser = entityBrowserViewModel;
-        Inspector = new InspectorViewModel(Stack);
-        Map = mapViewModel;
-
-        EntityBrowser.SelectionChanged += entity => SelectedEntity = entity;
-
-        World = parameters.World;
-        _filePath = parameters.FilePath;
-        FileName = Path.GetFileName(parameters.FilePath);
-    }
-
-    [ObservableProperty]
-    private bool _isSidebarVisible = true;
+    [RelayCommand]
+    private void ToggleSidebar() => IsSidebarVisible = !IsSidebarVisible;
 
     [RelayCommand]
-    private void ToggleSidebar()
-        => IsSidebarVisible = !IsSidebarVisible;
-
-    [ObservableProperty]
-    private bool _isInspectorVisible = true;
+    private void ToggleInspector() => IsInspectorVisible = !IsInspectorVisible;
 
     [RelayCommand]
-    private void ToggleInspector()
-        => IsInspectorVisible = !IsInspectorVisible;
+    private void Undo() => _session.Stack.Undo();
 
     [RelayCommand]
-    private void Undo() => Stack.Undo();
-
-    [RelayCommand]
-    private void Redo() => Stack.Redo();
+    private void Redo() => _session.Stack.Redo();
 
     [RelayCommand]
     private Task OpenSettingsAsync(CancellationToken ct) =>
@@ -145,12 +146,10 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
     [RelayCommand]
     private async Task OpenFileFromPath(string path)
     {
-        switch (await _worldArchive.LoadWorldAsync(path))
+        switch (await _docMgr.OpenFromPathAsync(path))
         {
-            case ArchiveResult.Success success:
-                _filePath = path;
-                FileName = Path.GetFileName(path);
-                World = success.Content;
+            case ArchiveResult.Success:
+                _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
                 break;
             case ArchiveResult.Failed failed:
                 await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
@@ -160,16 +159,14 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
                         Title = _viewLoc["Welcome_OpenSave_FailedTitle"].Value,
                         Message = _viewLoc[failed.DetailKey].Value,
                     });
-                return;
+                break;
         }
-
-        _lastOpenedService.Add(new LastOpenedFile(path, DateTime.Now));
     }
 
     [RelayCommand]
     private async Task SaveFileAsync()
     {
-        bool isSaved = await _worldArchive.SaveWorldAsync(World, _filePath);
+        bool isSaved = await _worldArchive.SaveWorldAsync(_session.World, _session.FilePath);
         if (!isSaved)
         {
             await _dialogService.ShowAsync<AlertViewModel, AlertOptions>(
