@@ -66,20 +66,8 @@
   <data name="Entity_sandbag" xml:space="preserve">
     <value>Worek z piaskiem</value>
   </data>
-  <data name="Entity_ShitWell01" xml:space="preserve">
-    <value>Szambo 1</value>
-  </data>
-  <data name="Entity_ShitWell02" xml:space="preserve">
-    <value>Szambo 2</value>
-  </data>
-  <data name="Entity_ShitWell03" xml:space="preserve">
-    <value>Szambo 3</value>
-  </data>
-  <data name="Entity_ShitWell04" xml:space="preserve">
-    <value>Szambo 4</value>
-  </data>
-  <data name="Entity_ShitWell05" xml:space="preserve">
-    <value>Szambo 5</value>
+  <data name="Entity_ShitWell" xml:space="preserve">
+    <value>Szambo</value>
   </data>
   <data name="Entity_sledgehammer" xml:space="preserve">
     <value>Młot kowalski</value>
