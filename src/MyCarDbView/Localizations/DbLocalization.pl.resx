@@ -66,6 +66,9 @@
   <data name="Entity_sandbag" xml:space="preserve">
     <value>Worek z piaskiem</value>
   </data>
+  <data name="Entity_ShitWell" xml:space="preserve">
+    <value>Szambo</value>
+  </data>
   <data name="Entity_sledgehammer" xml:space="preserve">
     <value>Młot kowalski</value>
   </data>

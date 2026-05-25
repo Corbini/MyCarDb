@@ -117,6 +117,7 @@ public partial class EntityBrowserViewModel : ObservableObject, IEntityBrowserVi
     private static string GetCategoryKey(EntityBrowserItem item) => item.Entity?.Value switch
     {
         PropertyEntity => "Entity_Category_Items",
+        CesspoolEntity => "Entity_Category_Cesspool",
         _ => "Entity_Category_Others",
     };
 }

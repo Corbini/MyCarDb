@@ -81,6 +81,24 @@
   <data name="Inspector_PropertyEntity_PositionSection" xml:space="preserve">
     <value>Pozycja</value>
   </data>
+  <data name="Inspector_CesspoolEntity_LabelLevel" xml:space="preserve">
+    <value>Poziom napełnienia</value>
+  </data>
+  <data name="Inspector_CesspoolEntity_LabelRate" xml:space="preserve">
+    <value>Tempo napełniania</value>
+  </data>
+  <data name="Inspector_CesspoolEntity_LabelPickup" xml:space="preserve">
+    <value>Wezwany odbiór</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolLevel" xml:space="preserve">
+    <value>Zmiana poziomu szamba</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolRate" xml:space="preserve">
+    <value>Zmiana tempa napełniania szamba</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolPickup" xml:space="preserve">
+    <value>Zmiana statusu wezwania szamba</value>
+  </data>
   <data name="Editor_Save_FailedTitle" xml:space="preserve">
     <value>Zapis nie powiódł się</value>
   </data>
@@ -260,6 +278,9 @@
   </data>
   <data name="Entity_Category_Items" xml:space="preserve">
     <value>Przedmioty</value>
+  </data>
+  <data name="Entity_Category_Cesspool" xml:space="preserve">
+    <value>Szamba</value>
   </data>
   <data name="Entity_Category_Others" xml:space="preserve">
     <value>Inne</value>

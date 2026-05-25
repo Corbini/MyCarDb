@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.CesspoolEntityInspectorView"
+             x:DataType="vm:CesspoolEntityInspectorViewModel">
+    <StackPanel Spacing="16">
+        <StackPanel Spacing="6">
+            <TextBlock Classes="subhead"
+                       Text="{localization:View Inspector_CesspoolEntity_LabelLevel}"/>
+            <NumericUpDown Value="{Binding Level}"
+                           FormatString="0.######"
+                           HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel Spacing="6">
+            <TextBlock Classes="subhead"
+                       Text="{localization:View Inspector_CesspoolEntity_LabelRate}"/>
+            <NumericUpDown Value="{Binding Rate}"
+                           FormatString="0.########"
+                           HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <DockPanel LastChildFill="True">
+            <ToggleSwitch DockPanel.Dock="Right"
+                          IsChecked="{Binding IsPickupOrdered}"/>
+            <TextBlock Classes="body"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="{localization:View Inspector_CesspoolEntity_LabelPickup}"/>
+        </DockPanel>
+    </StackPanel>
+</UserControl>

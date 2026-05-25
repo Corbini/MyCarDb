@@ -20,6 +20,7 @@ public sealed partial class InspectorViewModel(IDocumentManager docMgr) : Observ
         CurrentInspector = value?.Value switch
         {
             PropertyEntity property => new PropertyEntityInspectorViewModel(session.Stack, property),
+            CesspoolEntity property => new CesspoolEntityInspectorViewModel(session.Stack, property),
             _ => null,
         };
     }
