@@ -53,6 +53,11 @@ public sealed class PropertyCoder : IEntityCoder<PropertyEntity>
 
     public void Encode(PropertyEntity entity, IList<IFileValue> target)
     {
-        throw new NotImplementedException();
+        var pos = target.OfType<PositionValue>().FirstOrDefault(v => v.Name == entity.Id);
+        if (pos is null)
+            throw new InvalidOperationException($"No PositionValue named '{entity.Id}' in target.");
+
+        pos.AxisX = entity.Position.X;
+        pos.AxisY = entity.Position.Y;
     }
 }

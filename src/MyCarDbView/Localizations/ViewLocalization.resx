@@ -81,6 +81,24 @@
   <data name="Inspector_PropertyEntity_PositionSection" xml:space="preserve">
     <value>Position</value>
   </data>
+  <data name="Inspector_CesspoolEntity_LabelLevel" xml:space="preserve">
+    <value>Fill level</value>
+  </data>
+  <data name="Inspector_CesspoolEntity_LabelRate" xml:space="preserve">
+    <value>Fill rate</value>
+  </data>
+  <data name="Inspector_CesspoolEntity_LabelPickup" xml:space="preserve">
+    <value>Pickup ordered</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolLevel" xml:space="preserve">
+    <value>Set cesspool fill level</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolRate" xml:space="preserve">
+    <value>Set cesspool fill rate</value>
+  </data>
+  <data name="Editor_Command_SetCesspoolPickup" xml:space="preserve">
+    <value>Set cesspool pickup status</value>
+  </data>
   <data name="Editor_Save_FailedTitle" xml:space="preserve">
     <value>Save Failed</value>
   </data>
@@ -260,6 +278,9 @@
   </data>
   <data name="Entity_Category_Items" xml:space="preserve">
     <value>Items</value>
+  </data>
+  <data name="Entity_Category_Cesspool" xml:space="preserve">
+    <value>Cesspools</value>
   </data>
   <data name="Entity_Category_Others" xml:space="preserve">
     <value>Others</value>
