@@ -67,6 +67,7 @@ public partial class App : Application
         services.AddSingleton<IWritableOptions<PinnedEntities>>(_ =>
             new WritableOptions<PinnedEntities>(AppPaths.PinnedEntitiesFile, AppJsonContext.Default.PinnedEntities));
         services.AddSingleton<IPinnedEntitiesService, PinnedEntitiesService>();
+        services.AddSingleton<IMapItemFactory, MapItemFactory>();
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IWorldArchive, WorldArchive>();
         services.AddSingleton<IFileParser, FileParser>();

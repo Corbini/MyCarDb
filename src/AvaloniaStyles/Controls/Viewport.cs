@@ -8,6 +8,9 @@ namespace AvaloniaStyles.Controls;
 
 public class Viewport : ContentControl
 {
+    private const double _zoomEpsilon = 1e-4;
+    private static readonly Cursor _dragCursor = new(StandardCursorType.SizeAll);
+
     public static readonly StyledProperty<double> ZoomProperty =
         AvaloniaProperty.Register<Viewport, double>(
             nameof(Zoom),
@@ -35,6 +38,22 @@ public class Viewport : ContentControl
             nameof(OffsetY),
             defaultBindingMode: Avalonia.Data.BindingMode.TwoWay,
             coerce: CoerceOffsetY);
+
+    public static readonly StyledProperty<double> InverseZoomProperty =
+        AvaloniaProperty.Register<Viewport, double>(
+            nameof(InverseZoom), defaultValue: 1);
+
+    static Viewport()
+    {
+        BoundsProperty.Changed.AddClassHandler<Viewport>((vp, _) =>
+        {
+            vp.CoerceValue(OffsetXProperty);
+            vp.CoerceValue(OffsetYProperty);
+        });
+        ZoomProperty.Changed.AddClassHandler<Viewport>((vp, _) => vp.OnZoomChanged());
+        MinZoomProperty.Changed.AddClassHandler<Viewport>((vp, _) => vp.OnZoomBoundsChanged());
+        MaxZoomProperty.Changed.AddClassHandler<Viewport>((vp, _) => vp.OnZoomBoundsChanged());
+    }
 
     public double Zoom
     {
@@ -72,19 +91,26 @@ public class Viewport : ContentControl
         set => SetValue(OffsetYProperty, value);
     }
 
+    public double InverseZoom
+    {
+        get => GetValue(InverseZoomProperty);
+        private set => SetValue(InverseZoomProperty, value);
+    }
+
     private Point? _dragStart;
     private double _dragStartOffsetX;
     private double _dragStartOffsetY;
 
-    public ICommand ZoomInCommand { get; }
+    private RelayCommand? _zoomInCommand;
+    private RelayCommand? _zoomOutCommand;
 
-    public ICommand ZoomOutCommand { get; }
+    public ICommand ZoomInCommand => _zoomInCommand ??= new RelayCommand(
+        () => ZoomBy(ZoomStep, null),
+        () => Zoom < MaxZoom);
 
-    public Viewport()
-    {
-        ZoomInCommand = new RelayCommand(() => Zoom *= ZoomStep);
-        ZoomOutCommand = new RelayCommand(() => Zoom /= ZoomStep);
-    }
+    public ICommand ZoomOutCommand => _zoomOutCommand ??= new RelayCommand(
+        () => ZoomBy(1.0 / ZoomStep, null),
+        () => Zoom > MinZoom);
 
     private static double CoerceZoom(AvaloniaObject obj, double value)
     {
@@ -106,65 +132,45 @@ public class Viewport : ContentControl
         return Math.Clamp(value, -max, max);
     }
 
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    private void OnZoomChanged()
     {
-        base.OnPropertyChanged(change);
-        if (change.Property == BoundsProperty)
-        {
-            CoerceValue(OffsetXProperty);
-            CoerceValue(OffsetYProperty);
-        }
-        else if (change.Property == ZoomProperty
-            && change.OldValue is double zoomValue)
-        {
-            OnScrollChanged(zoomValue);
-        }
-        else if (change.Property == MinZoomProperty
-            || change.Property == MaxZoomProperty)
-        {
-            CoerceValue(ZoomProperty);
-        }
+        InverseZoom = Zoom > _zoomEpsilon ? 1.0 / Zoom : 1.0;
+        _zoomInCommand?.NotifyCanExecuteChanged();
+        _zoomOutCommand?.NotifyCanExecuteChanged();
     }
 
-    private void OnScrollChanged(double oldZoom)
+    private void OnZoomBoundsChanged()
     {
-        if (Math.Abs(oldZoom) <= 0.0001)
+        CoerceValue(ZoomProperty);
+        _zoomInCommand?.NotifyCanExecuteChanged();
+        _zoomOutCommand?.NotifyCanExecuteChanged();
+    }
+
+    private void ZoomBy(double factor, Point? mouseCenter)
+    {
+        double oldZoom = Zoom;
+        Zoom *= factor;
+        if (Math.Abs(Zoom - oldZoom) <= _zoomEpsilon)
+            return;
+        AdjustOffsetForZoom(oldZoom, Zoom, mouseCenter);
+    }
+
+    private void AdjustOffsetForZoom(double oldZoom, double newZoom, Point? mouseCenter)
+    {
+        if (oldZoom <= _zoomEpsilon)
             return;
 
-        double k = Zoom / oldZoom;
-        double newOffsetX;
-        double newOffsetY;
-
-        if (_scrollMouseCenter is Point point)
-        {
-            newOffsetX = (point.X - Bounds.Width / 2) * (1 - k) + OffsetX * k;
-            newOffsetY = (point.Y - Bounds.Height / 2) * (1 - k) + OffsetY * k;
-            _scrollMouseCenter = null;
-        }
-        else
-        {
-            newOffsetX = OffsetX * k;
-            newOffsetY = OffsetY * k;
-        }
-
-        OffsetX = newOffsetX;
-        OffsetY = newOffsetY;
+        double k = newZoom / oldZoom;
+        var reference = mouseCenter ?? new Point(Bounds.Width / 2, Bounds.Height / 2);
+        OffsetX = (reference.X - Bounds.Width / 2) * (1 - k) + OffsetX * k;
+        OffsetY = (reference.Y - Bounds.Height / 2) * (1 - k) + OffsetY * k;
     }
 
-    private Point? _scrollMouseCenter;
     protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
     {
         base.OnPointerWheelChanged(e);
-
         bool zoomingIn = e.Delta.Y > 0;
-        bool canZoom = zoomingIn ? Zoom < MaxZoom : Zoom > MinZoom;
-
-        if (canZoom)
-        {
-            _scrollMouseCenter = e.GetPosition(this);
-            Zoom = zoomingIn ? Zoom * ZoomStep : Zoom / ZoomStep;
-        }
-
+        ZoomBy(zoomingIn ? ZoomStep : 1.0 / ZoomStep, e.GetPosition(this));
         e.Handled = true;
     }
 
@@ -180,7 +186,7 @@ public class Viewport : ContentControl
         _dragStartOffsetX = OffsetX;
         _dragStartOffsetY = OffsetY;
         e.Pointer.Capture(this);
-        Cursor = new Cursor(StandardCursorType.SizeAll);
+        Cursor = _dragCursor;
         e.Handled = true;
     }
 

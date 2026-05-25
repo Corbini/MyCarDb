@@ -75,13 +75,20 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
             ?? throw new InvalidOperationException("EditorViewModel requires an active document.");
 
         _docMgr.PropertyChanged += OnDocMgrChanged;
-        EntityBrowser.SelectionChanged += entity => SelectedEntity = entity;
+        EntityBrowser.SelectionChanged += OnSelectionChanged;
+        Map.SelectionChanged += OnSelectionChanged;
 
         RefreshFromSession();
     }
 
+    private void OnSelectionChanged(EntityItem? entity) => SelectedEntity = entity;
+
     partial void OnSelectedEntityChanged(EntityItem? value)
-        => Inspector.SelectedEntity = value;
+    {
+        Inspector.SelectedEntity = value;
+        EntityBrowser.SyncSelection(value);
+        Map.SyncSelection(value);
+    }
 
     private void OnDocMgrChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -98,6 +105,7 @@ public sealed partial class EditorViewModel : ObservableObject, IViewModel
         FileName = Path.GetFileName(_session.FilePath);
         DisplayEntities = _session.World.Entities.Select(CreateEntityItem).ToList();
         EntityBrowser.UpdateEntities(DisplayEntities);
+        Map.UpdateEntities(DisplayEntities);
     }
 
     private EntityItem CreateEntityItem(IEntity entity)

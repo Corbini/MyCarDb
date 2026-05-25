@@ -22,6 +22,11 @@ public partial class EntityBrowserViewModel : ObservableObject, IEntityBrowserVi
 
     public event Action<EntityItem?>? SelectionChanged;
 
+    public void SyncSelection(EntityItem? entity)
+        => SelectedNode = entity is null
+            ? null
+            : _allNodes.FirstOrDefault(n => ReferenceEquals(n.Entity, entity));
+
     [ObservableProperty]
     private string _searchText = "";
     partial void OnSearchTextChanged(string value) => Rebuild();
