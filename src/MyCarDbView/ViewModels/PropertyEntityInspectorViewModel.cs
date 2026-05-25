@@ -9,7 +9,6 @@ public sealed partial class PropertyEntityInspectorViewModel : ObservableObject,
 {
     private readonly PropertyEntity _entity;
     private readonly ICommandExecutor _stack;
-    private bool _isSyncing;
 
     [ObservableProperty]
     private decimal _positionX;
@@ -29,18 +28,10 @@ public sealed partial class PropertyEntityInspectorViewModel : ObservableObject,
     }
 
     partial void OnPositionXChanged(decimal value)
-    {
-        if (_isSyncing)
-            return;
-        Commit(new Vector2((float)value, (float)PositionY));
-    }
+        => Commit(new Vector2((float)value, (float)PositionY));
 
     partial void OnPositionYChanged(decimal value)
-    {
-        if (_isSyncing)
-            return;
-        Commit(new Vector2((float)PositionX, (float)value));
-    }
+        => Commit(new Vector2((float)PositionX, (float)value));
 
     private void Commit(Vector2 newPosition)
     {
@@ -52,10 +43,8 @@ public sealed partial class PropertyEntityInspectorViewModel : ObservableObject,
 
     private void SyncFromEntity()
     {
-        _isSyncing = true;
         PositionX = (decimal)_entity.Position.X;
         PositionY = (decimal)_entity.Position.Y;
-        _isSyncing = false;
     }
 
     public void Dispose()
