@@ -47,7 +47,7 @@ public sealed class PropertyCoder : IEntityCoder<PropertyEntity>
             if (pos == null)
                 continue;
 
-            yield return new PropertyEntity(pos.Name, new Vector2(pos.AxisX, pos.AxisY));
+            yield return new PropertyEntity(pos.Name, new Vector2(pos.AxisX, pos.AxisZ));
         }
     }
 
@@ -58,6 +58,6 @@ public sealed class PropertyCoder : IEntityCoder<PropertyEntity>
             throw new InvalidOperationException($"No PositionValue named '{entity.Id}' in target.");
 
         pos.AxisX = entity.Position.X;
-        pos.AxisY = entity.Position.Y;
+        pos.AxisZ = entity.Position.Y;
     }
 }

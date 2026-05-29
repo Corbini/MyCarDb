@@ -1,10 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:MyCarDbView.ViewModels"
-             xmlns:ctrl="clr-namespace:AvaloniaStyles.Controls;assembly=AvaloniaStyles"
+             xmlns:items="using:MyCarDbView.Items"
              xmlns:localization="using:MyCarDbView.Localizations"
              x:Class="MyCarDbView.Views.MapView"
-             x:DataType="vm:MapViewModel">
+             x:DataType="vm:MapViewModel"
+             x:Name="Root">
     <UserControl.KeyBindings>
         <KeyBinding Gesture="Ctrl+OemPlus" Command="{Binding #viewport.ZoomInCommand}"/>
         <KeyBinding Gesture="Ctrl+Shift+OemPlus" Command="{Binding #viewport.ZoomInCommand}"/>
@@ -14,9 +15,45 @@
     </UserControl.KeyBindings>
     <Panel Background="{DynamicResource MapBackground}"
            ClipToBounds="True">
-        <ctrl:Viewport Name="viewport">
-            <ctrl:Map Symbol="{DynamicResource MapSymbol}"/>
-        </ctrl:Viewport>
+        <Viewport Name="viewport" MaxZoom="32">
+            <Panel>
+                <Map Name="map" Symbol="{DynamicResource MapSymbol}"/>
+                <Viewbox Stretch="Uniform">
+                    <ItemsControl ItemsSource="{Binding Items}"
+                                  Width="{Binding #map.ViewBox.Width}"
+                                  Height="{Binding #map.ViewBox.Height}">
+                        <ItemsControl.Styles>
+                            <Style Selector="ContentPresenter" x:DataType="items:MapItem">
+                                <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                <Setter Property="Canvas.Top" Value="{Binding Z}"/>
+                            </Style>
+                        </ItemsControl.Styles>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="items:MapItem">
+                                <Border RenderTransformOrigin="50%,50%">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="{Binding #viewport.InverseZoom}"
+                                                        ScaleY="{Binding #viewport.InverseZoom}"/>
+                                    </Border.RenderTransform>
+                                    <Button Classes="map-marker"
+                                            Classes.active="{Binding IsSelected}"
+                                            ToolTip.Tip="{Binding Value.Title.Value}"
+                                            Command="{Binding #Root.((vm:MapViewModel)DataContext).SelectItemCommand}"
+                                            CommandParameter="{Binding}">
+                                        <Icon Symbol="map-pin" Classes="size-xs"/>
+                                    </Button>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Viewbox>
+            </Panel>
+        </Viewport>
         <Border Classes="popover"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
