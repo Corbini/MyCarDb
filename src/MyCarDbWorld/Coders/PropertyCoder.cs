@@ -36,7 +36,8 @@ public sealed class PropertyCoder : IEntityCoder<PropertyEntity>
       "fireworks bag(itemx)",
       "fireworksbag0",
       "basketball(Clone)",
-      "ratchet set(Clone)"
+      "ratchet set(Clone)",
+      "WoodCutter"
     ];
 
     public IEnumerable<PropertyEntity> Decode(IReadOnlyList<IFileValue> source)

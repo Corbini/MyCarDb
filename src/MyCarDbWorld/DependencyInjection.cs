@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddSingleton<IWorldCoder, WorldCoder>();
         services.AddSingleton<IEntityCoder<PropertyEntity>, PropertyCoder>();
         services.AddSingleton<IEntityCoder<CesspoolEntity>, CesspoolCoder>();
+        services.AddSingleton<IEntityCoder<WoodOrderEntity>, WoodOrderCoder>();
         return services;
     }
 }

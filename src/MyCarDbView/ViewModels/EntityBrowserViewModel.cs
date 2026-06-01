@@ -123,6 +123,7 @@ public partial class EntityBrowserViewModel : ObservableObject, IEntityBrowserVi
     {
         PropertyEntity => "Entity_Category_Items",
         CesspoolEntity => "Entity_Category_Cesspool",
+        WoodOrderEntity => "Entity_Category_WoodOrder",
         _ => "Entity_Category_Others",
     };
 }
