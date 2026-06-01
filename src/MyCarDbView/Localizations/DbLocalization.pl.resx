@@ -105,4 +105,7 @@
   <data name="Entity_wiring_mess" xml:space="preserve">
     <value>Plątanina kabli</value>
   </data>
+  <data name="Entity_WoodCutter" xml:space="preserve">
+    <value>Pieniek do rąbania drewna</value>
+  </data>
 </root>

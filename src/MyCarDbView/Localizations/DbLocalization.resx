@@ -105,4 +105,7 @@
   <data name="Entity_wiring_mess" xml:space="preserve">
     <value>Wiring Mess</value>
   </data>
+  <data name="Entity_WoodCutter" xml:space="preserve">
+    <value>Wood cutter</value>
+  </data>
 </root>
