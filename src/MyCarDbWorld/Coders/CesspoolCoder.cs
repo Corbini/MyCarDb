@@ -1,10 +1,11 @@
 using System.Numerics;
 using MyCarDb.Values;
+using MyCarDbWorld.Data;
 using MyCarDbWorld.Models;
 
 namespace MyCarDbWorld.Coders;
 
-public sealed class CesspoolCoder : IEntityCoder<CesspoolEntity>
+public sealed class CesspoolCoder(IMapDataRegistry mapData) : IEntityCoder<CesspoolEntity>
 {
     private static readonly string[] _indices = ["01", "02", "03", "04", "05"];
 
@@ -16,6 +17,8 @@ public sealed class CesspoolCoder : IEntityCoder<CesspoolEntity>
     {
         foreach (string index in _indices)
         {
+            string id = $"ShitWell{index}";
+
             string levelName = string.Format(_levelNameFormat, index);
             var level = source.OfType<FloatValue>().FirstOrDefault(v => v.Name == levelName);
 
@@ -28,8 +31,12 @@ public sealed class CesspoolCoder : IEntityCoder<CesspoolEntity>
             if (level == null || rate == null || called == null)
                 continue;
 
+            var position = mapData.PositionOf(id)
+                ?? throw new InvalidOperationException($"No map position registered for '{id}'.");
+
             yield return new CesspoolEntity(
-                id: $"ShitWell{index}",
+                id: id,
+                position: position,
                 level: level.Value,
                 rate: rate.Value,
                 isPickupOrdered: called.Value);
