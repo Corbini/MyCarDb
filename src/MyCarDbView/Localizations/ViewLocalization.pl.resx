@@ -99,6 +99,36 @@
   <data name="Editor_Command_SetCesspoolPickup" xml:space="preserve">
     <value>Zmiana statusu wezwania szamba</value>
   </data>
+  <data name="Inspector_HelmetEntity_PositionSection" xml:space="preserve">
+    <value>Pozycja</value>
+  </data>
+  <data name="Inspector_HelmetEntity_LabelColor" xml:space="preserve">
+    <value>Kolor</value>
+  </data>
+  <data name="Inspector_HelmetEntity_LabelPt" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="Editor_Command_SetHelmetPosition" xml:space="preserve">
+    <value>Zmiana pozycji hełmu</value>
+  </data>
+  <data name="Editor_Command_SetHelmetColor" xml:space="preserve">
+    <value>Zmiana koloru hełmu</value>
+  </data>
+  <data name="Editor_Command_SetHelmetPt" xml:space="preserve">
+    <value>Zmiana PT hełmu</value>
+  </data>
+  <data name="Inspector_WoodOrderEntity_LabelOrdered" xml:space="preserve">
+    <value>Zamówione</value>
+  </data>
+  <data name="Inspector_WoodOrderEntity_LabelWait" xml:space="preserve">
+    <value>Czas oczekiwania</value>
+  </data>
+  <data name="Editor_Command_SetWoodOrder" xml:space="preserve">
+    <value>Zmiana statusu zamówienia drewna</value>
+  </data>
+  <data name="Editor_Command_SetWoodOrderWait" xml:space="preserve">
+    <value>Zmiana czasu oczekiwania zamówienia drewna</value>
+  </data>
   <data name="Editor_Save_FailedTitle" xml:space="preserve">
     <value>Zapis nie powiódł się</value>
   </data>
@@ -281,6 +311,12 @@
   </data>
   <data name="Entity_Category_Cesspool" xml:space="preserve">
     <value>Szamba</value>
+  </data>
+  <data name="Entity_Category_Helmet" xml:space="preserve">
+    <value>Hełmy</value>
+  </data>
+  <data name="Entity_Category_WoodOrder" xml:space="preserve">
+    <value>Zamówienia drewna</value>
   </data>
   <data name="Entity_Category_Others" xml:space="preserve">
     <value>Inne</value>

@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.WoodOrderEntityInspectorView"
+             x:DataType="vm:WoodOrderEntityInspectorViewModel">
+    <StackPanel Spacing="16">
+        <DockPanel LastChildFill="True">
+            <ToggleSwitch DockPanel.Dock="Right"
+                          IsChecked="{Binding IsOrdered}"/>
+            <TextBlock Classes="body"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="{localization:View Inspector_WoodOrderEntity_LabelOrdered}"/>
+        </DockPanel>
+
+        <StackPanel Spacing="6">
+            <TextBlock Classes="subhead"
+                       Text="{localization:View Inspector_WoodOrderEntity_LabelWait}"/>
+            <NumericUpDown Value="{Binding Wait}"
+                           FormatString="0.######"
+                           HorizontalAlignment="Stretch"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

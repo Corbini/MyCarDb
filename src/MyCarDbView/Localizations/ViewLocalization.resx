@@ -99,6 +99,36 @@
   <data name="Editor_Command_SetCesspoolPickup" xml:space="preserve">
     <value>Set cesspool pickup status</value>
   </data>
+  <data name="Inspector_HelmetEntity_PositionSection" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Inspector_HelmetEntity_LabelColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Inspector_HelmetEntity_LabelPt" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="Editor_Command_SetHelmetPosition" xml:space="preserve">
+    <value>Set helmet position</value>
+  </data>
+  <data name="Editor_Command_SetHelmetColor" xml:space="preserve">
+    <value>Set helmet color</value>
+  </data>
+  <data name="Editor_Command_SetHelmetPt" xml:space="preserve">
+    <value>Set helmet PT</value>
+  </data>
+  <data name="Inspector_WoodOrderEntity_LabelOrdered" xml:space="preserve">
+    <value>Order placed</value>
+  </data>
+  <data name="Inspector_WoodOrderEntity_LabelWait" xml:space="preserve">
+    <value>Wait time</value>
+  </data>
+  <data name="Editor_Command_SetWoodOrder" xml:space="preserve">
+    <value>Set wood order status</value>
+  </data>
+  <data name="Editor_Command_SetWoodOrderWait" xml:space="preserve">
+    <value>Set wood order wait time</value>
+  </data>
   <data name="Editor_Save_FailedTitle" xml:space="preserve">
     <value>Save Failed</value>
   </data>
@@ -281,6 +311,12 @@
   </data>
   <data name="Entity_Category_Cesspool" xml:space="preserve">
     <value>Cesspools</value>
+  </data>
+  <data name="Entity_Category_Helmet" xml:space="preserve">
+    <value>Helmets</value>
+  </data>
+  <data name="Entity_Category_WoodOrder" xml:space="preserve">
+    <value>Wood orders</value>
   </data>
   <data name="Entity_Category_Others" xml:space="preserve">
     <value>Others</value>

@@ -6,7 +6,8 @@ namespace MyCarDbWorld;
 
 public sealed class WorldCoder(
     IEntityCoder<PropertyEntity> propertyCoder,
-    IEntityCoder<CesspoolEntity> cesspoolCoder) : IWorldCoder
+    IEntityCoder<CesspoolEntity> cesspoolCoder,
+    IEntityCoder<WoodOrderEntity> woodOrderCoder) : IWorldCoder
 {
     public World Decode(List<IFileValue> source)
     {
@@ -15,7 +16,8 @@ public sealed class WorldCoder(
             Values = source,
             Entities = [
                 .. propertyCoder.Decode(source),
-                .. cesspoolCoder.Decode(source)],
+                .. cesspoolCoder.Decode(source),
+                .. woodOrderCoder.Decode(source)],
         };
     }
 
@@ -30,6 +32,9 @@ public sealed class WorldCoder(
                     break;
                 case CesspoolEntity cesspool:
                     cesspoolCoder.Encode(cesspool, destination.Values);
+                    break;
+                case WoodOrderEntity woodOrder:
+                    woodOrderCoder.Encode(woodOrder, destination.Values);
                     break;
             }
         }

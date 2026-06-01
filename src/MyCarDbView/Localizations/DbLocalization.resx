@@ -51,6 +51,9 @@
   <data name="Entity_gasoline" xml:space="preserve">
     <value>Gasoline</value>
   </data>
+  <data name="Entity_helmet" xml:space="preserve">
+    <value>Helmet</value>
+  </data>
   <data name="Entity_lantern" xml:space="preserve">
     <value>Lantern</value>
   </data>
@@ -86,6 +89,18 @@
   </data>
   <data name="Entity_water_bucket" xml:space="preserve">
     <value>Water Bucket</value>
+  </data>
+  <data name="Entity_Wood1" xml:space="preserve">
+    <value>Wood order 1</value>
+  </data>
+  <data name="Entity_Wood2" xml:space="preserve">
+    <value>Wood order 2</value>
+  </data>
+  <data name="Entity_Wood3" xml:space="preserve">
+    <value>Wood order 3</value>
+  </data>
+  <data name="Entity_Wood4" xml:space="preserve">
+    <value>Wood order 4</value>
   </data>
   <data name="Entity_wiring_mess" xml:space="preserve">
     <value>Wiring Mess</value>
