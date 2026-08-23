@@ -11,8 +11,8 @@ public sealed record MapFigure(Geometry Geometry, IBrush? Brush);
 
 public class Map : TemplatedControl
 {
-    public static readonly StyledProperty<string?> SymbolProperty =
-        AvaloniaProperty.Register<Map, string?>(nameof(Symbol));
+    public static readonly StyledProperty<SvgSymbol?> SymbolProperty =
+        AvaloniaProperty.Register<Map, SvgSymbol?>(nameof(Symbol));
 
     public static readonly StyledProperty<IReadOnlyList<MapFigure>?> FiguresProperty =
         AvaloniaProperty.Register<Map, IReadOnlyList<MapFigure>?>(nameof(Figures));
@@ -25,7 +25,7 @@ public class Map : TemplatedControl
         SymbolProperty.Changed.AddClassHandler<Map>((map, _) => map.UpdateFromSymbol());
     }
 
-    public string? Symbol
+    public SvgSymbol? Symbol
     {
         get => GetValue(SymbolProperty);
         set => SetValue(SymbolProperty, value);
@@ -45,7 +45,7 @@ public class Map : TemplatedControl
 
     private void UpdateFromSymbol()
     {
-        if (Symbol is null || !SvgCatalog.All.TryGetValue(Symbol, out var def))
+        if (Symbol is null || !SvgCatalog.All.TryGetValue(Symbol.Value, out var def))
         {
             Figures = null;
             return;

@@ -19,7 +19,7 @@
                     Classes.active="{Binding IsSidebarVisible}"
                     Command="{Binding ToggleSidebarCommand}"
                     ToolTip.Tip="{localization:View Sidebar_Toggle_Tooltip}">
-                <Icon Symbol="sidebar-left" Classes="size-base"/>
+                <Icon Symbol="SidebarLeft" Classes="size-base"/>
             </Button>
             <TextBlock Classes="subhead empty"
                     Text="{localization:View Welcome_NoSaveLoaded}"
@@ -51,7 +51,7 @@
                                 HorizontalAlignment="Left"
                                 Command="{Binding OpenSettingsCommand}"
                                 ToolTip.Tip="{localization:View Welcome_Settings_Tooltip}">
-                            <Icon Symbol="settings" Classes="size-base"/>
+                            <Icon Symbol="Settings" Classes="size-base"/>
                         </Button>
                     </Border>
 
@@ -126,7 +126,7 @@
                             Command="{Binding OpenFileDialogCommand}"
                             HotKey="Ctrl+O">
                         <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                            <Icon Symbol="folder" Classes="size-md"/>
+                            <Icon Symbol="Folder" Classes="size-md"/>
                             <TextBlock Text="{localization:View Welcome_OpenSave_Label}" VerticalAlignment="Center"/>
                             <TextBlock Classes="kbd-hint" Text="Ctrl+O" VerticalAlignment="Center"/>
                         </StackPanel>
@@ -149,7 +149,7 @@
                     </Grid>
 
                     <StackPanel HorizontalAlignment="Center" Spacing="6">
-                        <Icon Symbol="upload"
+                        <Icon Symbol="Upload"
                                 Classes="size-2xl"
                                 Foreground="{DynamicResource TextTertiary}"
                                 HorizontalAlignment="Center"/>

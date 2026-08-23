@@ -8,10 +8,8 @@ namespace AvaloniaStyles.Controls;
 
 public class Icon : TemplatedControl
 {
-    private const string _fillSuffix = "-fill";
-
-    public static readonly StyledProperty<string?> SymbolProperty =
-        AvaloniaProperty.Register<Icon, string?>(nameof(Symbol));
+    public static readonly StyledProperty<SvgSymbol?> SymbolProperty =
+        AvaloniaProperty.Register<Icon, SvgSymbol?>(nameof(Symbol));
 
     public static readonly StyledProperty<Geometry?> DataProperty =
         AvaloniaProperty.Register<Icon, Geometry?>(nameof(Data));
@@ -24,7 +22,7 @@ public class Icon : TemplatedControl
         SymbolProperty.Changed.AddClassHandler<Icon>((icon, _) => icon.UpdateFromSymbol());
     }
 
-    public string? Symbol
+    public SvgSymbol? Symbol
     {
         get => GetValue(SymbolProperty);
         set => SetValue(SymbolProperty, value);
@@ -44,13 +42,14 @@ public class Icon : TemplatedControl
 
     private void UpdateFromSymbol()
     {
-        PseudoClasses.Set(":fill", Symbol?.EndsWith(_fillSuffix, StringComparison.Ordinal) == true);
-
-        if (Symbol is null || !SvgCatalog.All.TryGetValue(Symbol, out var def))
+        if (Symbol is null || !SvgCatalog.All.TryGetValue(Symbol.Value, out var def))
         {
+            PseudoClasses.Set(":fill", false);
             Data = null;
             return;
         }
+
+        PseudoClasses.Set(":fill", def.IsFill);
         Data = def.CombinedGeometry;
         ViewBox = def.ViewBox;
     }

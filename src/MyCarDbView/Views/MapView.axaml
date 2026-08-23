@@ -45,7 +45,7 @@
                                             ToolTip.Tip="{Binding Value.Title.Value}"
                                             Command="{Binding #Root.((vm:MapViewModel)DataContext).SelectItemCommand}"
                                             CommandParameter="{Binding}">
-                                        <Icon Symbol="map-pin" Classes="size-xs"/>
+                                        <Icon Symbol="MapPin" Classes="size-xs"/>
                                     </Button>
                                 </Border>
                             </DataTemplate>
@@ -63,13 +63,13 @@
                 <Button Classes="borderless icon"
                         Command="{Binding #viewport.ZoomInCommand}"
                         ToolTip.Tip="{localization:View Map_ZoomIn_Tooltip}">
-                    <Icon Symbol="plus" Classes="size-sm"/>
+                    <Icon Symbol="Plus" Classes="size-sm"/>
                 </Button>
                 <Border Classes="divider-top">
                     <Button Classes="borderless icon"
                             Command="{Binding #viewport.ZoomOutCommand}"
                             ToolTip.Tip="{localization:View Map_ZoomOut_Tooltip}">
-                        <Icon Symbol="minus" Classes="size-sm"/>
+                        <Icon Symbol="Minus" Classes="size-sm"/>
                     </Button>
                 </Border>
             </StackPanel>

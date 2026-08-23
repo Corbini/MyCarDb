@@ -28,7 +28,7 @@
                     Classes.active="{Binding IsSidebarVisible}"
                     Command="{Binding ToggleSidebarCommand}"
                     ToolTip.Tip="{localization:View Sidebar_Toggle_Tooltip}">
-                <Icon Symbol="sidebar-left" Classes="size-base"/>
+                <Icon Symbol="SidebarLeft" Classes="size-base"/>
             </Button>
             <TextBlock Classes="subhead"
                     Text="{Binding FileName}"
@@ -42,26 +42,26 @@
             <Button Classes="bordered icon"
                     ToolTip.Tip="{localization:View Editor_OpenFile_Tooltip}"
                     Command="{Binding OpenFileDialogCommand}">
-                <Icon Symbol="folder-open" Classes="size-base"/>
+                <Icon Symbol="FolderOpen" Classes="size-base"/>
             </Button>
             <Button Classes="bordered filled"
                     Command="{Binding SaveFileCommand}"
                     ToolTip.Tip="{localization:View Editor_Save_Tooltip}"
                     Margin="0,0,12,0">
                 <StackPanel Orientation="Horizontal" Spacing="2">
-                    <Icon Symbol="floppy-disk" Classes="size-base"/>
+                    <Icon Symbol="FloppyDisk" Classes="size-base"/>
                     <TextBlock Text="{localization:View Editor_Save_Label}" />
                 </StackPanel>
             </Button>
             <Button Classes="bordered icon"
                     ToolTip.Tip="{localization:View Editor_CarDetails_Tooltip}">
-                <Icon Symbol="car" Classes="size-base"/>
+                <Icon Symbol="Car" Classes="size-base"/>
             </Button>
             <Button Classes="bordered icon"
                     Classes.active="{Binding IsInspectorVisible}"
                     Command="{Binding ToggleInspectorCommand}"
                     ToolTip.Tip="{localization:View Editor_Inspector_Toggle_Tooltip}">
-                <Icon Symbol="sidebar-right" Classes="size-base"/>
+                <Icon Symbol="SidebarRight" Classes="size-base"/>
             </Button>
         </StackPanel>
     </views:EditorView.TitleBarTrailing>
@@ -87,7 +87,7 @@
                             HorizontalAlignment="Left"
                             Command="{Binding OpenSettingsCommand}"
                             ToolTip.Tip="{localization:View Welcome_Settings_Tooltip}">
-                        <Icon Symbol="settings" Classes="size-base"/>
+                        <Icon Symbol="Settings" Classes="size-base"/>
                     </Button>
                 </Border>
 
