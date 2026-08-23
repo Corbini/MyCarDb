@@ -1,4 +1,3 @@
-using MyCarDb.Extensions;
 using MyCarDb.ValueParsers;
 using MyCarDb.Values;
 
@@ -13,6 +12,7 @@ public class ValueParserFactory
     private readonly FloatValueParser _floatValueParser = new();
     private readonly IntegerValueParser _integerValueParser = new();
     private readonly PositionParser _positionParser = new();
+    private readonly RawValueParser _rawValueParser = new();
     private readonly StringValueParser _stringValueParser = new();
     private readonly Vector3Parser _vector3Parser = new();
 
@@ -29,7 +29,7 @@ public class ValueParserFactory
             FloatValueParser.TypeId => _floatValueParser.Parse(name, rawData),
             BooleanValueParser.TypeId => _booleanValueParser.Parse(name, rawData),
             StringValueParser.TypeId => _stringValueParser.Parse(name, rawData),
-            _ => new RawValue { Name = name, type = type, RawData = rawData.ToHexString() }
+            _ => _rawValueParser.Parse(name, type, rawData)
         };
     }
 
@@ -44,7 +44,7 @@ public class ValueParserFactory
         FloatValue floatValue => _floatValueParser.Serialize(floatValue),
         BooleanValue boolean => _booleanValueParser.Serialize(boolean),
         StringValue stringValue => _stringValueParser.Serialize(stringValue),
-        RawValue raw => throw new NotImplementedException(),
+        RawValue raw => _rawValueParser.Serialize(raw),
         _ => throw new NotImplementedException()
     };
 }
