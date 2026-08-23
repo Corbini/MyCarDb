@@ -73,6 +73,22 @@ public class FileParserTests
     }
 
     [Fact]
+    public void RoundTrip_UnknownTypeShouldSurviveAsRawValue()
+    {
+        byte[] original = BuildFileBytes(
+            BuildEntry(0x7E, "UNKNOWN", [0xAB, 0xCD, 0xEF, 0x12, 0x34], [0x01, 0x02, 0x03, 0xFE, 0xFF]));
+
+        var parser = new FileParser();
+        var values = parser.Parse(original);
+
+        var raw = Assert.IsType<RawValue>(Assert.Single(values));
+        Assert.Equal("UNKNOWN", raw.Name);
+        Assert.Equal(0xABCDEF1234ul, raw.TypeId);
+
+        Assert.Equal(original, parser.Serialize(values));
+    }
+
+    [Fact]
     public void DumpSavefileAsJson()
     {
         string savefilePath = Path.Combine(
