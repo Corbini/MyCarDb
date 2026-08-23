@@ -54,13 +54,8 @@ public class DictionaryStringStringParser : IValueParser<DictionaryStringStringV
         writer.Write((Int32)value.Value.Count);
         foreach (var row in value.Value)
         {
-            byte[] keyBytes = Encoding.UTF8.GetBytes(row.Key);
-            writer.Write((byte)keyBytes.Length);
-            writer.Write(keyBytes);
-
-            byte[] valueBytes = Encoding.UTF8.GetBytes(row.Value);
-            writer.Write((byte)valueBytes.Length);
-            writer.Write(valueBytes);
+            writer.WriteLengthPrefixedText(row.Key, value.Name);
+            writer.WriteLengthPrefixedText(row.Value, value.Name);
         }
 
         return stream.ToArray();

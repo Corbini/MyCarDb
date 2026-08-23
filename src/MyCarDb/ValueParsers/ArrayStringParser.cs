@@ -48,11 +48,7 @@ public class ArrayStringParser : IValueParser<ArrayStringValue>
         writer.Write(_startValue);
         writer.Write((Int32)value.Value.Length);
         foreach (string entry in value.Value)
-        {
-            byte[] entryBytes = Encoding.UTF8.GetBytes(entry);
-            writer.Write((byte)entryBytes.Length);
-            writer.Write(entryBytes);
-        }
+            writer.WriteLengthPrefixedText(entry, value.Name);
 
         return stream.ToArray();
     }

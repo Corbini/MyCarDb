@@ -28,9 +28,7 @@ public class StringValueParser : IValueParser<StringValue>
         BinaryWriter writer = new(stream);
         writer.WriteTypeId(TypeId);
 
-        byte[] valueBytes = Encoding.UTF8.GetBytes(value.Value);
-        writer.Write((byte)valueBytes.Length);
-        writer.Write(valueBytes);
+        writer.WriteLengthPrefixedText(value.Value, value.Name);
 
         return stream.ToArray();
     }
