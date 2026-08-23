@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using AvaloniaStyles.Generated;
 using CommunityToolkit.Mvvm.Input;
 using MyCarDbView.Models.Alerts;
 using MyCarDbView.Services;
@@ -15,12 +16,12 @@ public sealed class AlertViewModel(IDialogService dialogService, AlertOptions op
 
     public bool IsCritical => options.Severity == AlertSeverity.Critical;
 
-    public string IconSymbol => options.Severity switch
+    public SvgSymbol? IconSymbol => options.Severity switch
     {
-        AlertSeverity.Informational => "info",
-        AlertSeverity.Warning => "warning",
-        AlertSeverity.Critical => "warning-octagon",
-        _ => string.Empty,
+        AlertSeverity.Informational => SvgSymbol.Info,
+        AlertSeverity.Warning => SvgSymbol.Warning,
+        AlertSeverity.Critical => SvgSymbol.WarningOctagon,
+        _ => null,
     };
 
     public ICommand CloseCommand { get; } = new RelayCommand(dialogService.Close);

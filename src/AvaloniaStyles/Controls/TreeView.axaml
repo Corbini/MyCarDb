@@ -36,11 +36,11 @@
                                        Width="18"
                                        VerticalAlignment="Center">
                                     <Icon Name="ChevronCollapsed"
-                                          Symbol="caret-right"
+                                          Symbol="CaretRight"
                                           Classes="size-sm muted"
                                           HorizontalAlignment="Center"/>
                                     <Icon Name="ChevronExpanded"
-                                          Symbol="caret-down"
+                                          Symbol="CaretDown"
                                           Classes="size-sm muted"
                                           HorizontalAlignment="Center"
                                           IsVisible="False"/>

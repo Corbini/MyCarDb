@@ -1,16 +1,16 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        xmlns:gen="clr-namespace:AvaloniaStyles.Generated"
         xmlns:ctrl="clr-namespace:AvaloniaStyles.Controls">
 
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <sys:String x:Key="MapSymbol">LightThemeMap</sys:String>
+                    <gen:SvgSymbol x:Key="MapSymbol">LightThemeMap</gen:SvgSymbol>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <sys:String x:Key="MapSymbol">DarkThemeMap</sys:String>
+                    <gen:SvgSymbol x:Key="MapSymbol">DarkThemeMap</gen:SvgSymbol>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 

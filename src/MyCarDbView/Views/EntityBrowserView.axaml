@@ -41,8 +41,8 @@
                                         VerticalAlignment="Center"
                                         Margin="8,0,0,0">
                                     <Panel>
-                                        <Icon Symbol="star-fill" Classes="size-sm accent" IsVisible="{Binding IsPinned}"/>
-                                        <Icon Symbol="star" Classes="size-sm muted" IsVisible="{Binding !IsPinned}"/>
+                                        <Icon Symbol="StarFill" Classes="size-sm accent" IsVisible="{Binding IsPinned}"/>
+                                        <Icon Symbol="Star" Classes="size-sm muted" IsVisible="{Binding !IsPinned}"/>
                                     </Panel>
                                 </Button>
                                 <Panel VerticalAlignment="Center">

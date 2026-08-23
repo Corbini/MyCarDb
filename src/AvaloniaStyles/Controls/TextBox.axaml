@@ -16,7 +16,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="InnerLeftContent">
             <Template>
-                <Icon Symbol="magnifying-glass"
+                <Icon Symbol="MagnifyingGlass"
                       Classes="size-base muted"
                       Margin="8,0,8,0"
                       VerticalAlignment="Center"/>
@@ -47,7 +47,7 @@
                             Command="{Binding $parent[TextBox].Clear}"
                             Margin="0,0,4,0"
                             VerticalAlignment="Center">
-                        <Icon Symbol="x-circle" Classes="size-base"/>
+                        <Icon Symbol="XCircle" Classes="size-base"/>
                     </Button>
                 </Template>
             </Setter>

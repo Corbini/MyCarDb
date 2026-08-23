@@ -47,13 +47,13 @@
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button Classes="window-control" ToolTip.Tip="Minimize" Click="OnMinimizeClick">
-                                <Icon Symbol="minimize" Classes="size-2xs"/>
+                                <Icon Symbol="Minimize" Classes="size-2xs"/>
                             </Button>
                             <Button Classes="window-control" ToolTip.Tip="Maximize" Click="OnMaximizeClick">
-                                <Icon Symbol="maximize" Classes="size-2xs"/>
+                                <Icon Symbol="Maximize" Classes="size-2xs"/>
                             </Button>
                             <Button Classes="window-control close" ToolTip.Tip="Close" Click="OnCloseClick">
-                                <Icon Symbol="close" Classes="size-2xs"/>
+                                <Icon Symbol="Close" Classes="size-2xs"/>
                             </Button>
                         </StackPanel>
                     </Grid>

@@ -23,7 +23,7 @@
                     <StackPanel HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Spacing="20">
-                        <Icon Symbol="upload"
+                        <Icon Symbol="Upload"
                               Classes="size-4xl accent"
                               HorizontalAlignment="Center"/>
                         <StackPanel HorizontalAlignment="Center" Spacing="6">
