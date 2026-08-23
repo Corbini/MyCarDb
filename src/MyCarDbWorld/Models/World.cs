@@ -4,7 +4,11 @@ namespace MyCarDbWorld.Models;
 
 public sealed record World
 {
-    public List<IEntity> Entities { get; set; } = [];
+    internal List<IEntity> MutableEntities { get; init; } = [];
 
-    public List<IFileValue> Values { get; set; } = [];
+    internal List<IFileValue> MutableValues { get; init; } = [];
+
+    public IReadOnlyList<IEntity> Entities => MutableEntities;
+
+    public IReadOnlyList<IFileValue> Values => MutableValues;
 }

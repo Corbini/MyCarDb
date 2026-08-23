@@ -30,7 +30,7 @@ public sealed class WoodOrderCoder(IMapDataRegistry mapData) : IEntityCoder<Wood
         }
     }
 
-    public void Encode(WoodOrderEntity entity, IList<IFileValue> target)
+    public void Encode(WoodOrderEntity entity, IReadOnlyList<IFileValue> target)
     {
         string index = entity.Id["Wood".Length..];
         var order = target.OfType<BooleanValue>().FirstOrDefault(v => v.Name == $"Wood{index}Order");

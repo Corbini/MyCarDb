@@ -44,7 +44,7 @@ public class FileParser : IFileParser
         return files;
     }
 
-    public byte[] Serialize(List<IFileValue> values)
+    public byte[] Serialize(IReadOnlyList<IFileValue> values)
     {
         var stream = new MemoryStream();
         var writer = new BinaryWriter(stream);

@@ -7,5 +7,5 @@ public interface IWorldCoder
 {
     public World Decode(List<IFileValue> source);
 
-    public List<IFileValue> Encode(World destination);
+    public IReadOnlyList<IFileValue> Encode(World destination);
 }
