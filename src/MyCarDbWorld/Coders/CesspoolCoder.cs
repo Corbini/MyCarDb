@@ -43,7 +43,7 @@ public sealed class CesspoolCoder(IMapDataRegistry mapData) : IEntityCoder<Cessp
         }
     }
 
-    public void Encode(CesspoolEntity entity, IList<IFileValue> target)
+    public void Encode(CesspoolEntity entity, IReadOnlyList<IFileValue> target)
     {
         string index = entity.Id["ShitWell".Length..];
 

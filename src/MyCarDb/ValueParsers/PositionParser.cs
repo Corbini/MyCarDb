@@ -69,9 +69,7 @@ public class PositionParser : IValueParser<PositionValue>
         writer.Write(value.ScaleY);
         writer.Write(value.ScaleZ);
 
-        byte[] layerBytes = Encoding.UTF8.GetBytes(value.Layer);
-        writer.Write((byte)layerBytes.Length);
-        writer.Write(layerBytes);
+        writer.WriteLengthPrefixedText(value.Layer, value.Name);
 
         return stream.ToArray();
     }

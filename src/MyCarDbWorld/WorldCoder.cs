@@ -13,15 +13,15 @@ public sealed class WorldCoder(
     {
         return new World
         {
-            Values = source,
-            Entities = [
+            MutableValues = source,
+            MutableEntities = [
                 .. propertyCoder.Decode(source),
                 .. cesspoolCoder.Decode(source),
                 .. woodOrderCoder.Decode(source)],
         };
     }
 
-    public List<IFileValue> Encode(World destination)
+    public IReadOnlyList<IFileValue> Encode(World destination)
     {
         foreach (var entity in destination.Entities)
         {

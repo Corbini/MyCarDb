@@ -52,7 +52,7 @@ public sealed class PropertyCoder : IEntityCoder<PropertyEntity>
         }
     }
 
-    public void Encode(PropertyEntity entity, IList<IFileValue> target)
+    public void Encode(PropertyEntity entity, IReadOnlyList<IFileValue> target)
     {
         var pos = target.OfType<PositionValue>().FirstOrDefault(v => v.Name == entity.Id);
         if (pos is null)

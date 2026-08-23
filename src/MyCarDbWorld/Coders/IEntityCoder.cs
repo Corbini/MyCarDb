@@ -7,5 +7,5 @@ public interface IEntityCoder<T> where T : IEntity
 {
     IEnumerable<T> Decode(IReadOnlyList<IFileValue> source);
 
-    void Encode(T entity, IList<IFileValue> target);
+    void Encode(T entity, IReadOnlyList<IFileValue> target);
 }
