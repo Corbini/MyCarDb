@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Contracts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MyCarDbView.Services;

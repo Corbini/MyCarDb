@@ -1,3 +1,4 @@
+using Contracts;
 using DocumentEditor.Services;
 using DocumentEditor.ViewModels;
 
@@ -18,6 +19,7 @@ public static class DocumentEditorDependencyInjection
         services.AddTransient<IEntityBrowserViewModel, EntityBrowserViewModel>();
         services.AddTransient<IInspectorViewModel, InspectorViewModel>();
         services.AddTransient<IMapViewModel, MapViewModel>();
+        services.AddTransient<ISettingsSection, BackupSettingsSectionViewModel>();
         return services;
     }
 }

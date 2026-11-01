@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using DocumentEditor.Dto;
-using MyCarDbView.Models.AppState;
+using Settings.Dto;
+using Settings.Models.AppState;
 
 namespace MyCarDbView.Dto;
 

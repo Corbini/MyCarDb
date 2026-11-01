@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using AvaloniaStyles.Generated;
 using CommunityToolkit.Mvvm.Input;
+using Contracts;
 using MyCarDbView.Models.Alerts;
 using MyCarDbView.Services;
 

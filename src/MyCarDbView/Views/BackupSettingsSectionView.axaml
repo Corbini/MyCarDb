@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DocumentEditor.ViewModels"
+             xmlns:localization="using:MyCarDbView.Localizations"
+             x:Class="MyCarDbView.Views.BackupSettingsSectionView"
+             x:DataType="vm:BackupSettingsSectionViewModel">
+
+    <Border Classes="divider-top" Margin="0,24,0,0" Padding="0,24,0,0">
+        <StackPanel Spacing="16">
+            <TextBlock Classes="section-header" Text="{localization:View Settings_Save_Header}"/>
+
+            <Grid ColumnDefinitions="140,*,Auto"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="16">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Classes="body"
+                           Text="{localization:View Settings_Save_AutoBackup_Label}"
+                           VerticalAlignment="Center"/>
+                <ToggleSwitch Grid.Row="0" Grid.Column="2"
+                              IsChecked="{Binding IsAutoBackupEnabled, Mode=TwoWay}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                           Classes="caption"
+                           Text="{localization:View Settings_Save_AutoBackup_Description}"
+                           TextWrapping="Wrap"
+                           Margin="0,4,0,0"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="140,*,Auto"
+                  RowDefinitions="Auto,Auto"
+                  ColumnSpacing="16">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Classes="body"
+                           Text="{localization:View Settings_Save_FileMonitor_Label}"
+                           VerticalAlignment="Center"/>
+                <ToggleSwitch Grid.Row="0" Grid.Column="2"
+                              IsChecked="{Binding IsFileMonitorEnabled, Mode=TwoWay}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                           Classes="caption"
+                           Text="{localization:View Settings_Save_FileMonitor_Description}"
+                           TextWrapping="Wrap"
+                           Margin="0,4,0,0"/>
+            </Grid>
+        </StackPanel>
+    </Border>
+
+</UserControl>

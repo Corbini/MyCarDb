@@ -16,7 +16,7 @@
   <ItemGroup>
     <InternalsVisibleTo Include="MyCarDbView" />
     <InternalsVisibleTo Include="MyCarDb.DocumentEditor.Tests" />
-    <InternalsVisibleTo Include="MyCarDbViewTests" />
+    <InternalsVisibleTo Include="MyCarDbView.Tests" />
   </ItemGroup>
 
 </Project>

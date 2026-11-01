@@ -1,3 +1,4 @@
+using Contracts;
 using MyCarDbView.Services;
 
 namespace MyCarDbView.ViewModels;
