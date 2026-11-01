@@ -1,0 +1,8 @@
+namespace GameWorld.Commands;
+
+public interface ICommandExecutor
+{
+    event Action? Changed;
+
+    void Execute(IEditCommand command);
+}

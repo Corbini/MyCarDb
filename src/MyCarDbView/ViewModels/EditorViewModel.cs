@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GameWorld.Commands;
+using GameWorld.Models;
 using Microsoft.Extensions.Localization;
 using MyCarDbView.Items;
 using MyCarDbView.Localizations;
@@ -10,8 +12,6 @@ using MyCarDbView.Models.AppState;
 using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
-using MyCarDbWorld.Commands;
-using MyCarDbWorld.Models;
 
 namespace MyCarDbView.ViewModels;
 
