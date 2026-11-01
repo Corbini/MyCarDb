@@ -1,11 +1,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DocumentEditor.Dto;
+using DocumentEditor.Models;
+using DocumentEditor.Models.AppState;
+using DocumentEditor.Models.Pickers;
+using DocumentEditor.Services;
+using DocumentEditor.Services.Pickers;
 using Microsoft.Extensions.Localization;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models;
 using MyCarDbView.Models.Alerts;
 using MyCarDbView.Models.AppState;
-using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
 

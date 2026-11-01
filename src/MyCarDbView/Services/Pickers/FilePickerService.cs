@@ -1,7 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
-using MyCarDbView.Models.Pickers;
+using DocumentEditor.Models.Pickers;
+using DocumentEditor.Services.Pickers;
 
 namespace MyCarDbView.Services.Pickers;
 

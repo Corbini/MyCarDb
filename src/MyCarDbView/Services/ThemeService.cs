@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Styling;
+using Contracts;
 using MyCarDbView.Dto;
 using MyCarDbView.Models.AppState;
 

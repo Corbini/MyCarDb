@@ -7,7 +7,7 @@
              xmlns:controls="using:MyCarDbView.Controls"
              xmlns:localization="using:MyCarDbView.Localizations"
              xmlns:converters="using:MyCarDbView.Converters"
-             xmlns:appstate="using:MyCarDbView.Models.AppState"
+             xmlns:appstate="using:DocumentEditor.Models.AppState"
              mc:Ignorable="d"
              d:DesignWidth="1100" d:DesignHeight="720"
              x:Class="MyCarDbView.Views.WelcomeView"

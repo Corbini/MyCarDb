@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using DocumentEditor.Dto;
 using MyCarDbView.Models.AppState;
 
 namespace MyCarDbView.Dto;
@@ -13,4 +14,5 @@ namespace MyCarDbView.Dto;
 [JsonSerializable(typeof(AppSettings))]
 [JsonSerializable(typeof(RecentFiles))]
 [JsonSerializable(typeof(PinnedEntities))]
+[JsonSerializable(typeof(BackupOptions))]
 internal partial class AppJsonContext : JsonSerializerContext;
