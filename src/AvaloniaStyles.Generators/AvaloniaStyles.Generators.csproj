@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="AvaloniaStyles.GeneratorsTests" />
+    <InternalsVisibleTo Include="AvaloniaStyles.Generators.Tests" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:vm="using:Settings.ViewModels"
              xmlns:localization="using:MyCarDbView.Localizations"
              xmlns:converters="using:MyCarDbView.Converters"
-             xmlns:appstate="using:MyCarDbView.Models.AppState"
+             xmlns:appstate="using:Settings.Models.AppState"
              mc:Ignorable="d"
              d:DesignWidth="760" d:DesignHeight="640"
              x:Class="MyCarDbView.Views.SettingsView"
@@ -170,43 +170,7 @@
                                 </StackPanel>
                             </Border>
 
-                            <Border Classes="divider-top" Margin="0,24,0,0" Padding="0,24,0,0">
-                                <StackPanel Spacing="16">
-                                    <TextBlock Classes="section-header" Text="{localization:View Settings_Save_Header}"/>
-
-                                    <Grid ColumnDefinitions="140,*,Auto"
-                                          RowDefinitions="Auto,Auto"
-                                          ColumnSpacing="16">
-                                        <TextBlock Grid.Row="0" Grid.Column="0"
-                                                   Classes="body"
-                                                   Text="{localization:View Settings_Save_AutoBackup_Label}"
-                                                   VerticalAlignment="Center"/>
-                                        <ToggleSwitch Grid.Row="0" Grid.Column="2"
-                                                      IsChecked="{Binding IsAutoBackupEnabled, Mode=TwoWay}"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                                                   Classes="caption"
-                                                   Text="{localization:View Settings_Save_AutoBackup_Description}"
-                                                   TextWrapping="Wrap"
-                                                   Margin="0,4,0,0"/>
-                                    </Grid>
-
-                                    <Grid ColumnDefinitions="140,*,Auto"
-                                          RowDefinitions="Auto,Auto"
-                                          ColumnSpacing="16">
-                                        <TextBlock Grid.Row="0" Grid.Column="0"
-                                                   Classes="body"
-                                                   Text="{localization:View Settings_Save_FileMonitor_Label}"
-                                                   VerticalAlignment="Center"/>
-                                        <ToggleSwitch Grid.Row="0" Grid.Column="2"
-                                                      IsChecked="{Binding IsFileMonitorEnabled, Mode=TwoWay}"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
-                                                   Classes="caption"
-                                                   Text="{localization:View Settings_Save_FileMonitor_Description}"
-                                                   TextWrapping="Wrap"
-                                                   Margin="0,4,0,0"/>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
+                            <ItemsControl ItemsSource="{Binding Sections}"/>
                         </StackPanel>
                     </ScrollViewer>
 

@@ -15,9 +15,9 @@ using Microsoft.Extensions.Localization;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models;
 using MyCarDbView.Models.Alerts;
-using MyCarDbView.Models.AppState;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
+using Settings.ViewModels;
 
 namespace MyCarDbView.ViewModels;
 

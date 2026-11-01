@@ -55,6 +55,7 @@
     <ProjectReference Include="..\Shared\GameWorld\MyCarDb.GameWorld.csproj" />
     <ProjectReference Include="..\Shared\Contracts\MyCarDb.Contracts.csproj" />
     <ProjectReference Include="..\Features\DocumentEditor\MyCarDb.DocumentEditor.csproj" />
+    <ProjectReference Include="..\Features\Settings\MyCarDb.Settings.csproj" />
     <ProjectReference Include="..\..\src\AvaloniaStyles\AvaloniaStyles.csproj" />
   </ItemGroup>
 
@@ -68,7 +69,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="MyCarDbViewTests" />
+    <InternalsVisibleTo Include="MyCarDbView.Tests" />
   </ItemGroup>
 
   <Target Name="RemoveNativePdbs" AfterTargets="Publish">

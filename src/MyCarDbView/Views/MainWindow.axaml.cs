@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Contracts;
 using MyCarDbView.Services;
 using MyCarDbView.ViewModels;
 

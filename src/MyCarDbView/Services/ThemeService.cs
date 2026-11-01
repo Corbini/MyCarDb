@@ -2,7 +2,9 @@ using Avalonia;
 using Avalonia.Styling;
 using Contracts;
 using MyCarDbView.Dto;
-using MyCarDbView.Models.AppState;
+using Settings.Dto;
+using Settings.Models.AppState;
+using Settings.Services;
 
 namespace MyCarDbView.Services;
 

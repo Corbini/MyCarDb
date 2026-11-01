@@ -14,6 +14,8 @@ using MyCarDbView.Services.Pickers;
 using MyCarDbView.ViewModels;
 using MyCarDbView.Views;
 using SaveFile;
+using Settings.Dto;
+using Settings.Services;
 
 namespace MyCarDbView;
 
@@ -55,7 +57,7 @@ public partial class App : Application
         services.AddSingleton<IShellService, ShellService>();
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<ILicenseService, LicenseService>();
-        services.AddSingleton<ILanguageService, LanguageService>();
+        services.AddSingleton<IApplicationInfo, ApplicationInfo>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<FilePickerService>();
         services.AddSingleton<IFileOpenPickerService>(sp => sp.GetRequiredService<FilePickerService>());
@@ -73,6 +75,7 @@ public partial class App : Application
         services.AddSingleton<IFileParser, FileParser>();
         services.AddGameWorld();
         services.AddDocumentEditor();
+        services.AddSettings();
         return services.BuildServiceProvider();
     }
 }

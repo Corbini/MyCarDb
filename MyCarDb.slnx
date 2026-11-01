@@ -3,10 +3,12 @@
   <Project Path="src/Shared/GameWorld/MyCarDb.GameWorld.csproj" />
   <Project Path="src/Shared/Contracts/MyCarDb.Contracts.csproj" />
   <Project Path="src/Features/DocumentEditor/MyCarDb.DocumentEditor.csproj" />
+  <Project Path="src/Features/Settings/MyCarDb.Settings.csproj" />
   <Project Path="src/AvaloniaStyles/AvaloniaStyles.csproj" />
   <Project Path="src/AvaloniaStyles.Generators/AvaloniaStyles.Generators.csproj" />
   <Project Path="src/MyCarDbView/MyCarDbView.csproj" />
   <Project Path="tests/MyCarDb.SaveFile.Tests/MyCarDb.SaveFile.Tests.csproj" />
   <Project Path="tests/MyCarDb.DocumentEditor.Tests/MyCarDb.DocumentEditor.Tests.csproj" />
-  <Project Path="tests/MyCarDbViewTests/MyCarDbViewTests.csproj" />
+  <Project Path="tests/MyCarDb.Settings.Tests/MyCarDb.Settings.Tests.csproj" />
+  <Project Path="tests/MyCarDbView.Tests/MyCarDbView.Tests.csproj" />
 </Solution>

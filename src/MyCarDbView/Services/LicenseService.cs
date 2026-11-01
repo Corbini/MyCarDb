@@ -1,5 +1,6 @@
 using Avalonia.Platform;
-using MyCarDbView.Models.AppState;
+using Settings.Models.AppState;
+using Settings.Services;
 
 namespace MyCarDbView.Services;
 

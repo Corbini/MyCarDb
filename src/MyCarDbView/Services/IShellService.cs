@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using Contracts;
 
 namespace MyCarDbView.Services;
 
