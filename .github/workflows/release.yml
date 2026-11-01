@@ -6,6 +6,10 @@ on:
 
 permissions:
   contents: write
+  packages: write
+
+env:
+  NuGetPackageSourceCredentials_github: Username=x-access-token;Password=${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   publish:
@@ -33,17 +37,16 @@ jobs:
           "prerelease=$isPrerelease" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Restore
-        run: dotnet restore MyCarDb.slnx
+        run: dotnet restore MyCarDb.slnx --configfile nuget.github.config
 
       - name: Publish
         run: >
-          dotnet publish src/MyCarDbView/MyCarDbView.csproj
+          dotnet publish src/MyCarDb.Desktop/MyCarDb.Desktop.csproj
           --configuration Release
           --runtime win-x64
           --self-contained true
           --output publish
           -p:Version=${{ steps.ver.outputs.value }}
-          -p:Prerelease=${{ steps.ver.outputs.prerelease }}
 
       - name: Bundle third-party licenses
         run: |
@@ -51,7 +54,7 @@ jobs:
           Copy-Item -Recurse licenses publish\licenses
 
       - name: Create release archive
-        run: Compress-Archive -Path publish\* -DestinationPath MyCarDbView-win-x64-${{ github.ref_name }}.zip
+        run: Compress-Archive -Path publish\* -DestinationPath MyCarDb-win-x64-${{ github.ref_name }}.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -60,4 +63,27 @@ jobs:
           name: ${{ github.ref_name }}
           generate_release_notes: true
           prerelease: ${{ steps.ver.outputs.prerelease }}
-          files: MyCarDbView-win-x64-${{ github.ref_name }}.zip
+          files: MyCarDb-win-x64-${{ github.ref_name }}.zip
+
+  image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          secrets: |
+            nuget_github=Username=x-access-token;Password=${{ secrets.GITHUB_TOKEN }}
+          tags: |
+            ghcr.io/corbini/mycardb:latest
+            ghcr.io/corbini/mycardb:${{ github.ref_name }}

@@ -1,0 +1,17 @@
+@inherits LayoutComponentBase
+
+<NavigationSplitView>
+    <Sidebar>
+        <Stack Style="padding: var(--space-lg) 0">
+            <TextBlock Bold ForegroundStyle="ForegroundStyle.Accent" Style="padding: 0 var(--space-md)">MyCarDb</TextBlock>
+        </Stack>
+    </Sidebar>
+    <Detail>
+        <ScenePadding>
+            @Body
+        </ScenePadding>
+    </Detail>
+</NavigationSplitView>
+
+<DialogHost />
+<SnackbarHost />
