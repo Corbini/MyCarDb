@@ -1,15 +1,21 @@
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Contracts;
+using DocumentEditor.Items;
+using DocumentEditor.Models;
+using DocumentEditor.Models.AppState;
+using DocumentEditor.Models.Pickers;
+using DocumentEditor.Services;
+using DocumentEditor.Services.Pickers;
+using DocumentEditor.ViewModels;
 using GameWorld.Commands;
 using GameWorld.Models;
 using Microsoft.Extensions.Localization;
-using MyCarDbView.Items;
 using MyCarDbView.Localizations;
 using MyCarDbView.Models;
 using MyCarDbView.Models.Alerts;
 using MyCarDbView.Models.AppState;
-using MyCarDbView.Models.Pickers;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
 

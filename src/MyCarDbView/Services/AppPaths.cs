@@ -10,6 +10,7 @@ internal static class AppPaths
 
     public static string RecentFilesFile { get; } = Path.Combine(AppDataDirectory, "recent.json");
     public static string PinnedEntitiesFile { get; } = Path.Combine(AppDataDirectory, "pinned.json");
+    public static string BackupFile { get; } = Path.Combine(AppDataDirectory, "backup.json");
 
     public static void EnsureExists() => Directory.CreateDirectory(AppDataDirectory);
 }

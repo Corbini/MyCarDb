@@ -1,6 +1,11 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Contracts;
+using DocumentEditor.Dto;
+using DocumentEditor.Services;
+using DocumentEditor.Services.Pickers;
+using DocumentEditor.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using MyCarDbView.Dto;
 using MyCarDbView.Localizations;
@@ -52,8 +57,6 @@ public partial class App : Application
         services.AddSingleton<ILicenseService, LicenseService>();
         services.AddSingleton<ILanguageService, LanguageService>();
         services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IBackupService, BackupService>();
-        services.AddSingleton<ISaveFolderResolver, SaveFolderResolver>();
         services.AddSingleton<FilePickerService>();
         services.AddSingleton<IFileOpenPickerService>(sp => sp.GetRequiredService<FilePickerService>());
         services.AddSingleton<IFilesOpenPickerService>(sp => sp.GetRequiredService<FilePickerService>());
@@ -63,19 +66,13 @@ public partial class App : Application
             new WritableOptions<AppSettings>(AppPaths.AppSettingsFile, AppJsonContext.Default.AppSettings));
         services.AddSingleton<IWritableOptions<RecentFiles>>(_ =>
             new WritableOptions<RecentFiles>(AppPaths.RecentFilesFile, AppJsonContext.Default.RecentFiles));
-        services.AddSingleton<ILastOpenedService, LastOpenedService>();
         services.AddSingleton<IWritableOptions<PinnedEntities>>(_ =>
             new WritableOptions<PinnedEntities>(AppPaths.PinnedEntitiesFile, AppJsonContext.Default.PinnedEntities));
-        services.AddSingleton<IPinnedEntitiesService, PinnedEntitiesService>();
-        services.AddSingleton<IMapItemFactory, MapItemFactory>();
-        services.AddSingleton<IFileService, FileService>();
-        services.AddSingleton<IWorldArchive, WorldArchive>();
+        services.AddSingleton<IWritableOptions<BackupOptions>>(_ =>
+            new WritableOptions<BackupOptions>(AppPaths.BackupFile, AppJsonContext.Default.BackupOptions));
         services.AddSingleton<IFileParser, FileParser>();
-        services.AddTransient<IEntityBrowserViewModel, EntityBrowserViewModel>();
-        services.AddTransient<IInspectorViewModel, InspectorViewModel>();
-        services.AddTransient<IMapViewModel, MapViewModel>();
-        services.AddSingleton<IDocumentManager, DocumentManager>();
         services.AddGameWorld();
+        services.AddDocumentEditor();
         return services.BuildServiceProvider();
     }
 }

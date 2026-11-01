@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Contracts;
 using Microsoft.Extensions.Localization;
+using LocalizedString = Contracts.LocalizedString;
 
 namespace MyCarDbView.Localizations;
 

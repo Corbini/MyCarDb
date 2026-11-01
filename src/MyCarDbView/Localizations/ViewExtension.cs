@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Avalonia;
 using Avalonia.Markup.Xaml;
+using Contracts;
 
 namespace MyCarDbView.Localizations;
 

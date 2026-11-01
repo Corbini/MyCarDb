@@ -1,6 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:MyCarDbView.ViewModels"
+             xmlns:vm="using:DocumentEditor.ViewModels"
              xmlns:localization="using:MyCarDbView.Localizations"
              x:Class="MyCarDbView.Views.WoodOrderEntityInspectorView"
              x:DataType="vm:WoodOrderEntityInspectorViewModel">

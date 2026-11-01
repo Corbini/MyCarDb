@@ -1,3 +1,4 @@
+using Contracts;
 using MyCarDbView.Localizations;
 using Xunit;
 
