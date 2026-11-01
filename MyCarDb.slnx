@@ -1,9 +1,9 @@
 <Solution>
-  <Project Path="src/MyCarDb/MyCarDb.csproj" />
+  <Project Path="src/Shared/SaveFile/MyCarDb.SaveFile.csproj" />
+  <Project Path="src/Shared/GameWorld/MyCarDb.GameWorld.csproj" />
   <Project Path="src/AvaloniaStyles/AvaloniaStyles.csproj" />
   <Project Path="src/AvaloniaStyles.Generators/AvaloniaStyles.Generators.csproj" />
   <Project Path="src/MyCarDbView/MyCarDbView.csproj" />
-  <Project Path="src/MyCarDbWorld/MyCarDbWorld.csproj" />
-  <Project Path="tests/MyCarDbTests/MyCarDbTests.csproj" />
+  <Project Path="tests/MyCarDb.SaveFile.Tests/MyCarDb.SaveFile.Tests.csproj" />
   <Project Path="tests/MyCarDbViewTests/MyCarDbViewTests.csproj" />
 </Solution>

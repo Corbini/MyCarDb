@@ -2,13 +2,13 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Microsoft.Extensions.DependencyInjection;
-using MyCarDb;
 using MyCarDbView.Dto;
 using MyCarDbView.Localizations;
 using MyCarDbView.Services;
 using MyCarDbView.Services.Pickers;
 using MyCarDbView.ViewModels;
 using MyCarDbView.Views;
+using SaveFile;
 
 namespace MyCarDbView;
 
@@ -75,7 +75,7 @@ public partial class App : Application
         services.AddTransient<IInspectorViewModel, InspectorViewModel>();
         services.AddTransient<IMapViewModel, MapViewModel>();
         services.AddSingleton<IDocumentManager, DocumentManager>();
-        services.AddMyCarDbWorld();
+        services.AddGameWorld();
         return services.BuildServiceProvider();
     }
 }

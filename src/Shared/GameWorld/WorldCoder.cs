@@ -1,0 +1,43 @@
+using GameWorld.Coders;
+using GameWorld.Models;
+using SaveFile.Values;
+
+namespace GameWorld;
+
+public sealed class WorldCoder(
+    IEntityCoder<PropertyEntity> propertyCoder,
+    IEntityCoder<CesspoolEntity> cesspoolCoder,
+    IEntityCoder<WoodOrderEntity> woodOrderCoder) : IWorldCoder
+{
+    public World Decode(List<IFileValue> source)
+    {
+        return new World
+        {
+            MutableValues = source,
+            MutableEntities = [
+                .. propertyCoder.Decode(source),
+                .. cesspoolCoder.Decode(source),
+                .. woodOrderCoder.Decode(source)],
+        };
+    }
+
+    public IReadOnlyList<IFileValue> Encode(World destination)
+    {
+        foreach (var entity in destination.Entities)
+        {
+            switch (entity)
+            {
+                case PropertyEntity property:
+                    propertyCoder.Encode(property, destination.Values);
+                    break;
+                case CesspoolEntity cesspool:
+                    cesspoolCoder.Encode(cesspool, destination.Values);
+                    break;
+                case WoodOrderEntity woodOrder:
+                    woodOrderCoder.Encode(woodOrder, destination.Values);
+                    break;
+            }
+        }
+        return destination.Values;
+    }
+}

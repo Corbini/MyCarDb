@@ -51,8 +51,8 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\MyCarDb\MyCarDb.csproj" />
-    <ProjectReference Include="..\..\src\MyCarDbWorld\MyCarDbWorld.csproj" />
+    <ProjectReference Include="..\Shared\SaveFile\MyCarDb.SaveFile.csproj" />
+    <ProjectReference Include="..\Shared\GameWorld\MyCarDb.GameWorld.csproj" />
     <ProjectReference Include="..\..\src\AvaloniaStyles\AvaloniaStyles.csproj" />
   </ItemGroup>
 
