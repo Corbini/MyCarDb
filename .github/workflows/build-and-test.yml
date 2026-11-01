@@ -14,6 +14,13 @@ on:
       - '.gitignore'
       - 'LICENSE'
 
+permissions:
+  contents: read
+  packages: read
+
+env:
+  NuGetPackageSourceCredentials_github: Username=x-access-token;Password=${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   build-and-test:
     runs-on: windows-latest
@@ -30,7 +37,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Restore
-        run: dotnet restore MyCarDb.slnx
+        run: dotnet restore MyCarDb.slnx --configfile nuget.github.config
 
       - name: Build
         run: dotnet build MyCarDb.slnx --configuration Release --no-restore
