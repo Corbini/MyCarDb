@@ -75,6 +75,7 @@ public partial class App : Application
         services.AddSingleton<IFileParser, FileParser>();
         services.AddGameWorld();
         services.AddDocumentEditor();
+        services.AddDocumentEditorViewModels();
         services.AddSettings();
         return services.BuildServiceProvider();
     }

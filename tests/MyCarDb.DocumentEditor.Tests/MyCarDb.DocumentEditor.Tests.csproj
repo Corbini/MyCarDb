@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Features\DocumentEditor\MyCarDb.DocumentEditor.csproj" />
+    <ProjectReference Include="..\..\src\MyCarDb.Old\MyCarDbView.csproj" />
   </ItemGroup>
 
 </Project>
